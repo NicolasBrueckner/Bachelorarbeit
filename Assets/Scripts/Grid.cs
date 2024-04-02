@@ -7,15 +7,15 @@ public class Grid
 {
 	public Cell[,] grid { get; private set; }
 	public int2 gridSize { get; private set; }
-	public float cellSize { get; private set; }
 	public float cellHalfSize { get; private set; }
+	public float cellSize { get; private set; }
 
 
-	public Grid(float cellSize, int2 gridSize)
+	public Grid(float cellHalfSize, int2 gridSize)
 	{
 		this.gridSize = gridSize;
-		this.cellSize = cellSize;
-		this.cellHalfSize = cellSize / 2;
+		this.cellHalfSize = cellHalfSize;
+		this.cellSize = cellHalfSize * 2;
 	}
 
 	public void CreateGrid()
