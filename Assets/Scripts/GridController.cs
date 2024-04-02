@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class GridController : MonoBehaviour
 {
 	public int2 gridSize;
+	public int2 gridOrigin;
 	public float cellHalfSize;
 	public Grid currentGrid;
 	public DebugGizmos debugGizmos;
@@ -37,7 +38,7 @@ public class GridController : MonoBehaviour
 
 	private void InitializeGrid()
 	{
-		currentGrid = new Grid(cellHalfSize, gridSize);
+		currentGrid = new Grid(cellHalfSize, gridOrigin, gridSize);
 		currentGrid.CreateGrid();
 		debugGizmos.SetFlowField(currentGrid);
 	}

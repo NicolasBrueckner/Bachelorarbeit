@@ -260,8 +260,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridSize:
-    x: 16
-    y: 9
+    x: 14
+    y: 6
+  gridOrigin:
+    x: 0
+    y: 0
   cellHalfSize: 0.5
   debugGizmos: {fileID: 1929789476}
 --- !u!1 &1929789475
