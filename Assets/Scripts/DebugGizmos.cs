@@ -17,7 +17,12 @@ public class DebugGizmos : MonoBehaviour
 	private int2 _gridOrigin;
 	private int2 _gridSize;
 	private float _cellHalfSize;
+	private Sprite[] icons;
 
+	private void Start()
+	{
+		icons = Resources.LoadAll<Sprite>( "Debug" );
+	}
 
 	public void SetFlowField( Grid grid )
 	{
@@ -25,6 +30,12 @@ public class DebugGizmos : MonoBehaviour
 		_gridOrigin = grid.gridOrigin;
 		_gridSize = grid.gridSize;
 		_cellHalfSize = grid.cellHalfSize;
+	}
+
+
+	public void DrawIcons()
+	{
+
 	}
 
 	private void OnDrawGizmos()
@@ -51,7 +62,7 @@ public class DebugGizmos : MonoBehaviour
 				break;
 			case FlowFieldDisplayType.Integration:
 				foreach ( Cell cell in _currentGrid.grid )
-					Handles.Label( cell.position, cell.bestCost.ToString(), style );
+					Handles.Label( cell.position, cell.integrationCost.ToString(), style );
 				break;
 			default:
 				break;

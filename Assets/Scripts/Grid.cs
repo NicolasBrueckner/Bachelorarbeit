@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -63,7 +64,7 @@ public class Grid
 	{
 		destinationCell = destination;
 		destinationCell.cost = 0;
-		destinationCell.bestCost = 0;
+		destinationCell.integrationCost = 0;
 
 		Queue<Cell> cells = new Queue<Cell>();
 		cells.Enqueue( destinationCell );
@@ -77,10 +78,28 @@ public class Grid
 			{
 				if ( currentNeighbor.cost == byte.MaxValue )
 					continue;
-				if ( currentNeighbor.cost + currentCell.bestCost < currentNeighbor.bestCost )
+				if ( currentNeighbor.cost + currentCell.integrationCost < currentNeighbor.integrationCost )
 				{
-					currentNeighbor.bestCost = ( ushort )( currentNeighbor.cost + currentCell.bestCost );
+					currentNeighbor.integrationCost = ( ushort )( currentNeighbor.cost + currentCell.integrationCost );
 					cells.Enqueue( currentNeighbor );
+				}
+			}
+		}
+	}
+
+	public void CreateFlowField()
+	{
+		foreach ( Cell cell in grid )
+		{
+			List<Cell> neighbors = GetNeighborCells( cell.index, CellDirection.allDirections );
+			int integrationCost = cell.integrationCost;
+
+			foreach ( Cell currentNeighbor in neighbors )
+			{
+				if ( currentNeighbor.integrationCost < integrationCost )
+				{
+					integrationCost = currentNeighbor.integrationCost;
+					cell.flowDirection = CellDirection.GetDirection( currentNeighbor.index - cell.index );
 				}
 			}
 		}
