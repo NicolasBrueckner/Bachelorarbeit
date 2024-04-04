@@ -14,7 +14,8 @@ public class GridController : MonoBehaviour
 	public DebugGizmos debugGizmos;
 
 	private InputActions _actions;
-	private InputAction _createGridAction;
+	private InputAction _mouseRightAction;
+	private InputAction _mousePositionAction;
 
 	private void Awake()
 	{
@@ -23,28 +24,33 @@ public class GridController : MonoBehaviour
 
 	private void OnEnable()
 	{
-		_createGridAction = _actions.Debug.CreateGrid;
-		_createGridAction.Enable();
+		_mouseRightAction = _actions.Debug.MouseRight;
+		_mousePositionAction = _actions.Debug.MousePosition;
+		_mouseRightAction.Enable();
+		_mousePositionAction.Enable();
 
-		_createGridAction.performed += OnCreateGrid;
+		_mouseRightAction.performed += OnMouseRight;
 	}
 
 	private void OnDisable()
 	{
-		_createGridAction.performed -= OnCreateGrid;
+		_mouseRightAction.performed -= OnMouseRight;
 
-		_actions.Debug.CreateGrid.Disable();
+		_actions.Debug.MouseRight.Disable();
+		_actions.Debug.MousePosition.Disable();
 	}
 
-	private void InitializeGrid()
+	private void OnMouseRight( InputAction.CallbackContext context )
 	{
-		currentGrid = new Grid(cellHalfSize, gridOrigin, gridSize);
+		currentGrid = new Grid( cellHalfSize, gridOrigin, gridSize );
+
 		currentGrid.CreateGrid();
-		debugGizmos.SetFlowField(currentGrid);
-	}
+		debugGizmos.SetFlowField( currentGrid );
+		currentGrid.CreateCostField();
 
-	private void OnCreateGrid(InputAction.CallbackContext context)
-	{
-		InitializeGrid();
+		Vector2 mousePosition = _mousePositionAction.ReadValue<Vector2>();
+		float3 position = Camera.main.ScreenToWorldPoint( new float3( mousePosition.x, mousePosition.y, 0f ) );
+
+		currentGrid.CreateIntegrationField( currentGrid.GetCellFromPosition( position ) );
 	}
 }

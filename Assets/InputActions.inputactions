@@ -6,10 +6,19 @@
             "id": "82171d87-f28c-4651-86af-5bdd81684a2c",
             "actions": [
                 {
-                    "name": "CreateGrid",
+                    "name": "MouseRight",
                     "type": "Button",
                     "id": "bff2fd20-7bc6-4e92-8041-082e1b424a1c",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "MousePosition",
+                    "type": "Value",
+                    "id": "e25868c1-b926-4c17-9c31-99be24b5d064",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -19,11 +28,22 @@
                 {
                     "name": "",
                     "id": "cd2a9ce6-d75c-4077-ad37-199e90af9e05",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "CreateGrid",
+                    "action": "MouseRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "19de3f03-bfd9-4af4-9cdb-b06b60d994e7",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
