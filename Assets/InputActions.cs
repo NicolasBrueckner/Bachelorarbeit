@@ -28,10 +28,19 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             ""id"": ""82171d87-f28c-4651-86af-5bdd81684a2c"",
             ""actions"": [
                 {
-                    ""name"": ""CreateGrid"",
+                    ""name"": ""MouseRight"",
                     ""type"": ""Button"",
                     ""id"": ""bff2fd20-7bc6-4e92-8041-082e1b424a1c"",
                     ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""e25868c1-b926-4c17-9c31-99be24b5d064"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -41,11 +50,22 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""cd2a9ce6-d75c-4077-ad37-199e90af9e05"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""CreateGrid"",
+                    ""action"": ""MouseRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""19de3f03-bfd9-4af4-9cdb-b06b60d994e7"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -56,7 +76,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
 }");
         // Debug
         m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
-        m_Debug_CreateGrid = m_Debug.FindAction("CreateGrid", throwIfNotFound: true);
+        m_Debug_MouseRight = m_Debug.FindAction("MouseRight", throwIfNotFound: true);
+        m_Debug_MousePosition = m_Debug.FindAction("MousePosition", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -118,12 +139,14 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     // Debug
     private readonly InputActionMap m_Debug;
     private List<IDebugActions> m_DebugActionsCallbackInterfaces = new List<IDebugActions>();
-    private readonly InputAction m_Debug_CreateGrid;
+    private readonly InputAction m_Debug_MouseRight;
+    private readonly InputAction m_Debug_MousePosition;
     public struct DebugActions
     {
         private @InputActions m_Wrapper;
         public DebugActions(@InputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @CreateGrid => m_Wrapper.m_Debug_CreateGrid;
+        public InputAction @MouseRight => m_Wrapper.m_Debug_MouseRight;
+        public InputAction @MousePosition => m_Wrapper.m_Debug_MousePosition;
         public InputActionMap Get() { return m_Wrapper.m_Debug; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -133,16 +156,22 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_DebugActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_DebugActionsCallbackInterfaces.Add(instance);
-            @CreateGrid.started += instance.OnCreateGrid;
-            @CreateGrid.performed += instance.OnCreateGrid;
-            @CreateGrid.canceled += instance.OnCreateGrid;
+            @MouseRight.started += instance.OnMouseRight;
+            @MouseRight.performed += instance.OnMouseRight;
+            @MouseRight.canceled += instance.OnMouseRight;
+            @MousePosition.started += instance.OnMousePosition;
+            @MousePosition.performed += instance.OnMousePosition;
+            @MousePosition.canceled += instance.OnMousePosition;
         }
 
         private void UnregisterCallbacks(IDebugActions instance)
         {
-            @CreateGrid.started -= instance.OnCreateGrid;
-            @CreateGrid.performed -= instance.OnCreateGrid;
-            @CreateGrid.canceled -= instance.OnCreateGrid;
+            @MouseRight.started -= instance.OnMouseRight;
+            @MouseRight.performed -= instance.OnMouseRight;
+            @MouseRight.canceled -= instance.OnMouseRight;
+            @MousePosition.started -= instance.OnMousePosition;
+            @MousePosition.performed -= instance.OnMousePosition;
+            @MousePosition.canceled -= instance.OnMousePosition;
         }
 
         public void RemoveCallbacks(IDebugActions instance)
@@ -162,6 +191,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     public DebugActions @Debug => new DebugActions(this);
     public interface IDebugActions
     {
-        void OnCreateGrid(InputAction.CallbackContext context);
+        void OnMouseRight(InputAction.CallbackContext context);
+        void OnMousePosition(InputAction.CallbackContext context);
     }
 }
