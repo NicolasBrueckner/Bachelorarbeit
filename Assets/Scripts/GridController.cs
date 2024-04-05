@@ -52,5 +52,6 @@ public class GridController : MonoBehaviour
 		float3 position = Camera.main.ScreenToWorldPoint( new float3( mousePosition.x, mousePosition.y, 0f ) );
 
 		currentGrid.CreateIntegrationField( currentGrid.GetCellFromPosition( position ) );
+		currentGrid.CreateFlowField();
 	}
 }

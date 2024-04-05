@@ -33,9 +33,35 @@ public class DebugGizmos : MonoBehaviour
 	}
 
 
-	public void DrawIcons()
+	public void DrawIcon( Cell cell )
 	{
+		GameObject iconGO = new GameObject();
+		SpriteRenderer iconSR = iconGO.AddComponent<SpriteRenderer>();
+		iconGO.transform.parent = transform;
+		iconGO.transform.position = cell.position;
 
+		if ( cell.cost == 0 )
+			iconSR.sprite = icons[ 9 ];
+		else if ( cell.cost == byte.MaxValue )
+			iconSR.sprite = icons[ 10 ];
+		else if ( cell.flowDirection == CellDirection.N )
+			iconSR.sprite = icons[ 1 ];
+		else if ( cell.flowDirection == CellDirection.E )
+			iconSR.sprite = icons[ 0 ];
+		else if ( cell.flowDirection == CellDirection.S )
+			iconSR.sprite = icons[ 4 ];
+		else if ( cell.flowDirection == CellDirection.W )
+			iconSR.sprite = icons[ 7 ];
+		else if ( cell.flowDirection == CellDirection.NE )
+			iconSR.sprite = icons[ 2 ];
+		else if ( cell.flowDirection == CellDirection.SE )
+			iconSR.sprite = icons[ 5 ];
+		else if ( cell.flowDirection == CellDirection.SW )
+			iconSR.sprite = icons[ 6 ];
+		else if ( cell.flowDirection == CellDirection.NW )
+			iconSR.sprite = icons[ 3 ];
+		else
+			iconSR.sprite = icons[ 8 ];
 	}
 
 	private void OnDrawGizmos()
@@ -64,6 +90,15 @@ public class DebugGizmos : MonoBehaviour
 				foreach ( Cell cell in _currentGrid.grid )
 					Handles.Label( cell.position, cell.integrationCost.ToString(), style );
 				break;
+			case FlowFieldDisplayType.Destination:
+				{
+					foreach ( Transform t in transform )
+						GameObject.Destroy( t.gameObject );
+					foreach ( Cell cell in _currentGrid.grid )
+						DrawIcon( cell );
+				}
+				break;
+
 			default:
 				break;
 		}
