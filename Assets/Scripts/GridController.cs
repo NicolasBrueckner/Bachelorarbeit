@@ -10,7 +10,7 @@ public class GridController : MonoBehaviour
 	public int2 gridSize;
 	public int2 gridOrigin;
 	public float cellHalfSize;
-	public Grid currentGrid;
+	public FlowField currentGrid;
 	public DebugGizmos debugGizmos;
 
 	private InputActions _actions;
@@ -42,7 +42,7 @@ public class GridController : MonoBehaviour
 
 	private void OnMouseRight( InputAction.CallbackContext context )
 	{
-		currentGrid = new Grid( cellHalfSize, gridOrigin, gridSize );
+		currentGrid = new FlowField( cellHalfSize, gridOrigin, gridSize );
 
 		currentGrid.CreateGrid();
 		debugGizmos.SetFlowField( currentGrid );

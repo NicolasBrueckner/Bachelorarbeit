@@ -13,7 +13,7 @@ public class DebugGizmos : MonoBehaviour
 	public bool showGrid;
 	public FlowFieldDisplayType displayType;
 
-	private Grid _currentGrid;
+	private FlowField _currentGrid;
 	private int2 _gridOrigin;
 	private int2 _gridSize;
 	private float _cellHalfSize;
@@ -24,7 +24,7 @@ public class DebugGizmos : MonoBehaviour
 		icons = Resources.LoadAll<Sprite>( "Debug" );
 	}
 
-	public void SetFlowField( Grid grid )
+	public void SetFlowField( FlowField grid )
 	{
 		_currentGrid = grid;
 		_gridOrigin = grid.gridOrigin;
