@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-public class Grid
+public class FlowField
 {
 	public Cell[,] grid { get; private set; }
 	public int2 gridOrigin { get; private set; }
@@ -21,7 +21,7 @@ public class Grid
 	private int _terrain;
 	private float3 _cellHalfExtends;
 
-	public Grid( float cellHalfSize, int2 gridOrigin, int2 gridSize )
+	public FlowField( float cellHalfSize, int2 gridOrigin, int2 gridSize )
 	{
 		this.gridOrigin = gridOrigin;
 		this.gridSize = gridSize;
