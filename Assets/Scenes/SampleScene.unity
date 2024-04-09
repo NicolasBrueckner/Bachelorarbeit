@@ -260,13 +260,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridSize:
-    x: 16
-    y: 8
+    x: 7
+    y: 7
   gridOrigin:
     x: -8
     y: -4
   cellHalfSize: 0.5
   debugGizmos: {fileID: 1929789476}
+  sectors:
+  - {fileID: 11400000, guid: d519e674e1faa29418d5cf500f6d4915, type: 2}
 --- !u!1 &1929789475
 GameObject:
   m_ObjectHideFlags: 0

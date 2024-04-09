@@ -3,16 +3,10 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class Sector : MonoBehaviour
+[CreateAssetMenu( menuName = "FlowField/Sector" )]
+public class Sector : ScriptableObject
 {
 	public Sprite background;
-	public int2 size;
 	public CostType costIdentifier;
-
-	internal byte[,] cost;
-
-	public void SetCosts( byte[,] costs )
-	{
-		cost = CostData.Instance.costs[ costIdentifier ];
-	}
+	public byte[,] cost;
 }

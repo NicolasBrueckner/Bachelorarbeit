@@ -6,7 +6,7 @@ public class Cell
 	public int2 index;
 	public byte cost;
 	public ushort integrationCost;
-	public CellDirection flowDirection;
+	public Direction flowDirection;
 
 	public Cell( float3 position, int2 index )
 	{

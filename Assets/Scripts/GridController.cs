@@ -12,7 +12,7 @@ public class GridController : MonoBehaviour
 	public float cellHalfSize;
 	public FlowField currentGrid;
 	public DebugGizmos debugGizmos;
-	public obsolete_sectordata testData;
+	public Sector[] sectors;
 
 	private InputActions _actions;
 	private InputAction _mouseRightAction;
@@ -21,6 +21,8 @@ public class GridController : MonoBehaviour
 	private void Awake()
 	{
 		_actions = new InputActions();
+		foreach ( Sector sector in sectors )
+			sector.cost = CostData.Instance.costs[ sector.costIdentifier ];
 	}
 
 	private void OnEnable()
@@ -43,11 +45,11 @@ public class GridController : MonoBehaviour
 
 	private void OnMouseRight( InputAction.CallbackContext context )
 	{
-		currentGrid = new FlowField( cellHalfSize, gridOrigin, testData.size );
+		currentGrid = new FlowField( cellHalfSize, gridOrigin, gridSize );
 
 		currentGrid.CreateGrid();
 		debugGizmos.SetFlowField( currentGrid );
-		currentGrid.CreateCostField( testData.costs );
+		currentGrid.CreateCostField( sectors[ 0 ].cost );
 
 		Vector2 mousePosition = _mousePositionAction.ReadValue<Vector2>();
 		float3 position = Camera.main.ScreenToWorldPoint( new float3( mousePosition.x, mousePosition.y, 0f ) );
