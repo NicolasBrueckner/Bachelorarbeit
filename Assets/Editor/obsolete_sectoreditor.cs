@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-[CustomEditor( typeof( SectorData ) )]
-public class SectorDataEditor : Editor
+[CustomEditor( typeof( obsolete_sectordata ) )]
+public class obsolete_sectoreditor : Editor
 {
 	public override void OnInspectorGUI()
 	{
-		SectorData sectorData = ( SectorData )target;
+		obsolete_sectordata sectorData = ( obsolete_sectordata )target;
 
 		sectorData.InitializeCostField();
 		EditorGUI.BeginChangeCheck();
@@ -27,19 +28,19 @@ public class SectorDataEditor : Editor
 			sectorData.InitializeCostField();
 		}
 
-		if ( sectorData.cost != null )
+		if ( sectorData.costs != null )
 		{
 			EditorGUILayout.LabelField( "Cost Field" );
 			EditorGUI.indentLevel++;
 
-			for ( int x = 0; x < sectorData.editorSize.x; x++ )
+			for ( int y = 0; y < sectorData.editorSize.y; y++ )
 			{
 				EditorGUILayout.BeginHorizontal();
-				for ( int y = 0; y < sectorData.editorSize.y; y++ )
+				for ( int x = 0; x < sectorData.editorSize.x; x++ )
 				{
-					int intValue = EditorGUILayout.IntField( sectorData.cost[ x ][ y ] );
+					int intValue = EditorGUILayout.IntField( sectorData.costs[ x ][ y ] );
 					intValue = Mathf.Clamp( intValue, 0, 255 );
-					sectorData.cost[ x ][ y ] = ( byte )intValue;
+					sectorData.costs[ x ][ y ] = ( byte )intValue;
 				}
 				EditorGUILayout.EndHorizontal();
 			}
@@ -53,7 +54,7 @@ public class SectorDataEditor : Editor
 			EditorUtility.SetDirty( target );
 	}
 
-	private void DisplayDetailedBackground( SectorData sectorData )
+	private void DisplayDetailedBackground( obsolete_sectordata sectorData )
 	{
 		if ( sectorData.background != null )
 		{
@@ -68,7 +69,7 @@ public class SectorDataEditor : Editor
 		}
 	}
 
-	private void DrawCostFieldOverlay( Rect textureRect, SectorData sectorData )
+	private void DrawCostFieldOverlay( Rect textureRect, obsolete_sectordata sectorData )
 	{
 		float cellWidth = textureRect.width / sectorData.editorSize.x;
 		float cellHeight = textureRect.height / sectorData.editorSize.y;
@@ -96,7 +97,7 @@ public class SectorDataEditor : Editor
 					new Vector3( cellRect.xMin, cellRect.yMin ),
 					new Vector3( cellRect.xMin, cellRect.yMax ) );
 
-				GUI.Label( cellRect, sectorData.cost[ x ][ y ].ToString(), textStyle );
+				GUI.Label( cellRect, sectorData.costs[ x ][ y ].ToString(), textStyle );
 			}
 		}
 	}

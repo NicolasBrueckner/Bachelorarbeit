@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Unity.Mathematics;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -46,18 +47,24 @@ public class FlowField
 		}
 	}
 
-	public void CreateCostField()
+	public void CreateCostField( byte[][] costs )
 	{
-		foreach ( Cell cell in grid )
+		for ( int y = 0; y < gridSize.y; y++ )
 		{
-			Collider[] obstacles = Physics.OverlapBox( cell.position, _cellHalfExtends, Quaternion.identity, _terrain );
-			bool hasIncreasedCost = false;
-			foreach ( Collider collider in obstacles )
-			{
-				if ( collider.gameObject.layer == 8 )
-					cell.IncreaseCost( 255 );
-			}
+			for ( int x = 0; x < gridSize.x; x++ )
+				grid[ x, y ].IncreaseCost( costs[ x ][ y ] );
 		}
+
+		//foreach ( Cell cell in grid )
+		//{
+		//	Collider[] obstacles = Physics.OverlapBox( cell.position, _cellHalfExtends, Quaternion.identity, _terrain );
+		//	bool hasIncreasedCost = false;
+		//	foreach ( Collider collider in obstacles )
+		//	{
+		//		if ( collider.gameObject.layer == 8 )
+		//			cell.IncreaseCost( 255 );
+		//	}
+		//}
 	}
 
 	public void CreateIntegrationField( Cell destination )
