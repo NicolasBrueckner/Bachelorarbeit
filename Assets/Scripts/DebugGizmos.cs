@@ -44,21 +44,21 @@ public class DebugGizmos : MonoBehaviour
 			iconSR.sprite = icons[ 9 ];
 		else if ( cell.cost == byte.MaxValue )
 			iconSR.sprite = icons[ 10 ];
-		else if ( cell.flowDirection == CellDirection.N )
+		else if ( cell.flowDirection == Direction.N )
 			iconSR.sprite = icons[ 1 ];
-		else if ( cell.flowDirection == CellDirection.E )
+		else if ( cell.flowDirection == Direction.E )
 			iconSR.sprite = icons[ 0 ];
-		else if ( cell.flowDirection == CellDirection.S )
+		else if ( cell.flowDirection == Direction.S )
 			iconSR.sprite = icons[ 4 ];
-		else if ( cell.flowDirection == CellDirection.W )
+		else if ( cell.flowDirection == Direction.W )
 			iconSR.sprite = icons[ 7 ];
-		else if ( cell.flowDirection == CellDirection.NE )
+		else if ( cell.flowDirection == Direction.NE )
 			iconSR.sprite = icons[ 2 ];
-		else if ( cell.flowDirection == CellDirection.SE )
+		else if ( cell.flowDirection == Direction.SE )
 			iconSR.sprite = icons[ 5 ];
-		else if ( cell.flowDirection == CellDirection.SW )
+		else if ( cell.flowDirection == Direction.SW )
 			iconSR.sprite = icons[ 6 ];
-		else if ( cell.flowDirection == CellDirection.NW )
+		else if ( cell.flowDirection == Direction.NW )
 			iconSR.sprite = icons[ 3 ];
 		else
 			iconSR.sprite = icons[ 8 ];
@@ -69,7 +69,7 @@ public class DebugGizmos : MonoBehaviour
 		if ( showGrid )
 		{
 			if ( _currentGrid == null )
-				DrawGizmoGrid( gridController.gridOrigin, gridController.testData.size, Color.red, gridController.cellHalfSize );
+				DrawGizmoGrid( gridController.gridOrigin, gridController.gridSize, Color.red, gridController.cellHalfSize );
 			else
 				DrawGizmoGrid( _gridOrigin, _gridSize, Color.green, _cellHalfSize );
 		}

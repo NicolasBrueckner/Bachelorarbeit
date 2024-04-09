@@ -47,12 +47,12 @@ public class FlowField
 		}
 	}
 
-	public void CreateCostField( byte[][] costs )
+	public void CreateCostField( byte[,] costs )
 	{
 		for ( int y = 0; y < gridSize.y; y++ )
 		{
 			for ( int x = 0; x < gridSize.x; x++ )
-				grid[ x, y ].IncreaseCost( costs[ x ][ y ] );
+				grid[ x, y ].IncreaseCost( costs[ x, y ] );
 		}
 
 		//foreach ( Cell cell in grid )
@@ -79,7 +79,7 @@ public class FlowField
 		while ( cells.Count > 0 )
 		{
 			Cell currentCell = cells.Dequeue();
-			List<Cell> neighbors = GetNeighborCells( currentCell.index, CellDirection.cardinals );
+			List<Cell> neighbors = GetNeighborCells( currentCell.index, Direction.cardinals );
 
 			foreach ( Cell currentNeighbor in neighbors )
 			{
@@ -98,7 +98,7 @@ public class FlowField
 	{
 		foreach ( Cell cell in grid )
 		{
-			List<Cell> neighbors = GetNeighborCells( cell.index, CellDirection.allDirections );
+			List<Cell> neighbors = GetNeighborCells( cell.index, Direction.allDirections );
 			int integrationCost = cell.integrationCost;
 
 			foreach ( Cell currentNeighbor in neighbors )
@@ -106,13 +106,13 @@ public class FlowField
 				if ( currentNeighbor.integrationCost < integrationCost )
 				{
 					integrationCost = currentNeighbor.integrationCost;
-					cell.flowDirection = CellDirection.GetDirection( currentNeighbor.index - cell.index );
+					cell.flowDirection = Direction.GetDirection( currentNeighbor.index - cell.index );
 				}
 			}
 		}
 	}
 
-	private List<Cell> GetNeighborCells( int2 index, List<CellDirection> directions )
+	private List<Cell> GetNeighborCells( int2 index, List<Direction> directions )
 	{
 		List<Cell> cells = new List<Cell>();
 
