@@ -12,6 +12,7 @@ public class GridController : MonoBehaviour
 	public float cellHalfSize;
 	public FlowField currentGrid;
 	public DebugGizmos debugGizmos;
+	public obsolete_sectordata testData;
 
 	private InputActions _actions;
 	private InputAction _mouseRightAction;
@@ -42,11 +43,11 @@ public class GridController : MonoBehaviour
 
 	private void OnMouseRight( InputAction.CallbackContext context )
 	{
-		currentGrid = new FlowField( cellHalfSize, gridOrigin, gridSize );
+		currentGrid = new FlowField( cellHalfSize, gridOrigin, testData.size );
 
 		currentGrid.CreateGrid();
 		debugGizmos.SetFlowField( currentGrid );
-		currentGrid.CreateCostField();
+		currentGrid.CreateCostField( testData.costs );
 
 		Vector2 mousePosition = _mousePositionAction.ReadValue<Vector2>();
 		float3 position = Camera.main.ScreenToWorldPoint( new float3( mousePosition.x, mousePosition.y, 0f ) );

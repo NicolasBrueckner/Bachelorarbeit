@@ -69,7 +69,7 @@ public class DebugGizmos : MonoBehaviour
 		if ( showGrid )
 		{
 			if ( _currentGrid == null )
-				DrawGizmoGrid( gridController.gridOrigin, gridController.gridSize, Color.red, gridController.cellHalfSize );
+				DrawGizmoGrid( gridController.gridOrigin, gridController.testData.size, Color.red, gridController.cellHalfSize );
 			else
 				DrawGizmoGrid( _gridOrigin, _gridSize, Color.green, _cellHalfSize );
 		}
