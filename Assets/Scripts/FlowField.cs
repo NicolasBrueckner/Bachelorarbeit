@@ -6,12 +6,15 @@ using System.Runtime.InteropServices;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class FlowField
 {
+	public Sector[] sectors { get; private set; }
 	public Cell[,] grid { get; private set; }
 	public int2 gridOrigin { get; private set; }
 	public int2 gridSize { get; private set; }
@@ -19,18 +22,15 @@ public class FlowField
 	public Cell destinationCell;
 
 	private float _cellSize;
-	private int _terrain;
-	private float3 _cellHalfExtends;
 
-	public FlowField( float cellHalfSize, int2 gridOrigin, int2 gridSize )
+	public FlowField( Sector[] sectors, float cellHalfSize, int2 gridOrigin, int2 gridSize )
 	{
+		this.sectors = sectors;
 		this.gridOrigin = gridOrigin;
 		this.gridSize = gridSize;
 		this.cellHalfSize = cellHalfSize;
 
 		_cellSize = cellHalfSize * 2;
-		_terrain = LayerMask.GetMask( "Impassable" );
-		_cellHalfExtends = Vector3.one * cellHalfSize;
 	}
 
 	public void CreateGrid()
@@ -49,22 +49,11 @@ public class FlowField
 
 	public void CreateCostField( byte[,] costs )
 	{
-		for ( int y = 0; y < gridSize.y; y++ )
+		for ( int x = 0; x < gridSize.x; x++ )
 		{
-			for ( int x = 0; x < gridSize.x; x++ )
-				grid[ x, y ].IncreaseCost( costs[ x, y ] );
+			for ( int y = 0; y < gridSize.y; y++ )
+				grid[ x, y ].cost = costs[ x, y ];
 		}
-
-		//foreach ( Cell cell in grid )
-		//{
-		//	Collider[] obstacles = Physics.OverlapBox( cell.position, _cellHalfExtends, Quaternion.identity, _terrain );
-		//	bool hasIncreasedCost = false;
-		//	foreach ( Collider collider in obstacles )
-		//	{
-		//		if ( collider.gameObject.layer == 8 )
-		//			cell.IncreaseCost( 255 );
-		//	}
-		//}
 	}
 
 	public void CreateIntegrationField( Cell destination )
@@ -79,16 +68,19 @@ public class FlowField
 		while ( cells.Count > 0 )
 		{
 			Cell currentCell = cells.Dequeue();
-			List<Cell> neighbors = GetNeighborCells( currentCell.index, Direction.cardinals );
+			List<int2> neighbors = GetNeighborIndexes( currentCell.index, Direction.cardinals );
 
-			foreach ( Cell currentNeighbor in neighbors )
+			foreach ( int2 neighbor in neighbors )
 			{
-				if ( currentNeighbor.cost == byte.MaxValue )
+				int x = neighbor.x;
+				int y = neighbor.y;
+
+				if ( !ValidateIndex( neighbor ) )
 					continue;
-				if ( currentNeighbor.cost + currentCell.integrationCost < currentNeighbor.integrationCost )
+				if ( grid[ x, y ].cost + currentCell.integrationCost < grid[ x, y ].integrationCost )
 				{
-					currentNeighbor.integrationCost = ( ushort )( currentNeighbor.cost + currentCell.integrationCost );
-					cells.Enqueue( currentNeighbor );
+					grid[ x, y ].integrationCost = ( ushort )( grid[ x, y ].cost + currentCell.integrationCost );
+					cells.Enqueue( grid[ x, y ] );
 				}
 			}
 		}
@@ -98,41 +90,47 @@ public class FlowField
 	{
 		foreach ( Cell cell in grid )
 		{
-			List<Cell> neighbors = GetNeighborCells( cell.index, Direction.allDirections );
+			List<int2> neighbors = GetNeighborIndexes( cell.index, Direction.trueDirections );
 			int integrationCost = cell.integrationCost;
 
-			foreach ( Cell currentNeighbor in neighbors )
+			for ( int i = 0; i < neighbors.Count; i++ )
 			{
-				if ( currentNeighbor.integrationCost < integrationCost )
+				if ( ValidateIndex( neighbors[ i ] ) )
 				{
-					integrationCost = currentNeighbor.integrationCost;
-					cell.flowDirection = Direction.GetDirection( currentNeighbor.index - cell.index );
+					Cell validStraight = grid[ neighbors[ i ].x, neighbors[ i ].y ];
+
+					if ( validStraight.integrationCost < integrationCost )
+					{
+						integrationCost = validStraight.integrationCost;
+						cell.flowDirection = Direction.GetDirection( validStraight.index - cell.index );
+					}
+
+					if ( ValidateIndex( neighbors[ i + 1 ] ) && ValidateIndex( neighbors[ ( i + 2 ) % neighbors.Count ] ) )
+					{
+						Cell validDiagonal = grid[ neighbors[ i + 1 ].x, neighbors[ i + 1 ].y ];
+
+						if ( validDiagonal.integrationCost < integrationCost )
+						{
+							integrationCost = validDiagonal.integrationCost;
+							cell.flowDirection = Direction.GetDirection( validDiagonal.index - cell.index );
+						}
+					}
 				}
+				i++;
 			}
 		}
 	}
 
-	private List<Cell> GetNeighborCells( int2 index, List<Direction> directions )
-	{
-		List<Cell> cells = new List<Cell>();
+	//private void SetFlowDirection(Cell cell, Cell neighborCell)
 
-		foreach ( int2 currentDirection in directions )
-		{
-			Cell currentCell = GetCellInDirection( index, currentDirection );
-			if ( currentCell != null )
-				cells.Add( currentCell );
-		}
+	private List<int2> GetNeighborIndexes( int2 index, List<Direction> directions )
+	{
+		List<int2> cells = new List<int2>();
+
+		foreach ( Direction currentDirection in directions )
+			cells.Add( index + currentDirection );
+
 		return cells;
-	}
-
-	private Cell GetCellInDirection( int2 index, int2 direction )
-	{
-		int2 resultIndex = index + direction;
-
-		if ( resultIndex.x < 0 || resultIndex.x >= gridSize.x || resultIndex.y < 0 || resultIndex.y >= gridSize.y )
-			return null;
-		else
-			return grid[ resultIndex.x, resultIndex.y ];
 	}
 
 	public Cell GetCellFromPosition( float3 position )
@@ -147,5 +145,12 @@ public class FlowField
 			math.clamp( ( int )math.floor( normalizedPosition.y * gridSize.y ), 0, gridSize.y - 1 ) );
 
 		return grid[ gridPosition.x, gridPosition.y ];
+	}
+
+	private bool ValidateIndex( int2 index )
+	{
+		if ( index.x >= 0 && index.x < gridSize.x && index.y >= 0 & index.y < gridSize.y && grid[ index.x, index.y ].cost < byte.MaxValue )
+			return true;
+		return false;
 	}
 }

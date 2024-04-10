@@ -22,7 +22,7 @@ public class GridController : MonoBehaviour
 	{
 		_actions = new InputActions();
 		foreach ( Sector sector in sectors )
-			sector.cost = CostData.Instance.costs[ sector.costIdentifier ];
+			sector.SetCosts();
 	}
 
 	private void OnEnable()
@@ -45,7 +45,7 @@ public class GridController : MonoBehaviour
 
 	private void OnMouseRight( InputAction.CallbackContext context )
 	{
-		currentGrid = new FlowField( cellHalfSize, gridOrigin, gridSize );
+		currentGrid = new FlowField( sectors, cellHalfSize, gridOrigin, gridSize );
 
 		currentGrid.CreateGrid();
 		debugGizmos.SetFlowField( currentGrid );
