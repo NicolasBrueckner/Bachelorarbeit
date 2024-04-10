@@ -268,7 +268,7 @@ MonoBehaviour:
   cellHalfSize: 0.5
   debugGizmos: {fileID: 1929789476}
   sectors:
-  - {fileID: 11400000, guid: d519e674e1faa29418d5cf500f6d4915, type: 2}
+  - {fileID: 1605417439256298479, guid: 3775908257adc6a46a4f9a53c93717bd, type: 3}
 --- !u!1 &1929789475
 GameObject:
   m_ObjectHideFlags: 0

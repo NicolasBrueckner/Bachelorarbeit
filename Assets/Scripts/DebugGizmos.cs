@@ -83,22 +83,23 @@ public class DebugGizmos : MonoBehaviour
 		switch ( displayType )
 		{
 			case FlowFieldDisplayType.Cost:
+				foreach ( Transform t in transform )
+					Destroy( t.gameObject );
 				foreach ( Cell cell in _currentGrid.grid )
 					Handles.Label( cell.position, cell.cost.ToString(), style );
 				break;
 			case FlowFieldDisplayType.Integration:
+				foreach ( Transform t in transform )
+					Destroy( t.gameObject );
 				foreach ( Cell cell in _currentGrid.grid )
 					Handles.Label( cell.position, cell.integrationCost.ToString(), style );
 				break;
 			case FlowFieldDisplayType.Destination:
-				{
-					foreach ( Transform t in transform )
-						GameObject.Destroy( t.gameObject );
-					foreach ( Cell cell in _currentGrid.grid )
-						DrawIcon( cell );
-				}
+				foreach ( Transform t in transform )
+					Destroy( t.gameObject );
+				foreach ( Cell cell in _currentGrid.grid )
+					DrawIcon( cell );
 				break;
-
 			default:
 				break;
 		}
