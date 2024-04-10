@@ -44,5 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e66fcd9f5de50842b1d9dc2909249f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sectorObject: {fileID: 1753522770430234551}
   background: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   costIdentifier: 0
