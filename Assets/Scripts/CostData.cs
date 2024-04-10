@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum CostType
+public enum CostMap
 {
-	type1,
-	type2,
-	type3,
+	map_01,
+	map_02,
+	map_03,
 }
 
 public class CostData
@@ -16,7 +16,7 @@ public class CostData
 	private static readonly Lazy<CostData> _instance = new Lazy<CostData>( () => new CostData() );
 	public static CostData Instance => _instance.Value;
 
-	public Dictionary<CostType, byte[,]> costs { get; private set; }
+	public Dictionary<CostMap, byte[,]> costs { get; private set; }
 
 	private byte[,] cost_1 =
 	{
@@ -58,11 +58,11 @@ public class CostData
 
 	private void InitializeCosts()
 	{
-		costs = new Dictionary<CostType, byte[,]>
+		costs = new Dictionary<CostMap, byte[,]>
 		{
-			{ CostType.type1, cost_1 },
-			{ CostType.type2, cost_2 },
-			{ CostType.type3, cost_3 },
+			{ CostMap.map_02, cost_1 },
+			{ CostMap.map_02, cost_2 },
+			{ CostMap.map_03, cost_3 },
 		};
 	}
 }
