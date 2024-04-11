@@ -12,6 +12,7 @@ public class Sector : MonoBehaviour
 	public CostMap costIdentifier;
 	public byte[,] cost;
 
+	public static readonly float cellRadius = 0.5f;
 	public static readonly int2 gridSize = new int2( 10, 10 );
 	public static readonly float2 sectorSize = new float2( 10f, 10f );
 

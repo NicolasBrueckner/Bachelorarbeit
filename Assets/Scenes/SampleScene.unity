@@ -266,6 +266,7 @@ MonoBehaviour:
     x: -8
     y: -4
   cellHalfSize: 0.5
+  mapType: 0
   debugGizmos: {fileID: 1929789476}
   sectors:
   - {fileID: 1605417439256298479, guid: 3775908257adc6a46a4f9a53c93717bd, type: 3}

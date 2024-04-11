@@ -18,7 +18,7 @@ public class CostData
 
 	public Dictionary<CostMap, byte[,]> costs { get; private set; }
 
-	private byte[,] cost_1 =
+	private byte[,] costArray_1 =
 	{
 		{   1,   1,   1,   1,   1,   1,   1 },
 		{   1,   1,   1,   1,   1,   1,   1 },
@@ -29,7 +29,7 @@ public class CostData
 		{   1,   1,   1,   1,   1,   1,   1 },
 	};
 
-	private byte[,] cost_2 =
+	private byte[,] costArray_2 =
 	{
 		{   1,   1,   1,   1,   1,   1,   1 },
 		{   1,   1,   1,   1,   1,   1,   1 },
@@ -40,7 +40,7 @@ public class CostData
 		{   1,   1,   1,   1,   1,   1,   1 },
 	};
 
-	private byte[,] cost_3 =
+	private byte[,] costArray_3 =
 	{
 		{   1,   1,   1,   1,   1,   1,   1 },
 		{   1,   1, 255,   1,   1,   1,   1 },
@@ -60,9 +60,9 @@ public class CostData
 	{
 		costs = new Dictionary<CostMap, byte[,]>
 		{
-			{ CostMap.map_02, cost_1 },
-			{ CostMap.map_02, cost_2 },
-			{ CostMap.map_03, cost_3 },
+			{ CostMap.map_01, costArray_1 },
+			{ CostMap.map_02, costArray_2 },
+			{ CostMap.map_03, costArray_3 },
 		};
 	}
 }
