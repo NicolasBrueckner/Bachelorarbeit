@@ -9,7 +9,7 @@ public enum FlowFieldDisplayType { None, All, Cost, Integration, Destination }
 
 public class DebugGizmos : MonoBehaviour
 {
-	public GridController gridController;
+	public FlowFieldController gridController;
 	public bool showGrid;
 	public FlowFieldDisplayType displayType;
 
