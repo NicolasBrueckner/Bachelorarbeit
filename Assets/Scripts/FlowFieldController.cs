@@ -7,11 +7,6 @@ using UnityEngine.InputSystem;
 
 public class FlowFieldController : MonoBehaviour
 {
-	public int2 gridSize;
-	public int2 gridOrigin;
-	public float cellHalfSize;
-
-	public SectorMap mapType;
 	public FlowField activeFlowField;
 	public DebugGizmos debugGizmos;
 	public Sector[] sectors;
@@ -47,7 +42,7 @@ public class FlowFieldController : MonoBehaviour
 
 	private void OnMouseRight( InputAction.CallbackContext context )
 	{
-		activeFlowField = new FlowField( sectors, cellHalfSize, gridOrigin, gridSize );
+		activeFlowField = new FlowField( sectors );
 
 		activeFlowField.CreateGrid();
 		debugGizmos.SetFlowField( activeFlowField );

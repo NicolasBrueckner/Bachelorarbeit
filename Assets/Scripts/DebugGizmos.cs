@@ -9,12 +9,12 @@ public enum FlowFieldDisplayType { None, All, Cost, Integration, Destination }
 
 public class DebugGizmos : MonoBehaviour
 {
-	public FlowFieldController gridController;
+	public FlowFieldController flowFieldController;
 	public bool showGrid;
 	public FlowFieldDisplayType displayType;
 
 	private FlowField _currentGrid;
-	private int2 _gridOrigin;
+	private float3 _gridOrigin;
 	private int2 _gridSize;
 	private float _cellHalfSize;
 	private Sprite[] icons;
@@ -68,10 +68,10 @@ public class DebugGizmos : MonoBehaviour
 	{
 		if ( showGrid )
 		{
-			if ( _currentGrid == null )
-				DrawGizmoGrid( gridController.gridOrigin, gridController.gridSize, Color.red, gridController.cellHalfSize );
-			else
-				DrawGizmoGrid( _gridOrigin, _gridSize, Color.green, _cellHalfSize );
+			//if ( _currentGrid == null )
+			//	DrawGizmoGrid( flowFieldController.sectors[0].transform, flowFieldController.gridSize, Color.red, flowFieldController.cellHalfSize );
+			//else
+			DrawGizmoGrid( _gridOrigin, _gridSize, Color.green, _cellHalfSize );
 		}
 
 		if ( _currentGrid == null )
@@ -105,7 +105,7 @@ public class DebugGizmos : MonoBehaviour
 		}
 	}
 
-	private void DrawGizmoGrid( int2 gridOrigin, int2 gridSize, Color32 gridColor, float cellHalfSize )
+	private void DrawGizmoGrid( float3 gridOrigin, int2 gridSize, Color32 gridColor, float cellHalfSize )
 	{
 		Gizmos.color = gridColor;
 		for ( int x = 0; x < gridSize.x; x++ )

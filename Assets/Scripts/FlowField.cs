@@ -16,20 +16,20 @@ public class FlowField
 {
 	public Sector[] sectors { get; private set; }
 	public Cell[,] grid { get; private set; }
-	public int2 gridOrigin { get; private set; }
+	public float3 gridOrigin { get; private set; }
 	public int2 gridSize { get; private set; }
 	public float cellHalfSize { get; private set; }
-	public Cell destinationCell;
 
+	private Cell _destinationCell;
 	private float _cellSize;
 
-	public FlowField( Sector[] sectors, float cellHalfSize, int2 gridOrigin, int2 gridSize )
+	public FlowField( Sector[] sectors )
 	{
 		this.sectors = sectors;
-		this.gridOrigin = gridOrigin;
-		this.gridSize = gridSize;
-		this.cellHalfSize = cellHalfSize;
 
+		gridOrigin = sectors[ 0 ].transform.position;
+		gridSize = Sector.gridSize;
+		cellHalfSize = Sector.cellRadius;
 		_cellSize = cellHalfSize * 2;
 	}
 
@@ -56,14 +56,14 @@ public class FlowField
 		}
 	}
 
-	public void CreateIntegrationField( Cell destination )
+	public void CreateIntegrationField( Cell destinationCell )
 	{
-		destinationCell = destination;
-		destinationCell.cost = 0;
-		destinationCell.integrationCost = 0;
+		_destinationCell = destinationCell;
+		_destinationCell.cost = 0;
+		_destinationCell.integrationCost = 0;
 
 		Queue<Cell> cells = new Queue<Cell>();
-		cells.Enqueue( destinationCell );
+		cells.Enqueue( _destinationCell );
 
 		while ( cells.Count > 0 )
 		{
@@ -133,6 +133,13 @@ public class FlowField
 		return cells;
 	}
 
+	private bool ValidateIndex( int2 index )
+	{
+		if ( index.x >= 0 && index.x < gridSize.x && index.y >= 0 & index.y < gridSize.y && grid[ index.x, index.y ].cost < byte.MaxValue )
+			return true;
+		return false;
+	}
+
 	public Cell GetCellFromPosition( float3 position )
 	{
 		float2 adjustedPosition = new float2( position.x - gridOrigin.x, position.y - gridOrigin.y );
@@ -147,10 +154,4 @@ public class FlowField
 		return grid[ gridPosition.x, gridPosition.y ];
 	}
 
-	private bool ValidateIndex( int2 index )
-	{
-		if ( index.x >= 0 && index.x < gridSize.x && index.y >= 0 & index.y < gridSize.y && grid[ index.x, index.y ].cost < byte.MaxValue )
-			return true;
-		return false;
-	}
 }
