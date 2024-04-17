@@ -9,7 +9,7 @@ public class FlowFieldController : MonoBehaviour
 {
 	public FlowField activeFlowField;
 	public DebugGizmos debugGizmos;
-	public Sector[] sectors;
+	public Sector[,] sectors;
 
 	private InputActions _actions;
 	private InputAction _mouseRightAction;
@@ -18,8 +18,6 @@ public class FlowFieldController : MonoBehaviour
 	private void Awake()
 	{
 		_actions = new InputActions();
-		foreach ( Sector sector in sectors )
-			sector.SetCosts();
 	}
 
 	private void OnEnable()
@@ -46,12 +44,12 @@ public class FlowFieldController : MonoBehaviour
 
 		activeFlowField.CreateGrid();
 		debugGizmos.SetFlowField( activeFlowField );
-		activeFlowField.CreateCostField( sectors[ 0 ].cost );
+		activeFlowField.CreateCostField( sectors[ 0, 0 ].costs );
 
 		Vector2 mousePosition = _mousePositionAction.ReadValue<Vector2>();
 		float3 position = Camera.main.ScreenToWorldPoint( new float3( mousePosition.x, mousePosition.y, 0f ) );
 
-		activeFlowField.CreateIntegrationField( activeFlowField.GetCellFromPosition( position ) );
+		//activeFlowField.CreateIntegrationField( activeFlowField.GetCellFromPosition( position ) );
 		activeFlowField.CreateFlowField();
 	}
 }
