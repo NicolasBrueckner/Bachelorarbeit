@@ -7,19 +7,19 @@ using UnityEngine;
 
 public class Direction
 {
-	public readonly int2 direction;
+	public readonly float2 direction;
 
 	private Direction( int x, int y )
 	{
-		direction = new int2( x, y );
+		direction = new float2( x, y );
 	}
 
-	public static implicit operator int2( Direction cellDirection )
+	public static implicit operator float2( Direction cellDirection )
 	{
 		return cellDirection.direction;
 	}
 
-	public static Direction GetDirection( int2 direction )
+	public static Direction GetDirection( float2 direction )
 	{
 		return trueDirections.FirstOrDefault( cellDirection => math.all( cellDirection.direction == direction ) ) ?? None;
 	}

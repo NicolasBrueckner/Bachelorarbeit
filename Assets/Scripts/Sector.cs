@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using Unity.Collections;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -20,6 +22,7 @@ public class Sector
 	public byte[,] costs;
 
 	public static readonly float cellRadius = 0.5f;
+	public static readonly float cellDiameter = cellRadius * 2;
 	public static readonly int2 gridSize = new int2( 10, 10 );
 	public static readonly float2 sectorSize = new float2( 10f, 10f );
 

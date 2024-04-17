@@ -52,4 +52,10 @@ public class FlowFieldController : MonoBehaviour
 		//activeFlowField.CreateIntegrationField( activeFlowField.GetCellFromPosition( position ) );
 		activeFlowField.CreateFlowField();
 	}
+
+	private void GetActiveSectors()
+	{
+
+
+	}
 }
