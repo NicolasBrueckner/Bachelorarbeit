@@ -1,4 +1,5 @@
 using Unity.Mathematics;
+using UnityEngine;
 
 public class Cell
 {
@@ -6,7 +7,7 @@ public class Cell
 	public int2 index;
 	public byte cost;
 	public ushort integrationCost;
-	public Direction flowDirection;
+	public float2 flowDirection;
 
 	public Cell( float3 position, int2 index )
 	{
@@ -15,5 +16,11 @@ public class Cell
 
 		cost = 1;
 		integrationCost = ushort.MaxValue;
+	}
+
+	public void SetDirection( float2 direction )
+	{
+		math.normalize( direction );
+		flowDirection = direction;
 	}
 }

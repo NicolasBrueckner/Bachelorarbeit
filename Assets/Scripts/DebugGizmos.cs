@@ -16,7 +16,6 @@ public class DebugGizmos : MonoBehaviour
 	private FlowField _currentGrid;
 	private float3 _gridOrigin;
 	private int2 _gridSize;
-	private float _cellHalfSize;
 	private Sprite[] icons;
 
 	private void Start()
@@ -29,7 +28,6 @@ public class DebugGizmos : MonoBehaviour
 		_currentGrid = grid;
 		_gridOrigin = grid.gridOrigin;
 		_gridSize = grid.gridSize;
-		_cellHalfSize = grid.cellHalfSize;
 	}
 
 
@@ -44,21 +42,21 @@ public class DebugGizmos : MonoBehaviour
 			iconSR.sprite = icons[ 9 ];
 		else if ( cell.cost == byte.MaxValue )
 			iconSR.sprite = icons[ 10 ];
-		else if ( cell.flowDirection == Direction.N )
+		else if ( Float2Compare( cell.flowDirection, Direction.N ) )
 			iconSR.sprite = icons[ 1 ];
-		else if ( cell.flowDirection == Direction.E )
+		else if ( Float2Compare( cell.flowDirection, Direction.NE ) )
 			iconSR.sprite = icons[ 0 ];
-		else if ( cell.flowDirection == Direction.S )
+		else if ( Float2Compare( cell.flowDirection, Direction.E ) )
 			iconSR.sprite = icons[ 4 ];
-		else if ( cell.flowDirection == Direction.W )
+		else if ( Float2Compare( cell.flowDirection, Direction.SE ) )
 			iconSR.sprite = icons[ 7 ];
-		else if ( cell.flowDirection == Direction.NE )
+		else if ( Float2Compare( cell.flowDirection, Direction.S ) )
 			iconSR.sprite = icons[ 2 ];
-		else if ( cell.flowDirection == Direction.SE )
+		else if ( Float2Compare( cell.flowDirection, Direction.SW ) )
 			iconSR.sprite = icons[ 5 ];
-		else if ( cell.flowDirection == Direction.SW )
+		else if ( Float2Compare( cell.flowDirection, Direction.W ) )
 			iconSR.sprite = icons[ 6 ];
-		else if ( cell.flowDirection == Direction.NW )
+		else if ( Float2Compare( cell.flowDirection, Direction.NW ) )
 			iconSR.sprite = icons[ 3 ];
 		else
 			iconSR.sprite = icons[ 8 ];
@@ -71,7 +69,7 @@ public class DebugGizmos : MonoBehaviour
 			//if ( _currentGrid == null )
 			//	DrawGizmoGrid( flowFieldController.sectors[0].transform, flowFieldController.gridSize, Color.red, flowFieldController.cellHalfSize );
 			//else
-			DrawGizmoGrid( _gridOrigin, _gridSize, Color.green, _cellHalfSize );
+			DrawGizmoGrid( _gridOrigin, _gridSize, Color.green, Sector.cellRadius );
 		}
 
 		if ( _currentGrid == null )
@@ -117,5 +115,15 @@ public class DebugGizmos : MonoBehaviour
 				Gizmos.DrawWireCube( center, size );
 			}
 		}
+	}
+
+	private bool Float2Compare( float2 a, float2 b )
+	{
+		return math.all( math.abs( a - b ) < 0.0001f );
+	}
+
+	private bool Float3Compare( float3 a, float3 b )
+	{
+		return math.all( math.abs( a - b ) < 0.0001f );
 	}
 }

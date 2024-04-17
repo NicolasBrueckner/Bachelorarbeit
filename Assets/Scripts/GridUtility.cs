@@ -10,7 +10,7 @@ public static class GridUtility
 		List<int2> resultIndexes = new List<int2>();
 
 		foreach ( Direction currentDirection in directions )
-			resultIndexes.Add( index + currentDirection );
+			resultIndexes.Add( index + new int2( ( int2 )currentDirection.direction ) );
 
 		return resultIndexes;
 	}
@@ -32,17 +32,17 @@ public static class GridUtility
 		return false;
 	}
 
-	//public Cell GetCellFromPosition( float3 position )
-	//{
-	//	float2 adjustedPosition = new float2( position.x - gridOrigin.x, position.y - gridOrigin.y );
-	//	float2 normalizedPosition = new float2(
-	//		math.clamp( adjustedPosition.x / ( gridSize.x * _cellSize ), 0f, 1f ),
-	//		math.clamp( adjustedPosition.y / ( gridSize.y * _cellSize ), 0f, 1f ) );
+	public static int2 GetCellFromPosition( float3 position, float3 gridOrigin, int2 gridSize )
+	{
+		float3 adjustedPosition = new float3( position.x - gridOrigin.x, position.y - gridOrigin.y, 0 );
+		float2 normalizedPosition = new float2(
+			math.clamp( adjustedPosition.x / ( gridSize.x * Sector.cellDiameter ), 0f, 1f ),
+			math.clamp( adjustedPosition.y / ( gridSize.y * Sector.cellDiameter ), 0f, 1f ) );
 
-	//	int2 gridPosition = new int2(
-	//		math.clamp( ( int )math.floor( normalizedPosition.x * gridSize.x ), 0, gridSize.x - 1 ),
-	//		math.clamp( ( int )math.floor( normalizedPosition.y * gridSize.y ), 0, gridSize.y - 1 ) );
+		int2 gridPosition = new int2(
+			math.clamp( ( int )math.floor( normalizedPosition.x * gridSize.x ), 0, gridSize.x - 1 ),
+			math.clamp( ( int )math.floor( normalizedPosition.y * gridSize.y ), 0, gridSize.y - 1 ) );
 
-	//	return grid[ gridPosition.x, gridPosition.y ];
-	//}
+		return gridPosition;
+	}
 }

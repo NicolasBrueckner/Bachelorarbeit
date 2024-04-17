@@ -18,7 +18,6 @@ public class FlowField
 	public Cell[,] grid { get; private set; }
 	public float3 gridOrigin { get; private set; }
 	public int2 gridSize { get; private set; }
-	public float cellHalfSize { get; private set; }
 
 	private Cell _destinationCell;
 	private float _cellSize;
@@ -29,8 +28,7 @@ public class FlowField
 
 		gridOrigin = new float3( 0, 0, 0 );
 		gridSize = Sector.gridSize;
-		cellHalfSize = Sector.cellRadius;
-		_cellSize = cellHalfSize * 2;
+		_cellSize = Sector.cellRadius * 2;
 	}
 
 	public void CreateGrid()
@@ -41,7 +39,7 @@ public class FlowField
 		{
 			for ( int y = 0; y < gridSize.y; y++ )
 			{
-				float3 position = new float3( gridOrigin.x + ( _cellSize * x ) + cellHalfSize, gridOrigin.y + ( _cellSize * y ) + cellHalfSize, 0 );
+				float3 position = new float3( gridOrigin.x + ( _cellSize * x ) + Sector.cellRadius, gridOrigin.y + ( _cellSize * y ) + Sector.cellRadius, 0 );
 				grid[ x, y ] = new Cell( position, new int2( x, y ) );
 			}
 		}
