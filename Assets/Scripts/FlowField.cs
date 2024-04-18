@@ -1,56 +1,51 @@
-
-
-using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.U2D.Aseprite;
-using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class FlowField
 {
-	public Sector[,] sectors { get; private set; }
-	public Cell[,] grid { get; private set; }
-	public float3 gridOrigin { get; private set; }
-	public int2 gridSize { get; private set; }
+	public Sector[,] Sectors { get; private set; }
+	public Cell[,] Cells { get; private set; }
 
+	private float3 _gridOrigin;
+	private int2 _gridSize;
 	private Cell _destinationCell;
-	private float _cellSize;
+	private float _cellRadius;
+	private float _cellDiameter;
+
 
 	public FlowField( Sector[,] sectors )
 	{
-		this.sectors = sectors;
+		Sectors = sectors;
 
-		gridOrigin = new float3( 0, 0, 0 );
-		gridSize = Sector.gridSize;
-		_cellSize = Sector.cellRadius * 2;
+		_gridOrigin = Sectors[ 0, 0 ].position;
+		_gridSize = Sector.gridSize * Sectors.Length;
+		_cellRadius = Sector.cellRadius;
+		_cellDiameter = Sector.cellDiameter;
 	}
 
 	public void CreateGrid()
 	{
-		grid = new Cell[ gridSize.x, gridSize.y ];
+		Cells = new Cell[ _gridSize.x, _gridSize.y ];
 
-		for ( int x = 0; x < gridSize.x; x++ )
+		for ( int x = 0; x < _gridSize.x; x++ )
 		{
-			for ( int y = 0; y < gridSize.y; y++ )
+			for ( int y = 0; y < _gridSize.y; y++ )
 			{
-				float3 position = new float3( gridOrigin.x + ( _cellSize * x ) + Sector.cellRadius, gridOrigin.y + ( _cellSize * y ) + Sector.cellRadius, 0 );
-				grid[ x, y ] = new Cell( position, new int2( x, y ) );
+				float3 position = new float3(
+					_gridOrigin.x + ( _cellDiameter * x ) + _cellRadius,
+					_gridOrigin.y + ( _cellDiameter * y ) + _cellRadius, 0 );
+				Cells[ x, y ] = new Cell( position, new int2( x, y ) );
 			}
 		}
 	}
 
 	public void CreateCostField( byte[,] costs )
 	{
-		for ( int x = 0; x < gridSize.x; x++ )
+		for ( int x = 0; x < _gridSize.x; x++ )
 		{
-			for ( int y = 0; y < gridSize.y; y++ )
-				grid[ x, y ].cost = costs[ x, y ];
+			for ( int y = 0; y < _gridSize.y; y++ )
+				Cells[ x, y ].cost = costs[ x, y ];
 		}
 	}
 
@@ -73,12 +68,12 @@ public class FlowField
 				int x = neighbor.x;
 				int y = neighbor.y;
 
-				if ( !GridUtility.ValidateIndex( neighbor, grid ) )
+				if ( !GridUtility.ValidateIndex( neighbor, Cells ) )
 					continue;
-				if ( grid[ x, y ].cost + currentCell.integrationCost < grid[ x, y ].integrationCost )
+				if ( Cells[ x, y ].cost + currentCell.integrationCost < Cells[ x, y ].integrationCost )
 				{
-					grid[ x, y ].integrationCost = ( ushort )( grid[ x, y ].cost + currentCell.integrationCost );
-					cells.Enqueue( grid[ x, y ] );
+					Cells[ x, y ].integrationCost = ( ushort )( Cells[ x, y ].cost + currentCell.integrationCost );
+					cells.Enqueue( Cells[ x, y ] );
 				}
 			}
 		}
@@ -86,16 +81,16 @@ public class FlowField
 
 	public void CreateFlowField()
 	{
-		foreach ( Cell cell in grid )
+		foreach ( Cell cell in Cells )
 		{
 			List<int2> neighbors = GridUtility.GetUnsafeNeighborIndexes( cell.index, Direction.trueDirections );
 			int integrationCost = cell.integrationCost;
 
 			for ( int i = 0; i < neighbors.Count; i++ )
 			{
-				if ( GridUtility.ValidateIndex( neighbors[ i ], grid ) )
+				if ( GridUtility.ValidateIndex( neighbors[ i ], Cells ) )
 				{
-					Cell validStraight = grid[ neighbors[ i ].x, neighbors[ i ].y ];
+					Cell validStraight = Cells[ neighbors[ i ].x, neighbors[ i ].y ];
 
 					if ( validStraight.integrationCost < integrationCost )
 					{
@@ -103,9 +98,9 @@ public class FlowField
 						cell.flowDirection = Direction.GetDirection( validStraight.index - cell.index );
 					}
 
-					if ( GridUtility.ValidateIndex( neighbors[ i + 1 ], grid ) && GridUtility.ValidateIndex( neighbors[ ( i + 2 ) % neighbors.Count ], grid ) )
+					if ( GridUtility.ValidateIndex( neighbors[ i + 1 ], Cells ) && GridUtility.ValidateIndex( neighbors[ ( i + 2 ) % neighbors.Count ], Cells ) )
 					{
-						Cell validDiagonal = grid[ neighbors[ i + 1 ].x, neighbors[ i + 1 ].y ];
+						Cell validDiagonal = Cells[ neighbors[ i + 1 ].x, neighbors[ i + 1 ].y ];
 
 						if ( validDiagonal.integrationCost < integrationCost )
 						{

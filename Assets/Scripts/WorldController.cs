@@ -18,30 +18,29 @@ public class WorldController : MonoBehaviour
 	private void Awake()
 	{
 		sectorGrid = WorldData.sectorsByMap[ worldMap ];
-		if ( sectorGrid == null )
-			Debug.LogError( "sector grid is null" );
 		allSectorData = new Sector[ sectorGrid.GetLength( 0 ), sectorGrid.GetLength( 1 ) ];
 
 		CreateWorld();
 		flowFieldController.sectors = allSectorData;
+		flowFieldController.worldSize = new int2( allSectorData.GetLength( 0 ), allSectorData.GetLength( 1 ) );
 	}
 
 	private void CreateWorld()
 	{
-		for ( uint x = 0; x < sectorGrid.GetLength( 0 ); x++ )
+		for ( int x = 0; x < sectorGrid.GetLength( 0 ); x++ )
 		{
-			for ( uint y = 0; y < sectorGrid.GetLength( 1 ); y++ )
+			for ( int y = 0; y < sectorGrid.GetLength( 1 ); y++ )
 				CreateSector( x, y );
 		}
 	}
 
-	private void CreateSector( uint x, uint y )
+	private void CreateSector( int x, int y )
 	{
 		float3 position = new float3( Sector.sectorSize.x * x, Sector.sectorSize.y * y, 0 );
 
 		GameObject sectorObject = Instantiate( sectors[ sectorGrid[ x, y ] ], position, Quaternion.identity, transform );
 		SectorView sectorView = sectorObject.GetComponent<SectorView>();
-		Sector newSector = new Sector( position, new uint2( x, y ), sectorView.costMap );
+		Sector newSector = new Sector( position, new int2( x, y ), sectorView.costMap );
 
 		sectorView.sector = newSector;
 		allSectorData[ x, y ] = newSector;

@@ -167,11 +167,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e561cfb9c3b86d45a19fe32c95c57df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flowFieldController: {fileID: 670859313}
   sectors:
   - {fileID: 1753522770430234551, guid: 3775908257adc6a46a4f9a53c93717bd, type: 3}
   - {fileID: 5726106135430635502, guid: defbf4313e271c24f8c65f1489ae2b13, type: 3}
   - {fileID: 2713234720227605411, guid: fdd3caf4fddab8143887149cee4fa8f3, type: 3}
-  mapType: 0
+  worldMap: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,7 +310,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugGizmos: {fileID: 1929789476}
-  sectors: []
 --- !u!1 &1929789475
 GameObject:
   m_ObjectHideFlags: 0

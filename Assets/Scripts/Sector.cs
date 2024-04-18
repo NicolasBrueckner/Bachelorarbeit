@@ -18,15 +18,15 @@ public enum CostMap
 public class Sector
 {
 	public float3 position;
-	public uint2 index;
+	public int2 index;
 	public byte[,] costs;
 
 	public static readonly float cellRadius = 0.5f;
 	public static readonly float cellDiameter = cellRadius * 2;
-	public static readonly int2 gridSize = new int2( 10, 10 );
+	public static readonly int2 gridSize = new int2( 7, 7 );
 	public static readonly float2 sectorSize = new float2( 10f, 10f );
 
-	public Sector( float3 position, uint2 index, CostMap costMap )
+	public Sector( float3 position, int2 index, CostMap costMap )
 	{
 		this.position = position;
 		this.index = index;
