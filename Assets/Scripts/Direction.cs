@@ -9,7 +9,7 @@ public class Direction
 {
 	public readonly float2 direction;
 
-	private Direction( int x, int y )
+	public Direction( int x, int y )
 	{
 		direction = new float2( x, y );
 	}
