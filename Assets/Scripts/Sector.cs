@@ -24,7 +24,7 @@ public class Sector
 	public static readonly float cellRadius = 0.5f;
 	public static readonly float cellDiameter = cellRadius * 2;
 	public static readonly int2 gridSize = new int2( 7, 7 );
-	public static readonly float2 sectorSize = new float2( 10f, 10f );
+	public static readonly float2 sectorSize = new float2( gridSize.x * cellDiameter, gridSize.y * cellDiameter );
 
 	public Sector( float3 position, int2 index, CostMap costMap )
 	{

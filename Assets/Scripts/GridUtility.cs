@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Mathematics;
@@ -19,7 +17,7 @@ public static class GridUtility
 		return indexes;
 	}
 
-	public static List<int2> GetUnsafeNeighborIndexes( int2 index, List<Direction> directions )
+	public static List<int2> GetUnsafeIndexes( int2 index, List<Direction> directions )
 	{
 		List<int2> resultIndexes = new List<int2>();
 
@@ -39,19 +37,22 @@ public static class GridUtility
 	public static bool ValidateIndex( int2 index, Cell[,] grid )
 	{
 		int2 gridSize = new int2( grid.GetLength( 0 ), grid.GetLength( 1 ) );
-		Cell currentCell = grid[ index.x, index.y ];
 
-		if ( index.x >= 0 && index.x < gridSize.x && index.y >= 0 & index.y < gridSize.y && currentCell.cost < byte.MaxValue )
-			return true;
+		if ( index.x >= 0 && index.x < gridSize.x && index.y >= 0 & index.y < gridSize.y )
+		{
+			Cell currentCell = grid[ index.x, index.y ];
+			if ( currentCell.cost < byte.MaxValue )
+				return true;
+		}
 		return false;
 	}
 
-	public static int2 GetIndexFromPosition( float3 position, float3 gridOrigin, int2 gridSize, float cellSize )
+	public static int2 GetIndexFromPosition( float3 position, float3 gridOrigin, int2 gridSize )
 	{
 		float3 adjustedPosition = new float3( position.x - gridOrigin.x, position.y - gridOrigin.y, 0 );
 		float2 normalizedPosition = new float2(
-			math.clamp( adjustedPosition.x / ( gridSize.x * cellSize ), 0f, 1f ),
-			math.clamp( adjustedPosition.y / ( gridSize.y * cellSize ), 0f, 1f ) );
+			math.clamp( adjustedPosition.x / ( gridSize.x * Sector.cellDiameter ), 0f, 1f ),
+			math.clamp( adjustedPosition.y / ( gridSize.y * Sector.cellDiameter ), 0f, 1f ) );
 
 		int2 gridPosition = new int2(
 			math.clamp( ( int )math.floor( normalizedPosition.x * gridSize.x ), 0, gridSize.x - 1 ),

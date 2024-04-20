@@ -1,19 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static GridUtility;
 
 public class FlowFieldController : MonoBehaviour
 {
 	public FlowField flowField;
-	//public DebugGizmos debugGizmos;
+	public DebugGizmos debugGizmos;
 	public Sector[,] sectors;
-	public int2 worldSize;
+	public int2 worldGridSize;
 
-	private Sector _mainSector;
+	private int2 _mainIndex;
 	private InputActions _actions;
 	private InputAction _mouseRightAction;
 	private InputAction _mousePositionAction;
@@ -21,6 +18,11 @@ public class FlowFieldController : MonoBehaviour
 	private void Awake()
 	{
 		_actions = new InputActions();
+	}
+
+	private void Start()
+	{
+		worldGridSize = new int2( sectors.GetLength( 0 ), sectors.GetLength( 1 ) );
 	}
 
 	private void OnEnable()
@@ -43,38 +45,62 @@ public class FlowFieldController : MonoBehaviour
 
 	private void OnMouseRight( InputAction.CallbackContext context )
 	{
-		TestMethod();
-		//Vector2 mousePosition = _mousePositionAction.ReadValue<Vector2>();
-		//float3 position = Camera.main.ScreenToWorldPoint( new float3( mousePosition.x, mousePosition.y, 0f ) );
-		//flowField = new FlowField( sectors );
+		Vector2 mousePosition = _mousePositionAction.ReadValue<Vector2>();
+		float3 position = Camera.main.ScreenToWorldPoint( new float3( mousePosition.x, mousePosition.y, 0f ) );
+		int2 index = GetIndexFromPosition( position, transform.position, worldGridSize, Sector.sectorSize );
 
-		//flowField.CreateGrid();
-		//debugGizmos.SetFlowField( flowField );
-		//flowField.CreateCostField( sectors[ 0, 0 ].costs );
+		flowField = new FlowField( GetActiveSectors( index ) );
 
+		flowField.InitializeFlowField();
+		debugGizmos.SetFlowField( flowField );
 
-
-		//List<Sector> activeSectors = GetActiveSectors( position );
-
-		//flowField.CreateIntegrationField( flowField.GetCellFromPosition( position ) );
-		//flowField.CreateFlowField();
+		flowField.SetDestinationCell( position );
+		flowField.CreateIntegrationField();
+		flowField.CreateFlowField();
 	}
 
 	private Sector[,] GetActiveSectors( int2 mainIndex )
 	{
-		Sector[,] activeSectors = new Sector[ 3, 3 ];
-		int2 mainIndex_temp = new int2( 1, 1 );
+		(Sector[,] activeSectors, int2 mainIndex_temp) = CreateActiveSectorArray( mainIndex );
+		int2 activeSectorsDimensions = new int2( activeSectors.GetLength( 0 ), activeSectors.GetLength( 1 ) );
 
 		foreach ( Direction direction in Direction.allDirections )
 		{
-			int2 currentIndex = mainIndex + ( int2 )direction.direction;
-			int2 currentIndex_temp = mainIndex_temp + ( int2 )direction.direction;
+			int2 currentIndex = mainIndex + direction;
+			int2 currentIndex_temp = mainIndex_temp + direction;
 
-			if ( GridUtility.ValidateIndex( currentIndex, worldSize ) )
+			if ( ValidateIndex( currentIndex_temp, activeSectorsDimensions ) )
 				activeSectors[ currentIndex_temp.x, currentIndex_temp.y ] = sectors[ currentIndex.x, currentIndex.y ];
 		}
 
 		return activeSectors;
+	}
+
+	private (Sector[,], int2 mainIndex) CreateActiveSectorArray( int2 mainIndex )
+	{
+		int2 currentDimensions = new int2( 3, 3 );
+		int2 mainIndex_temp = new int2( 1, 1 );
+
+		if ( !ValidateIndex( mainIndex + Direction.N, worldGridSize ) )
+		{
+			currentDimensions.y -= 1;
+		}
+		if ( !ValidateIndex( mainIndex + Direction.E, worldGridSize ) )
+		{
+			currentDimensions.x -= 1;
+		}
+		if ( !ValidateIndex( mainIndex + Direction.S, worldGridSize ) )
+		{
+			currentDimensions.y -= 1;
+			mainIndex_temp.y -= 1;
+		}
+		if ( !ValidateIndex( mainIndex + Direction.W, worldGridSize ) )
+		{
+			currentDimensions.x -= 1;
+			mainIndex_temp.x -= 1;
+		}
+
+		return (new Sector[ currentDimensions.x, currentDimensions.y ], mainIndex_temp);
 	}
 
 	private void TestMethod()
@@ -88,5 +114,13 @@ public class FlowFieldController : MonoBehaviour
 		Debug.Log( $"*int2: {gridSize}" );
 		gridSize = Sector.gridSize * sectorLength;
 		Debug.Log( $"*int: {gridSize}" );
+
+		int2 i = new int2( 9, 2 );
+		int2 S = new int2( 5, 3 );
+
+		Debug.Log( $"i.x / S.x = {i.x / S.x}" );
+		Debug.Log( $"i.y / S.y = {i.y / S.y}" );
+		Debug.Log( $"i.x % S.x = {i.x % S.x}" );
+		Debug.Log( $"i.y % S.y = {i.y % S.y}" );
 	}
 }
