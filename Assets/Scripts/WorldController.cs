@@ -22,7 +22,6 @@ public class WorldController : MonoBehaviour
 
 		CreateWorld();
 		flowFieldController.sectors = allSectorData;
-		flowFieldController.worldSize = new int2( allSectorData.GetLength( 0 ), allSectorData.GetLength( 1 ) );
 	}
 
 	private void CreateWorld()

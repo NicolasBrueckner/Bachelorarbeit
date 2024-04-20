@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using Unity.Mathematics;
-using UnityEngine.UIElements;
+using UnityEngine;
+using static GridUtility;
 
 public class FlowField
 {
 	public Sector[,] Sectors { get; private set; }
 	public Cell[,] Cells { get; private set; }
+	public float3 GridOrigin { get; private set; }
+	public int2 GridSize { get; private set; }
 
-	private float3 _gridOrigin;
-	private int2 _gridSize;
 	private Cell _destinationCell;
 	private float _cellRadius;
 	private float _cellDiameter;
@@ -18,62 +19,67 @@ public class FlowField
 	{
 		Sectors = sectors;
 
-		_gridOrigin = Sectors[ 0, 0 ].position;
-		_gridSize = Sector.gridSize * Sectors.Length;
+		GridOrigin = Sectors[ 0, 0 ].position;
+		GridSize = Sector.gridSize * new int2( Sectors.GetLength( 0 ), Sectors.GetLength( 1 ) );
 		_cellRadius = Sector.cellRadius;
 		_cellDiameter = Sector.cellDiameter;
 	}
 
-	public void CreateGrid()
+	public void InitializeFlowField()
 	{
-		Cells = new Cell[ _gridSize.x, _gridSize.y ];
+		Cells = new Cell[ GridSize.x, GridSize.y ];
+		int2 sectorGridSize = Sector.gridSize;
 
-		for ( int x = 0; x < _gridSize.x; x++ )
+		for ( int x = 0; x < GridSize.x; x++ )
 		{
-			for ( int y = 0; y < _gridSize.y; y++ )
+			for ( int y = 0; y < GridSize.y; y++ )
 			{
 				float3 position = new float3(
-					_gridOrigin.x + ( _cellDiameter * x ) + _cellRadius,
-					_gridOrigin.y + ( _cellDiameter * y ) + _cellRadius, 0 );
-				Cells[ x, y ] = new Cell( position, new int2( x, y ) );
+					GridOrigin.x + ( _cellDiameter * x ) + _cellRadius,
+					GridOrigin.y + ( _cellDiameter * y ) + _cellRadius, 0 );
+				int2 sectorIndex = new int2( x / sectorGridSize.x, y / sectorGridSize.y );
+				int2 localIndex = new int2( x % sectorGridSize.x, y % sectorGridSize.y );
+				byte cost = Sectors[ sectorIndex.x, sectorIndex.y ].costs[ localIndex.x, localIndex.y ];
+
+				Cells[ x, y ] = new Cell( position, new int2( x, y ), cost );
 			}
 		}
 	}
 
-	public void CreateCostField( byte[,] costs )
+	public void SetDestinationCell( float3 position )
 	{
-		for ( int x = 0; x < _gridSize.x; x++ )
-		{
-			for ( int y = 0; y < _gridSize.y; y++ )
-				Cells[ x, y ].cost = costs[ x, y ];
-		}
-	}
+		RestoreCellsToDefault();
 
-	public void CreateIntegrationField( Cell destinationCell )
-	{
-		_destinationCell = destinationCell;
+		int2 destinationIndex = GetIndexFromPosition( position, GridOrigin, GridSize );
+		_destinationCell = Cells[ destinationIndex.x, destinationIndex.y ];
+
 		_destinationCell.cost = 0;
 		_destinationCell.integrationCost = 0;
+	}
 
-		Queue<Cell> cells = new Queue<Cell>();
+	public void CreateIntegrationField()
+	{
+		Queue<Cell> cells = new();
 		cells.Enqueue( _destinationCell );
 
 		while ( cells.Count > 0 )
 		{
 			Cell currentCell = cells.Dequeue();
-			List<int2> neighbors = GridUtility.GetUnsafeNeighborIndexes( currentCell.index, Direction.cardinals );
+			List<int2> neighbors = GetUnsafeIndexes( currentCell.index, Direction.cardinals );
 
 			foreach ( int2 neighbor in neighbors )
 			{
 				int x = neighbor.x;
 				int y = neighbor.y;
 
-				if ( !GridUtility.ValidateIndex( neighbor, Cells ) )
-					continue;
-				if ( Cells[ x, y ].cost + currentCell.integrationCost < Cells[ x, y ].integrationCost )
+				if ( ValidateIndex( neighbor, Cells ) )
 				{
-					Cells[ x, y ].integrationCost = ( ushort )( Cells[ x, y ].cost + currentCell.integrationCost );
-					cells.Enqueue( Cells[ x, y ] );
+					short combinedIntegrationCost = ( short )( Cells[ x, y ].cost + currentCell.integrationCost );
+					if ( combinedIntegrationCost < Cells[ x, y ].integrationCost )
+					{
+						Cells[ x, y ].integrationCost = combinedIntegrationCost;
+						cells.Enqueue( Cells[ x, y ] );
+					}
 				}
 			}
 		}
@@ -83,29 +89,29 @@ public class FlowField
 	{
 		foreach ( Cell cell in Cells )
 		{
-			List<int2> neighbors = GridUtility.GetUnsafeNeighborIndexes( cell.index, Direction.trueDirections );
-			int integrationCost = cell.integrationCost;
+			List<int2> neighbors = GetUnsafeIndexes( cell.index, Direction.trueDirections );
+			short integrationCost = cell.integrationCost;
 
 			for ( int i = 0; i < neighbors.Count; i++ )
 			{
-				if ( GridUtility.ValidateIndex( neighbors[ i ], Cells ) )
+				if ( ValidateIndex( neighbors[ i ], Cells ) )
 				{
-					Cell validStraight = Cells[ neighbors[ i ].x, neighbors[ i ].y ];
+					Cell cardinal = Cells[ neighbors[ i ].x, neighbors[ i ].y ];
 
-					if ( validStraight.integrationCost < integrationCost )
+					if ( cardinal.integrationCost < integrationCost )
 					{
-						integrationCost = validStraight.integrationCost;
-						cell.flowDirection = Direction.GetDirection( validStraight.index - cell.index );
+						integrationCost = cardinal.integrationCost;
+						cell.flowDirection = ( float2 )Direction.GetDirection( cardinal.index - cell.index ).direction;
 					}
 
-					if ( GridUtility.ValidateIndex( neighbors[ i + 1 ], Cells ) && GridUtility.ValidateIndex( neighbors[ ( i + 2 ) % neighbors.Count ], Cells ) )
+					if ( ValidateIndex( neighbors[ i + 1 ], Cells ) && ValidateIndex( neighbors[ ( i + 2 ) % neighbors.Count ], Cells ) )
 					{
-						Cell validDiagonal = Cells[ neighbors[ i + 1 ].x, neighbors[ i + 1 ].y ];
+						Cell intercardinal = Cells[ neighbors[ i + 1 ].x, neighbors[ i + 1 ].y ];
 
-						if ( validDiagonal.integrationCost < integrationCost )
+						if ( intercardinal.integrationCost < integrationCost )
 						{
-							integrationCost = validDiagonal.integrationCost;
-							cell.flowDirection = Direction.GetDirection( validDiagonal.index - cell.index );
+							integrationCost = intercardinal.integrationCost;
+							cell.flowDirection = ( float2 )Direction.GetDirection( intercardinal.index - cell.index ).direction;
 						}
 					}
 				}
@@ -114,8 +120,12 @@ public class FlowField
 		}
 	}
 
-	//private void SetFlowDirection(Cell cell, Cell neighborCell)
-
-
-
+	private void RestoreCellsToDefault()
+	{
+		if ( Cells != null )
+		{
+			foreach ( Cell cell in Cells )
+				cell.RestoreDefault();
+		}
+	}
 }
