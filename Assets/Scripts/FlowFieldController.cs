@@ -49,10 +49,14 @@ public class FlowFieldController : MonoBehaviour
 		float3 position = Camera.main.ScreenToWorldPoint( new float3( mousePosition.x, mousePosition.y, 0f ) );
 		int2 index = GetIndexFromPosition( position, transform.position, worldGridSize, Sector.sectorSize );
 
-		flowField = new FlowField( GetActiveSectors( index ) );
+		if ( math.any( index != _mainIndex ) )
+		{
+			flowField = new FlowField( GetActiveSectors( index ) );
 
-		flowField.InitializeFlowField();
-		debugGizmos.SetFlowField( flowField );
+			flowField.InitializeFlowField();
+			debugGizmos.SetFlowField( flowField );
+			_mainIndex = index;
+		}
 
 		flowField.SetDestinationCell( position );
 		flowField.CreateIntegrationField();
