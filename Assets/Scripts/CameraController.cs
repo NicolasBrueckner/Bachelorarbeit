@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-	public float3 target;
+	public GameObject target;
 
 	private void Update()
 	{
-		transform.position = target;
+		transform.position = target.transform.position;
 	}
 }

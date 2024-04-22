@@ -4,5 +4,10 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
+	public CharacterStats stats;
 
+	private void Awake()
+	{
+		stats = new CharacterStats();
+	}
 }
