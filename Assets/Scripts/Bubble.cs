@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
-public class Scream : Weapon
+public class Bubble : Weapon
 {
+	public float3 direction;
+	public float duration;
+
 	protected override void Start()
 	{
 		base.Start();

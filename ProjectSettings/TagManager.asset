@@ -41,3 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 1047664721
+    locked: 0
+  - name: Items
+    uniqueID: 860129487
+    locked: 0
+  - name: Enemies
+    uniqueID: 2047470123
+    locked: 0
+  - name: Weapons
+    uniqueID: 785697127
+    locked: 0
+  - name: Character
+    uniqueID: 3904684759
+    locked: 0
