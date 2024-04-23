@@ -4,4 +4,13 @@ using UnityEngine;
 
 public class Fist : Weapon
 {
+	protected override void Start()
+	{
+		base.Start();
+	}
+
+	protected override void Update()
+	{
+		base.Update();
+	}
 }
