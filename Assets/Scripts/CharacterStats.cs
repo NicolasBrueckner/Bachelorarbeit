@@ -11,7 +11,7 @@ public class CharacterStats
 	public float def;
 	public float spd;
 
-	public CharacterStats( float hp = 100, float atk = 10, float atk_spd = 1, float def = 10, float spd = 5 )
+	public CharacterStats( float hp = 100, float atk = 10, float atk_spd = 1, float def = 10, float spd = 50 )
 	{
 		this.hp = hp;
 		this.atk = atk;

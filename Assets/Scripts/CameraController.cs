@@ -3,12 +3,21 @@ using System.Collections.Generic;
 using System.IO;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class CameraController : MonoBehaviour
 {
 	public GameObject target;
 	public float3 offset = new float3( 0, 0, -10 );
+
+
+	private void OnApplicationFocus( bool focus )
+	{
+		if ( focus )
+			Cursor.lockState = CursorLockMode.Confined;
+		else
+			Cursor.lockState = CursorLockMode.None;
+	}
 
 	private void Update()
 	{
@@ -19,4 +28,5 @@ public class CameraController : MonoBehaviour
 	{
 		transform.position = ( float3 )target.transform.position + offset;
 	}
+
 }

@@ -10,9 +10,11 @@ public class CharacterController : MonoBehaviour
 	public CharacterStats stats;
 
 	private Rigidbody2D _rb2D;
-	private Vector2 _moveDirection;
+	private float2 _moveDirection;
+	private float2 _aimDirection;
 	private InputActions _actions;
 	private InputAction _moveAction;
+	private InputAction _aimAction;
 
 	private void Awake()
 	{
@@ -24,18 +26,23 @@ public class CharacterController : MonoBehaviour
 	private void OnEnable()
 	{
 		_moveAction = _actions.Player.Move;
+		_aimAction = _actions.Player.Aim;
 		_moveAction.Enable();
+		_aimAction.Enable();
 
 		_moveAction.performed += OnMoveAction;
 		_moveAction.canceled += OnMoveAction;
+		_aimAction.performed += OnAimAction;
 	}
 
 	private void OnDisable()
 	{
 		_moveAction.performed -= OnMoveAction;
 		_moveAction.canceled -= OnMoveAction;
+		_aimAction.performed -= OnAimAction;
 
 		_moveAction.Disable();
+		_aimAction.Disable();
 	}
 
 	private void FixedUpdate()
@@ -45,6 +52,13 @@ public class CharacterController : MonoBehaviour
 
 	private void OnMoveAction( InputAction.CallbackContext context )
 	{
-		_moveDirection = context.ReadValue<Vector2>();
+		_moveDirection = ( float2 )context.ReadValue<Vector2>();
+	}
+
+	private void OnAimAction( InputAction.CallbackContext context )
+	{
+		float2 center = new float2( Screen.width / 2, Screen.height / 2 );
+		_aimDirection = math.normalize( ( float2 )context.ReadValue<Vector2>() - center );
+		Debug.Log( $"aim direction: {_aimDirection}" );
 	}
 }
