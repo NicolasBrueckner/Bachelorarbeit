@@ -21,11 +21,6 @@ public class Sector
 	public int2 index;
 	public byte[,] costs;
 
-	public static readonly float cellRadius = 0.5f;
-	public static readonly float cellDiameter = cellRadius * 2;
-	public static readonly int2 gridSize = new int2( 7, 7 );
-	public static readonly float2 sectorSize = new float2( gridSize.x * cellDiameter, gridSize.y * cellDiameter );
-
 	public Sector( float3 position, int2 index, CostMap costMap )
 	{
 		this.position = position;
@@ -66,6 +61,11 @@ public class Sector
 		{   1,   1,   1,   1, 255,   1,   1 },
 		{   1,   1,   1,   1,   1,   1,   1 },
 	};
+
+	public static readonly float cellRadius = 0.5f;
+	public static readonly float cellDiameter = cellRadius * 2;
+	public static readonly int2 gridSize = new int2( costArray_1.GetLength( 0 ), costArray_1.GetLength( 1 ) );
+	public static readonly float2 sectorSize = new float2( gridSize.x * cellDiameter, gridSize.y * cellDiameter );
 
 	public static readonly Dictionary<CostMap, byte[,]> costsBySector = new()
 	{
