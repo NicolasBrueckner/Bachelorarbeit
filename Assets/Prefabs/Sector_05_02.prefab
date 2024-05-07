@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6233523937682001940}
   - component: {fileID: 507601863930932362}
   m_Layer: 0
-  m_Name: Sector_03
+  m_Name: Sector_05_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 91218a036dd75b244b45083674d96cb0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ef30ee6e781df3945957958aa185792b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -105,4 +105,4 @@ MonoBehaviour:
     index:
       x: 0
       y: 0
-  costMap: 2
+  costMap: 9
