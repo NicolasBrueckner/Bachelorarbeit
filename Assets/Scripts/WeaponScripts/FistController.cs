@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fist : Weapon
+public class FistController : WeaponController
 {
 	protected override void Start()
 	{
@@ -12,5 +12,10 @@ public class Fist : Weapon
 	protected override void Update()
 	{
 		base.Update();
+	}
+
+	protected override void Attack()
+	{
+		base.Attack();
 	}
 }

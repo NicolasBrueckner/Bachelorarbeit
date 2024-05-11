@@ -1,15 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class Weapon : MonoBehaviour
+public class WeaponController : MonoBehaviour
 {
+	[Header( "Weapon Stats" )]
 	public GameObject weaponObject;
 	public float atk;
 	public float atk_spd;
 	public float spd;
 	public int pierce;
+
+	[Header( "Weapon Base Stats" )]
+	public WeaponBaseStats baseStats;
+
+	protected float3 direction;
 
 	private float _currentCooldown;
 
@@ -25,7 +33,7 @@ public class Weapon : MonoBehaviour
 			Attack();
 	}
 
-	private void Attack()
+	protected virtual void Attack()
 	{
 		_currentCooldown = atk_spd;
 	}

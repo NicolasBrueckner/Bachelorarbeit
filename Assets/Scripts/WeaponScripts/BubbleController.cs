@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class Bubble : Weapon
+public class BubbleController : WeaponController
 {
-	public float3 direction;
 	public float duration;
 
 	protected override void Start()
@@ -16,5 +15,11 @@ public class Bubble : Weapon
 	protected override void Update()
 	{
 		base.Update();
+	}
+
+	protected override void Attack()
+	{
+		base.Attack();
+
 	}
 }

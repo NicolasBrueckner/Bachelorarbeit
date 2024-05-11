@@ -7,18 +7,19 @@ using UnityEngine.InputSystem;
 
 public class CharacterController : MonoBehaviour
 {
+	public BaseCharacterStats baseStats;
 	public CharacterStats stats;
+	public float2 AimDirection { get; private set; }
 
 	private Rigidbody2D _rb2D;
 	private float2 _moveDirection;
-	private float2 _aimDirection;
 	private InputActions _actions;
 	private InputAction _moveAction;
 	private InputAction _aimAction;
 
 	private void Awake()
 	{
-		stats = new CharacterStats();
+		stats = new CharacterStats( baseStats );
 		_rb2D = GetComponent<Rigidbody2D>();
 		_actions = new InputActions();
 	}
@@ -47,6 +48,7 @@ public class CharacterController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		Debug.Log( $"spd: {stats.spd}" );
 		_rb2D.velocity = _moveDirection * stats.spd * Time.deltaTime;
 	}
 
@@ -58,7 +60,7 @@ public class CharacterController : MonoBehaviour
 	private void OnAimAction( InputAction.CallbackContext context )
 	{
 		float2 center = new float2( Screen.width / 2, Screen.height / 2 );
-		_aimDirection = math.normalize( ( float2 )context.ReadValue<Vector2>() - center );
-		Debug.Log( $"aim direction: {_aimDirection}" );
+		AimDirection = math.normalize( ( float2 )context.ReadValue<Vector2>() - center );
+		Debug.Log( $"aim direction: {AimDirection}" );
 	}
 }
