@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CharacterController : MonoBehaviour
+public class PlayerCharacterController : MonoBehaviour
 {
 	public BaseCharacterStats baseStats;
 	public CharacterStats stats;
