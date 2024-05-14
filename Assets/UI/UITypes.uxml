@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="GameOver" src="project://database/Assets/UI/GameOver.uxml?fileID=9197481963319205126&amp;guid=7c39ec32050b5e849bb7eadd63438390&amp;type=3#GameOver" />
+    <ui:Template name="HUD" src="project://database/Assets/UI/HUD.uxml?fileID=9197481963319205126&amp;guid=61cd02a0d06091742a16f7a42d45d745&amp;type=3#HUD" />
+    <ui:Template name="MainMenu" src="project://database/Assets/UI/MainMenu.uxml?fileID=9197481963319205126&amp;guid=8a2f4baffb040cc49b5f6321f6aefe40&amp;type=3#MainMenu" />
+    <ui:Instance template="MainMenu" name="MainMenu" />
+    <ui:Instance template="HUD" name="HUD" />
+    <ui:Instance template="GameOver" name="GameOver" />
+</ui:UXML>
