@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement style="background-color: rgb(0, 255, 0); flex-grow: 1;">
-        <ui:Button name="Restart" />
-        <ui:Button name="Return" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgb(115, 74, 74);">
+        <ui:Button text="start text lmao" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Start" />
+        <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Quit" />
     </ui:VisualElement>
 </ui:UXML>
