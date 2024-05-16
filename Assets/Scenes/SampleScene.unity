@@ -158,12 +158,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rootDocument: {fileID: 25975856}
-  _screensByType:
-    _serializedList:
-    - Key: 0
-    - Key: 1
-    - Key: 2
-    - Key: 3
 --- !u!4 &25975855
 Transform:
   m_ObjectHideFlags: 0
