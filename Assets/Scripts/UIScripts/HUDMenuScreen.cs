@@ -4,6 +4,7 @@ using UnityEngine.UIElements;
 public class HUDMenuScreen : MenuScreen
 {
 	private Button _pauseButton;
+	private VisualElement _healthbar;
 
 	protected override void Awake()
 	{
@@ -15,6 +16,7 @@ public class HUDMenuScreen : MenuScreen
 		base.GetElements();
 
 		_pauseButton = _root_.Q<Button>( "PauseButton" );
+		_healthbar = _root_.Q<VisualElement>( "Healthbar" );
 	}
 
 	protected override void BindElements()
@@ -27,5 +29,10 @@ public class HUDMenuScreen : MenuScreen
 	private void OnPauseButtonClicked()
 	{
 		UIScreenManager.Instance.ShowScreen( UIScreenTypes.Pause );
+	}
+
+	private void OnHealthChanged(float healthPercentage)
+	{
+		_healthbar.style.width = healthPercentage;
 	}
 }
