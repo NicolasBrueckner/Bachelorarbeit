@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
 
 	public Rigidbody2D rb2D;
 
+	protected float currentHP;
 	protected float2 direction;
 
 	private void Update()
