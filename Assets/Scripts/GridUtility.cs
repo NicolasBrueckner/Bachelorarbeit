@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Burst;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -61,6 +62,7 @@ public static class GridUtility
 		return gridPosition;
 	}
 
+	[BurstCompile]
 	public static int2 GetIndexFromPosition( float3 position, float3 gridOrigin, int2 gridSize, float2 cellSize )
 	{
 		float3 adjustedPosition = new float3( position.x - gridOrigin.x, position.y - gridOrigin.y, 0 );

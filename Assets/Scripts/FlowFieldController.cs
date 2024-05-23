@@ -10,7 +10,9 @@ public class FlowFieldController : MonoBehaviour
 	public Sector[,] sectors;
 	public int2 worldGridSize;
 
-	private int2 _mainIndex;
+	private int2 _mainSectorIndex;
+	private int2 _mainCellIndex;
+	private float3 _playerPosition;
 	private InputActions _actions;
 	private InputAction _mouseRightAction;
 	private InputAction _mousePositionAction;
@@ -43,19 +45,30 @@ public class FlowFieldController : MonoBehaviour
 		_actions.Debug.MousePosition.Disable();
 	}
 
+	private void Update()
+	{
+
+	}
+
 	private void OnMouseRight( InputAction.CallbackContext context )
 	{
 		Vector2 mousePosition = _mousePositionAction.ReadValue<Vector2>();
 		float3 position = Camera.main.ScreenToWorldPoint( new float3( mousePosition.x, mousePosition.y, 0f ) );
-		int2 index = GetIndexFromPosition( position, transform.position, worldGridSize, Sector.sectorSize );
 
-		if ( math.any( index != _mainIndex ) )
+		BuildFlowField( position );
+	}
+
+	public void BuildFlowField( float3 position )
+	{
+		int2 sectorIndex = GetIndexFromPosition( position, transform.position, worldGridSize, Sector.sectorSize );
+
+		if ( math.any( sectorIndex != _mainSectorIndex ) )
 		{
-			flowField = new FlowField( GetActiveSectors( index ) );
+			flowField = new FlowField( GetActiveSectors( sectorIndex ) );
 
 			flowField.InitializeFlowField();
 			debugGizmos.SetFlowField( flowField );
-			_mainIndex = index;
+			_mainSectorIndex = sectorIndex;
 		}
 
 		flowField.SetDestinationCell( position );
