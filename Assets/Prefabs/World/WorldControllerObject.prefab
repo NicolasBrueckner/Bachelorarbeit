@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cff2c61dc3df054a9f6a9f72fc28555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugGizmos: {fileID: 0}
+  debugGizmos: {fileID: 1061436354243816771, guid: 0ad29ab680d20ec43961935434d4f9ff, type: 3}
   worldGridSize:
     x: 0
     y: 0

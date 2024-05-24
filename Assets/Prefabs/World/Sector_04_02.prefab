@@ -178,7 +178,7 @@ MonoBehaviour:
     index:
       x: 0
       y: 0
-  costMap: 0
+  costMap: 6
 --- !u!1 &4086364365792959577
 GameObject:
   m_ObjectHideFlags: 0

@@ -62,10 +62,9 @@ public static class GridUtility
 		return gridPosition;
 	}
 
-	[BurstCompile]
 	public static int2 GetIndexFromPosition( float3 position, float3 gridOrigin, int2 gridSize, float2 cellSize )
 	{
-		float3 adjustedPosition = new float3( position.x - gridOrigin.x, position.y - gridOrigin.y, 0 );
+		float3 adjustedPosition = position - gridOrigin;
 		float2 normalizedPosition = new float2(
 			math.clamp( adjustedPosition.x / ( gridSize.x * cellSize.x ), 0f, 1f ),
 			math.clamp( adjustedPosition.y / ( gridSize.y * cellSize.y ), 0f, 1f ) );
