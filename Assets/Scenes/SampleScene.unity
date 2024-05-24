@@ -244,6 +244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22a7baa0adb3ca148921ce3795949fb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1222240047}
+  spawnRange: 10
   spawnFrequency: 0
   serializedEnemies:
   - prefab: {fileID: 5413159905188788259, guid: fbbe7f44f021899439504493546743fc, type: 3}
