@@ -94,30 +94,32 @@ public class FlowField
 
 			for ( int i = 0; i < neighbors.Count; i++ )
 			{
-				if ( ValidateIndex( neighbors[ i ], Cells ) )
+				int2 n1 = neighbors[ i ];
+				int2 n2 = neighbors[ i + 1 ];
+				int2 n3 = neighbors[ ( i + 2 ) % neighbors.Count ];
+
+				if ( ValidateIndex( n1, GridSize ) )
 				{
-					Cell cardinal = Cells[ neighbors[ i ].x, neighbors[ i ].y ];
+					SetFlowDirection( cell, Cells[ n1.x, n1.y ], ref integrationCost );
 
-					if ( cardinal.integrationCost < integrationCost )
-					{
-						integrationCost = cardinal.integrationCost;
-						cell.flowDirection = ( float2 )Direction.GetDirection( cardinal.index - cell.index ).direction;
-					}
-
-					if ( ValidateIndex( neighbors[ i + 1 ], Cells ) && ValidateIndex( neighbors[ ( i + 2 ) % neighbors.Count ], Cells ) )
-					{
-						Cell intercardinal = Cells[ neighbors[ i + 1 ].x, neighbors[ i + 1 ].y ];
-
-						if ( intercardinal.integrationCost < integrationCost )
-						{
-							integrationCost = intercardinal.integrationCost;
-							cell.flowDirection = ( float2 )Direction.GetDirection( intercardinal.index - cell.index ).direction;
-						}
-					}
+					if ( ValidateIndex( n2, GridSize ) && ValidateIndex( n3, GridSize ) )
+						SetFlowDirection( cell, Cells[ n2.x, n2.y ], ref integrationCost );
 				}
 				i++;
 			}
 		}
+	}
+
+	private void SetFlowDirection( Cell cell, Cell neighbor, ref short integrationCost )
+	{
+		if ( neighbor.cost < byte.MaxValue && neighbor.integrationCost < integrationCost )
+		{
+			integrationCost = neighbor.integrationCost;
+			cell.SetDirection( ( float2 )Direction.GetDirection( neighbor.index - cell.index ).direction );
+		}
+		else
+			cell.SetDirection(
+				new float2( _destinationCell.position.x - cell.position.x, _destinationCell.position.y - cell.position.y ) );
 	}
 
 	private void RestoreCellsToDefault()
