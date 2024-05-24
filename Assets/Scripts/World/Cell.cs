@@ -26,8 +26,7 @@ public class Cell
 
 	public void SetDirection( float2 direction )
 	{
-		math.normalize( direction );
-		flowDirection = direction;
+		flowDirection = math.normalize( direction );
 	}
 
 	public void RestoreDefault()
