@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -5,71 +6,66 @@ using static GridUtility;
 
 public class FlowFieldController : MonoBehaviour
 {
+	public static FlowFieldController Instance { get; private set; }
+
 	public Camera mainCamera;
-	public FlowField flowField;
 	public DebugGizmos debugGizmos;
-	public Sector[,] sectors;
-	public int2 worldGridSize;
+	public GameObject player;
+
+	public int2 WorldGridSize { get; private set; }
+	public Sector[,] Sectors { get; set; }
+	public FlowField FlowField { get; private set; }
 
 	private int2 _mainSectorIndex;
-	private int2 _mainCellIndex;
-	private float3 _playerPosition;
-	private InputActions _actions;
-	private InputAction _mouseRightAction;
-	private InputAction _mousePositionAction;
 
 	private void Awake()
 	{
-		_actions = new InputActions();
+		InitializeSingleton();
 	}
 
 	private void Start()
 	{
-		worldGridSize = new int2( sectors.GetLength( 0 ), sectors.GetLength( 1 ) );
+		WorldGridSize = new int2( Sectors.GetLength( 0 ), Sectors.GetLength( 1 ) );
+		StartCoroutine( FlowFieldCoroutine() );
 	}
 
-	private void OnEnable()
+	private void InitializeSingleton()
 	{
-		_mouseRightAction = _actions.Debug.MouseRight;
-		_mousePositionAction = _actions.Debug.MousePosition;
-		_mouseRightAction.Enable();
-		_mousePositionAction.Enable();
-
-		_mouseRightAction.performed += OnMouseRight;
+		if ( Instance == null )
+		{
+			Instance = this;
+			DontDestroyOnLoad( gameObject );
+		}
+		else
+			Destroy( gameObject );
 	}
 
-	private void OnDisable()
+	IEnumerator FlowFieldCoroutine()
 	{
-		_mouseRightAction.performed -= OnMouseRight;
+		while ( true )
+		{
+			BuildFlowField( player.transform.position );
 
-		_actions.Debug.MouseRight.Disable();
-		_actions.Debug.MousePosition.Disable();
-	}
-
-	private void OnMouseRight( InputAction.CallbackContext context )
-	{
-		Vector2 mousePosition = _mousePositionAction.ReadValue<Vector2>();
-		float3 position = mainCamera.ScreenToWorldPoint( new float3( mousePosition.x, mousePosition.y, 0f ) );
-
-		BuildFlowField( position );
+			yield return new WaitForSeconds( 0.2f );
+		}
 	}
 
 	public void BuildFlowField( float3 position )
 	{
-		int2 sectorIndex = GetIndexFromPosition( position, transform.position, worldGridSize, Sector.sectorSize );
+		int2 sectorIndex = GetIndexFromPosition( position, transform.position, WorldGridSize, Sector.sectorSize );
 
 		if ( math.any( sectorIndex != _mainSectorIndex ) )
 		{
-			flowField = new FlowField( GetActiveSectors( sectorIndex ) );
+			FlowField = new FlowField( GetActiveSectors( sectorIndex ) );
 
-			flowField.InitializeFlowField();
-			debugGizmos.SetFlowField( flowField );
+			FlowField.InitializeFlowField();
+			debugGizmos.SetFlowField( FlowField );
 			_mainSectorIndex = sectorIndex;
 		}
 
-		flowField.SetDestinationCell( position );
-		flowField.CreateIntegrationField();
-		flowField.CreateFlowField();
+		FlowField.SetDestinationCell( position );
+		FlowField.CreateIntegrationField();
+		FlowField.CreateFlowField();
 	}
 
 	private Sector[,] GetActiveSectors( int2 mainIndex )
@@ -83,7 +79,7 @@ public class FlowFieldController : MonoBehaviour
 			int2 currentIndex_temp = mainIndex_temp + direction;
 
 			if ( ValidateIndex( currentIndex_temp, activeSectorsDimensions ) )
-				activeSectors[ currentIndex_temp.x, currentIndex_temp.y ] = sectors[ currentIndex.x, currentIndex.y ];
+				activeSectors[ currentIndex_temp.x, currentIndex_temp.y ] = Sectors[ currentIndex.x, currentIndex.y ];
 		}
 
 		return activeSectors;
@@ -92,48 +88,27 @@ public class FlowFieldController : MonoBehaviour
 	private (Sector[,], int2 mainIndex) CreateActiveSectorArray( int2 mainIndex )
 	{
 		int2 currentDimensions = new( 3, 3 );
-		int2 mainIndex_temp = new( 1, 1 );
+		int2 adjustedMainIndex = new( 1, 1 );
 
-		if ( !ValidateIndex( mainIndex + Direction.N, worldGridSize ) )
+		if ( !ValidateIndex( mainIndex + Direction.N, WorldGridSize ) )
 		{
-			currentDimensions.y -= 1;
+			currentDimensions.y--;
 		}
-		if ( !ValidateIndex( mainIndex + Direction.E, worldGridSize ) )
+		if ( !ValidateIndex( mainIndex + Direction.E, WorldGridSize ) )
 		{
-			currentDimensions.x -= 1;
+			currentDimensions.x--;
 		}
-		if ( !ValidateIndex( mainIndex + Direction.S, worldGridSize ) )
+		if ( !ValidateIndex( mainIndex + Direction.S, WorldGridSize ) )
 		{
-			currentDimensions.y -= 1;
-			mainIndex_temp.y -= 1;
+			currentDimensions.y--;
+			adjustedMainIndex.y--;
 		}
-		if ( !ValidateIndex( mainIndex + Direction.W, worldGridSize ) )
+		if ( !ValidateIndex( mainIndex + Direction.W, WorldGridSize ) )
 		{
-			currentDimensions.x -= 1;
-			mainIndex_temp.x -= 1;
+			currentDimensions.x--;
+			adjustedMainIndex.x--;
 		}
 
-		return (new Sector[ currentDimensions.x, currentDimensions.y ], mainIndex_temp);
-	}
-
-	private void TestMethod()
-	{
-		int2 sectorDimensions = new( sectors.GetLength( 0 ), sectors.GetLength( 1 ) );
-		int sectorLength = sectors.Length;
-
-		int2 gridSize;
-
-		gridSize = Sector.gridSize * sectorDimensions;
-		Debug.Log( $"*int2: {gridSize}" );
-		gridSize = Sector.gridSize * sectorLength;
-		Debug.Log( $"*int: {gridSize}" );
-
-		int2 i = new( 9, 2 );
-		int2 S = new( 5, 3 );
-
-		Debug.Log( $"i.x / S.x = {i.x / S.x}" );
-		Debug.Log( $"i.y / S.y = {i.y / S.y}" );
-		Debug.Log( $"i.x % S.x = {i.x % S.x}" );
-		Debug.Log( $"i.y % S.y = {i.y % S.y}" );
+		return (new Sector[ currentDimensions.x, currentDimensions.y ], adjustedMainIndex);
 	}
 }

@@ -9,6 +9,11 @@ public class Sucker : Enemy
 		base.OnEnable();
 	}
 
+	protected override void OnDisable()
+	{
+		base.OnDisable();
+	}
+
 	protected override void Update()
 	{
 		base.Update();

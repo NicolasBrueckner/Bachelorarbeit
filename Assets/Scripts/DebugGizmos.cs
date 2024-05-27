@@ -38,7 +38,6 @@ public class DebugGizmos : MonoBehaviour
 		_gridSize = grid.GridSize;
 	}
 
-
 	public void DrawIcon( Cell cell )
 	{
 		Vector3 position = cell.position;

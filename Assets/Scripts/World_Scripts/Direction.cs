@@ -14,8 +14,11 @@ public class Direction
 		direction = new int2( x, y );
 	}
 
-	public static implicit operator int2( Direction cellDirection ) =>
-		cellDirection.direction;
+	public static implicit operator int2( Direction direction ) =>
+		direction.direction;
+
+	public static implicit operator float2( Direction direction ) =>
+		new( direction.direction.x, direction.direction.y );
 
 	public static Direction GetDirection( int2 direction ) =>
 		trueDirections.FirstOrDefault( cellDirection => math.all( cellDirection.direction == direction ) ) ?? None;

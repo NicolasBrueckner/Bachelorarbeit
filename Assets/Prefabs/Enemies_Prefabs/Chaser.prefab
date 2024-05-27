@@ -73,18 +73,18 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2047470123
+  m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -1388676587, guid: b1212cff7a0219e4c839a3fbf07d570c, type: 3}
+  m_Color: {r: 0.22988607, g: 0.5676473, b: 0.7735849, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &6345151880642842595
@@ -150,5 +150,6 @@ MonoBehaviour:
   maxHP: 0
   atk: 0
   def: 0
-  spd: 0
+  spd: 50
   rb2D: {fileID: 118508040903554003}
+  flowFieldController: {fileID: 0}
