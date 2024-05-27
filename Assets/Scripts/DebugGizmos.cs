@@ -6,18 +6,25 @@ using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public enum FlowFieldDisplayType { None, All, Cost, Integration, Destination }
+public enum FlowFieldDisplayType
+{
+	None,
+	All,
+	Cost,
+	Integration,
+	Destination,
+	RealDirection,
+}
 
 public class DebugGizmos : MonoBehaviour
 {
 	public bool showGrid;
 	public FlowFieldDisplayType displayType;
 
-	private Dictionary<int2, string> _directionToIcon;
+	private Dictionary<Direction, string> _directionToIcon;
 	private FlowField _currentGrid;
 	private float3 _gridOrigin;
 	private int2 _gridSize;
-	private Sprite[] _icons;
 
 	private void Start()
 	{
@@ -35,16 +42,13 @@ public class DebugGizmos : MonoBehaviour
 	public void DrawIcon( Cell cell )
 	{
 		Vector3 position = cell.position;
-		int2 flowDirection = ( int2 )cell.flowDirection;
 
-		string label = "";
-
-		if ( cell.cost == 0 )
-			label = "0";
-		else if ( cell.cost == byte.MaxValue )
-			label = "\u221E";
-		else
-			label = _directionToIcon.TryGetValue( flowDirection, out label ) ? label : "NA";
+		string label = cell.cost switch
+		{
+			0 => "0",
+			byte.MaxValue => "\u221E",
+			_ => _directionToIcon.TryGetValue( cell.Direction as Direction, out label ) ? label : "NA",
+		};
 
 		Handles.Label( position, label );
 	}
@@ -63,7 +67,7 @@ public class DebugGizmos : MonoBehaviour
 		if ( showGrid )
 			DrawGizmoGrid( _gridOrigin, _gridSize, Color.green, Sector.cellRadius );
 
-		GUIStyle style = new GUIStyle( GUI.skin.label )
+		GUIStyle style = new( GUI.skin.label )
 		{
 			alignment = TextAnchor.MiddleCenter,
 			fontSize = 10
@@ -83,6 +87,10 @@ public class DebugGizmos : MonoBehaviour
 				foreach ( Cell cell in _currentGrid.Cells )
 					DrawIcon( cell );
 				break;
+			case FlowFieldDisplayType.RealDirection:
+				foreach ( Cell cell in _currentGrid.Cells )
+					Handles.Label( cell.position, cell.realDirection.ToString(), style );
+				break;
 			default:
 				break;
 		}
@@ -92,16 +100,16 @@ public class DebugGizmos : MonoBehaviour
 	{
 		string[] icons = { "\u2191", "\u2197", "\u2192", "\u2198", "\u2193", "\u2199", "\u2190", "\u2196" };
 
-		_directionToIcon = new Dictionary<int2, string>
+		_directionToIcon = new Dictionary<Direction, string>
 		{
-			{Direction.N.direction, icons[0] },
-			{Direction.NE.direction, icons[1] },
-			{Direction.E.direction, icons[2] },
-			{Direction.SE.direction, icons[3] },
-			{Direction.S.direction, icons[4] },
-			{Direction.SW.direction, icons[5] },
-			{Direction.W.direction, icons[6] },
-			{Direction.NW.direction, icons[7] }
+			{Direction.N, icons[0] },
+			{Direction.NE, icons[1] },
+			{Direction.E, icons[2] },
+			{Direction.SE, icons[3] },
+			{Direction.S, icons[4] },
+			{Direction.SW, icons[5] },
+			{Direction.W, icons[6] },
+			{Direction.NW, icons[7] }
 		};
 	}
 
@@ -120,19 +128,9 @@ public class DebugGizmos : MonoBehaviour
 			for ( int y = 0; y < gridSize.y; y++ )
 			{
 				float posY = startY + ( cellSize * y );
-				Vector3 center = new Vector3( posX, posY, gridOrigin.z );
+				Vector3 center = new( posX, posY, gridOrigin.z );
 				Gizmos.DrawWireCube( center, size );
 			}
 		}
-	}
-
-	private bool Float2Compare( float2 a, float2 b )
-	{
-		return math.all( math.abs( a - b ) < 0.0001f );
-	}
-
-	private bool Float3Compare( float3 a, float3 b )
-	{
-		return math.all( math.abs( a - b ) < 0.0001f );
 	}
 }
