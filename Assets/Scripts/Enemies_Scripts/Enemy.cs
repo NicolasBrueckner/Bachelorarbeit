@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using static GridUtility;
 
 public class Enemy : MonoBehaviour
 {
@@ -13,13 +13,25 @@ public class Enemy : MonoBehaviour
 	public float spd;
 
 	public Rigidbody2D rb2D;
+	public FlowFieldController flowFieldController;
 
 	protected float _currentHP_;
 	protected float2 _direction_;
 
+	protected virtual void Awake()
+	{
+		flowFieldController = FlowFieldController.Instance;
+	}
+
 	protected virtual void OnEnable()
 	{
 		SetDirection();
+		StartCoroutine( ChangeDirection() );
+	}
+
+	protected virtual void OnDisable()
+	{
+		StopCoroutine( ChangeDirection() );
 	}
 
 	protected virtual void Update()
@@ -29,13 +41,37 @@ public class Enemy : MonoBehaviour
 
 	protected void MoveInDirection()
 	{
-		//SetDirection();
 		rb2D.velocity = _direction_ * spd * Time.deltaTime;
+	}
+
+	protected IEnumerator ChangeDirection()
+	{
+		while ( true )
+		{
+			SetDirection();
+			Debug.Log( $"direction: {_direction_}" );
+
+			yield return new WaitForSeconds( 0.2f );
+		}
 	}
 
 	protected void SetDirection()
 	{
-		_direction_ = math.normalize( new float2( Random.Range( -1f, 1f ), Random.Range( -1f, 1f ) ) );
+		if ( flowFieldController.FlowField != null )
+		{
+			int2 cellIndex = GetIndexFromPosition(
+				transform.position,
+				flowFieldController.FlowField.GridOrigin,
+				flowFieldController.FlowField.GridSize,
+				Sector.cellDiameter );
+
+			object cellDirection = flowFieldController.FlowField.Cells[ cellIndex.x, cellIndex.y ].Direction;
+
+			if ( cellDirection is Direction direction )
+				_direction_ = ( float2 )direction;
+			else if ( cellDirection is float2 float2 )
+				_direction_ = float2;
+		}
 	}
 
 }

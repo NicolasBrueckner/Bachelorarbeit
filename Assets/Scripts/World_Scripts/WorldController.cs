@@ -21,7 +21,7 @@ public class WorldController : MonoBehaviour
 		allSectorData = new Sector[ sectorGrid.GetLength( 0 ), sectorGrid.GetLength( 1 ) ];
 
 		CreateWorld();
-		flowFieldController.sectors = allSectorData;
+		flowFieldController.Sectors = allSectorData;
 	}
 
 	private void CreateWorld()
