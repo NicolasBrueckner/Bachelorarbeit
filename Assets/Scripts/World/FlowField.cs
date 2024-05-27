@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Unity.Mathematics;
+using UnityEditor;
 using UnityEngine;
 using static GridUtility;
 
@@ -11,8 +12,8 @@ public class FlowField
 	public int2 GridSize { get; private set; }
 
 	private Cell _destinationCell;
-	private float _cellRadius;
-	private float _cellDiameter;
+	private readonly float _cellRadius;
+	private readonly float _cellDiameter;
 
 
 	public FlowField( Sector[,] sectors )
@@ -34,11 +35,11 @@ public class FlowField
 		{
 			for ( int y = 0; y < GridSize.y; y++ )
 			{
-				float3 position = new float3(
+				float3 position = new(
 					GridOrigin.x + ( _cellDiameter * x ) + _cellRadius,
 					GridOrigin.y + ( _cellDiameter * y ) + _cellRadius, 0 );
-				int2 sectorIndex = new int2( x / sectorGridSize.x, y / sectorGridSize.y );
-				int2 localIndex = new int2( x % sectorGridSize.x, y % sectorGridSize.y );
+				int2 sectorIndex = new( x / sectorGridSize.x, y / sectorGridSize.y );
+				int2 localIndex = new( x % sectorGridSize.x, y % sectorGridSize.y );
 				byte cost = Sectors[ sectorIndex.x, sectorIndex.y ].costs[ localIndex.x, localIndex.y ];
 
 				Cells[ x, y ] = new Cell( position, new int2( x, y ), cost );
@@ -50,7 +51,7 @@ public class FlowField
 	{
 		RestoreCellsToDefault();
 
-		int2 destinationIndex = GetIndexFromPosition( position, GridOrigin, GridSize );
+		int2 destinationIndex = GetIndexFromPosition( position, GridOrigin, GridSize, Sector.cellDiameter );
 		_destinationCell = Cells[ destinationIndex.x, destinationIndex.y ];
 
 		_destinationCell.cost = 0;
@@ -72,7 +73,7 @@ public class FlowField
 				int x = neighbor.x;
 				int y = neighbor.y;
 
-				if ( ValidateIndex( neighbor, Cells ) )
+				if ( ValidateIndex( neighbor, GridSize ) && Cells[ x, y ].cost < byte.MaxValue )
 				{
 					short combinedIntegrationCost = ( short )( Cells[ x, y ].cost + currentCell.integrationCost );
 					if ( combinedIntegrationCost < Cells[ x, y ].integrationCost )
@@ -89,37 +90,47 @@ public class FlowField
 	{
 		foreach ( Cell cell in Cells )
 		{
+			if ( cell.cost == byte.MaxValue )
+			{
+				cell.Direction = new float2( _destinationCell.position.x - cell.position.x, _destinationCell.position.y - cell.position.y );
+				continue;
+			}
+
 			List<int2> neighbors = GetUnsafeIndexes( cell.index, Direction.trueDirections );
+			Direction flowDirection = Direction.None;
 			short integrationCost = cell.integrationCost;
 
 			for ( int i = 0; i < neighbors.Count; i++ )
 			{
 				int2 n1 = neighbors[ i ];
-				int2 n2 = neighbors[ i + 1 ];
-				int2 n3 = neighbors[ ( i + 2 ) % neighbors.Count ];
+				UpdateIntegrationCost( cell.index, n1, ref integrationCost, ref flowDirection );
 
-				if ( ValidateIndex( n1, GridSize ) )
+				if ( i + 1 < neighbors.Count )
 				{
-					SetFlowDirection( cell, Cells[ n1.x, n1.y ], ref integrationCost );
+					int2 n2 = neighbors[ i + 1 ];
+					int2 n3 = neighbors[ ( i + 2 ) % neighbors.Count ];
 
 					if ( ValidateIndex( n2, GridSize ) && ValidateIndex( n3, GridSize ) )
-						SetFlowDirection( cell, Cells[ n2.x, n2.y ], ref integrationCost );
+						UpdateIntegrationCost( cell.index, n2, ref integrationCost, ref flowDirection );
 				}
 				i++;
 			}
+
+			cell.Direction = flowDirection;
 		}
 	}
 
-	private void SetFlowDirection( Cell cell, Cell neighbor, ref short integrationCost )
+	private void UpdateIntegrationCost( int2 cellIndex, int2 neighborIndex, ref short integrationCost, ref Direction flowDirection )
 	{
-		if ( neighbor.cost < byte.MaxValue && neighbor.integrationCost < integrationCost )
+		if ( ValidateIndex( neighborIndex, GridSize ) )
 		{
-			integrationCost = neighbor.integrationCost;
-			cell.SetDirection( ( float2 )Direction.GetDirection( neighbor.index - cell.index ).direction );
+			Cell neighborCell = Cells[ neighborIndex.x, neighborIndex.y ];
+			if ( neighborCell.cost < byte.MaxValue && neighborCell.integrationCost < integrationCost )
+			{
+				integrationCost = neighborCell.integrationCost;
+				flowDirection = Direction.GetDirection( neighborIndex - cellIndex );
+			}
 		}
-		else
-			cell.SetDirection(
-				new float2( _destinationCell.position.x - cell.position.x, _destinationCell.position.y - cell.position.y ) );
 	}
 
 	private void RestoreCellsToDefault()

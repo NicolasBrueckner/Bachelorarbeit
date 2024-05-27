@@ -14,27 +14,23 @@ public class Direction
 		direction = new int2( x, y );
 	}
 
-	public static implicit operator int2( Direction cellDirection )
-	{
-		return cellDirection.direction;
-	}
+	public static implicit operator int2( Direction cellDirection ) =>
+		cellDirection.direction;
 
-	public static Direction GetDirection( int2 direction )
-	{
-		return trueDirections.FirstOrDefault( cellDirection => math.all( cellDirection.direction == direction ) ) ?? None;
-	}
+	public static Direction GetDirection( int2 direction ) =>
+		trueDirections.FirstOrDefault( cellDirection => math.all( cellDirection.direction == direction ) ) ?? None;
 
-	public static readonly Direction None = new Direction( 0, 0 );
-	public static readonly Direction N = new Direction( 0, 1 );
-	public static readonly Direction NE = new Direction( 1, 1 );
-	public static readonly Direction E = new Direction( 1, 0 );
-	public static readonly Direction SE = new Direction( 1, -1 );
-	public static readonly Direction S = new Direction( 0, -1 );
-	public static readonly Direction SW = new Direction( -1, -1 );
-	public static readonly Direction W = new Direction( -1, 0 );
-	public static readonly Direction NW = new Direction( -1, 1 );
+	public static readonly Direction None = new( 0, 0 );
+	public static readonly Direction N = new( 0, 1 );
+	public static readonly Direction NE = new( 1, 1 );
+	public static readonly Direction E = new( 1, 0 );
+	public static readonly Direction SE = new( 1, -1 );
+	public static readonly Direction S = new( 0, -1 );
+	public static readonly Direction SW = new( -1, -1 );
+	public static readonly Direction W = new( -1, 0 );
+	public static readonly Direction NW = new( -1, 1 );
 
-	public static readonly List<Direction> cardinals = new List<Direction>
+	public static readonly List<Direction> cardinals = new()
 	{
 		N,
 		E,
@@ -42,7 +38,7 @@ public class Direction
 		W,
 	};
 
-	public static readonly List<Direction> trueDirections = new List<Direction>
+	public static readonly List<Direction> trueDirections = new()
 	{
 		N,
 		NE,
@@ -54,7 +50,7 @@ public class Direction
 		NW,
 	};
 
-	public static readonly List<Direction> allDirections = new List<Direction>
+	public static readonly List<Direction> allDirections = new()
 	{
 		None,
 		N,

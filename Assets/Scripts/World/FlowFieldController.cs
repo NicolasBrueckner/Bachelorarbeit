@@ -5,6 +5,7 @@ using static GridUtility;
 
 public class FlowFieldController : MonoBehaviour
 {
+	public Camera mainCamera;
 	public FlowField flowField;
 	public DebugGizmos debugGizmos;
 	public Sector[,] sectors;
@@ -45,15 +46,10 @@ public class FlowFieldController : MonoBehaviour
 		_actions.Debug.MousePosition.Disable();
 	}
 
-	private void Update()
-	{
-
-	}
-
 	private void OnMouseRight( InputAction.CallbackContext context )
 	{
 		Vector2 mousePosition = _mousePositionAction.ReadValue<Vector2>();
-		float3 position = Camera.main.ScreenToWorldPoint( new float3( mousePosition.x, mousePosition.y, 0f ) );
+		float3 position = mainCamera.ScreenToWorldPoint( new float3( mousePosition.x, mousePosition.y, 0f ) );
 
 		BuildFlowField( position );
 	}
@@ -79,7 +75,7 @@ public class FlowFieldController : MonoBehaviour
 	private Sector[,] GetActiveSectors( int2 mainIndex )
 	{
 		(Sector[,] activeSectors, int2 mainIndex_temp) = CreateActiveSectorArray( mainIndex );
-		int2 activeSectorsDimensions = new int2( activeSectors.GetLength( 0 ), activeSectors.GetLength( 1 ) );
+		int2 activeSectorsDimensions = new( activeSectors.GetLength( 0 ), activeSectors.GetLength( 1 ) );
 
 		foreach ( Direction direction in Direction.allDirections )
 		{
@@ -95,8 +91,8 @@ public class FlowFieldController : MonoBehaviour
 
 	private (Sector[,], int2 mainIndex) CreateActiveSectorArray( int2 mainIndex )
 	{
-		int2 currentDimensions = new int2( 3, 3 );
-		int2 mainIndex_temp = new int2( 1, 1 );
+		int2 currentDimensions = new( 3, 3 );
+		int2 mainIndex_temp = new( 1, 1 );
 
 		if ( !ValidateIndex( mainIndex + Direction.N, worldGridSize ) )
 		{
@@ -122,18 +118,18 @@ public class FlowFieldController : MonoBehaviour
 
 	private void TestMethod()
 	{
-		int2 sectorDimensions = new int2( sectors.GetLength( 0 ), sectors.GetLength( 1 ) );
+		int2 sectorDimensions = new( sectors.GetLength( 0 ), sectors.GetLength( 1 ) );
 		int sectorLength = sectors.Length;
 
-		int2 gridSize = new int2();
+		int2 gridSize;
 
 		gridSize = Sector.gridSize * sectorDimensions;
 		Debug.Log( $"*int2: {gridSize}" );
 		gridSize = Sector.gridSize * sectorLength;
 		Debug.Log( $"*int: {gridSize}" );
 
-		int2 i = new int2( 9, 2 );
-		int2 S = new int2( 5, 3 );
+		int2 i = new( 9, 2 );
+		int2 S = new( 5, 3 );
 
 		Debug.Log( $"i.x / S.x = {i.x / S.x}" );
 		Debug.Log( $"i.y / S.y = {i.y / S.y}" );
