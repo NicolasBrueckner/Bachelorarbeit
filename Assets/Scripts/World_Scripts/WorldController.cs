@@ -35,11 +35,11 @@ public class WorldController : MonoBehaviour
 
 	private void CreateSector( int x, int y )
 	{
-		float3 position = new float3( Sector.sectorSize.x * x, Sector.sectorSize.y * y, 0 );
+		float3 position = new( Sector.sectorSize.x * x, Sector.sectorSize.y * y, 0 );
 
 		GameObject sectorObject = Instantiate( sectors[ sectorGrid[ x, y ] ], position, Quaternion.identity, transform );
 		SectorView sectorView = sectorObject.GetComponent<SectorView>();
-		Sector newSector = new Sector( position, new int2( x, y ), sectorView.costMap );
+		Sector newSector = new( position, new int2( x, y ), sectorView.costMap );
 
 		sectorView.sector = newSector;
 		allSectorData[ x, y ] = newSector;

@@ -36,7 +36,7 @@ public class Sector
 		costs = costsBySector[ costMap ];
 	}
 
-	private static byte[,] costs_01_01 =
+	private static readonly byte[,] costs_01_01 =
 	{
 		{   2,   2,   2,   2,   2,   2,   2,   2,   2,   2, 255 },
 		{   2,   2,   2, 255, 255, 255, 255, 255, 255,   2,   2 },
@@ -55,7 +55,7 @@ public class Sector
 		{   2,   2, 255,   2,   2,   2,   2,   3,   3,   3,   3 },
 	};
 
-	private static byte[,] costs_02_01 =
+	private static readonly byte[,] costs_02_01 =
 	{
 		{ 255,   2, 255,   2,   2,   2,   2,   2,   2,   2,   2 },
 		{   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2 },
@@ -74,7 +74,7 @@ public class Sector
 		{ 255, 255, 255, 255,   2,   2,   2, 255, 255, 255, 255 },
 	};
 
-	private static byte[,] costs_03_01 =
+	private static readonly byte[,] costs_03_01 =
 	{
 		{ 255, 255, 255, 255,   2,   2,   2, 255, 255, 255, 255 },
 		{   2,   2,   2,   2,   2,   2,   2,   2,   2,   2, 255 },
@@ -93,7 +93,7 @@ public class Sector
 		{ 255, 255, 255, 255,   2,   2,   2, 255, 255, 255, 255 },
 	};
 
-	private static byte[,] costs_03_02 =
+	private static readonly byte[,] costs_03_02 =
 	{
 		{   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2 },
 		{   2,   2, 255, 255, 255, 255, 255, 255, 255, 255, 255 },
@@ -112,7 +112,7 @@ public class Sector
 		{   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2 },
 	};
 
-	private static byte[,] costs_03_03 =
+	private static readonly byte[,] costs_03_03 =
 	{
 		{   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2 },
 		{   2, 255, 255, 255, 255, 255, 255, 255, 255, 255,   2 },
@@ -131,7 +131,7 @@ public class Sector
 		{   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2 },
 	};
 
-	private static byte[,] costs_04_01 =
+	private static readonly byte[,] costs_04_01 =
 	{
 		{   2,   2,   2,   1,   1,   1,   1,   1,   2,   2,   2 },
 		{   2,   2,   2,   1,   1,   1,   1,   1,   2,   2,   2 },
@@ -150,7 +150,7 @@ public class Sector
 		{   2,   3,   3,   1,   1,   1,   1,   1,   2,   2,   2 },
 	};
 
-	private static byte[,] costs_04_02 =
+	private static readonly byte[,] costs_04_02 =
 	{
 		{   2,   2,   2,   1,   1,   1,   1,   1,   2,   2,   2 },
 		{   2,   3,   3,   1,   1,   1,   1,   1,   2,   2,   2 },
@@ -169,7 +169,7 @@ public class Sector
 		{   2,   2,   2,   1,   1,   1,   1,   1,   3,   3,   3 },
 	};
 
-	private static byte[,] costs_04_03 =
+	private static readonly byte[,] costs_04_03 =
 	{
 		{   2,   2,   2,   1,   1,   1,   1,   1,   2,   2,   2 },
 		{   2,   2,   2,   1,   1,   1,   1,   1,   2,   2,   2 },
@@ -188,7 +188,7 @@ public class Sector
 		{   2,   2,   2,   1,   1,   1,   1,   1,   2,   2,   2 },
 	};
 
-	private static byte[,] costs_05_01 =
+	private static readonly byte[,] costs_05_01 =
 	{
 		{   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2 },
 		{   2,   2, 255,   2,   2,   2,   2,   2,   2,   2,   2 },
@@ -207,7 +207,7 @@ public class Sector
 		{   3,   3,   3,   2,   2,   2,   2,   2,   2,   2,   2 },
 	};
 
-	private static byte[,] costs_05_02 =
+	private static readonly byte[,] costs_05_02 =
 	{
 		{   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2 },
 		{   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2 },
@@ -228,8 +228,8 @@ public class Sector
 
 	public static readonly float cellRadius = 0.5f;
 	public static readonly float cellDiameter = cellRadius * 2;
-	public static readonly int2 gridSize = new int2( costs_01_01.GetLength( 0 ), costs_01_01.GetLength( 1 ) );
-	public static readonly float2 sectorSize = new float2( gridSize.x * cellDiameter, gridSize.y * cellDiameter );
+	public static readonly int2 gridSize = new( costs_01_01.GetLength( 0 ), costs_01_01.GetLength( 1 ) );
+	public static readonly float2 sectorSize = new( gridSize.x * cellDiameter, gridSize.y * cellDiameter );
 
 	public static readonly Dictionary<CostMap, byte[,]> costsBySector = new()
 	{
