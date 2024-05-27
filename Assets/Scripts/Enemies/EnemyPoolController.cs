@@ -18,6 +18,8 @@ public class EnemyPoolController : MonoBehaviour
 {
 	public static EnemyPoolController Instance { get; private set; }
 
+	public GameObject player;
+	public float spawnRange;
 	public float spawnFrequency;
 	public List<EnemyPool> serializedEnemies;
 
@@ -73,7 +75,12 @@ public class EnemyPoolController : MonoBehaviour
 		while ( true )
 		{
 			if ( _inactiveEnemies.Count > 0 )
-				_inactiveEnemies.Dequeue().SetActive( true );
+			{
+				GameObject enemy = _inactiveEnemies.Dequeue();
+				float2 onCircle = Random.insideUnitCircle.normalized * spawnRange;
+				enemy.transform.position = player.transform.position + new Vector3( onCircle.x, onCircle.y, 0f );
+				enemy.SetActive( true );
+			}
 
 			yield return new WaitForSeconds( spawnFrequency );
 		}
