@@ -28,6 +28,19 @@ public static class GridUtility
 		return index.x >= 0 && index.x < gridSize.x && index.y >= 0 & index.y < gridSize.y;
 	}
 
+	public static bool ValidateCell( int2 index, Cell[,] grid, out Cell cell )
+	{
+		int2 gridSize = new( grid.GetLength( 0 ), grid.GetLength( 1 ) );
+		cell = null;
+
+		if ( index.x >= 0 && index.x < gridSize.x && index.y >= 0 & index.y < gridSize.y )
+		{
+			cell = grid[ index.x, index.y ];
+			return cell.cost < byte.MaxValue;
+		}
+		return false;
+	}
+
 	public static int2 GetIndexFromPosition( float3 position, float3 gridOrigin, int2 gridSize, float2 cellSize )
 	{
 		float3 adjustedPosition = position - gridOrigin;

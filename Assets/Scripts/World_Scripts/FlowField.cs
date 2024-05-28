@@ -97,39 +97,35 @@ public class FlowField
 			}
 
 			List<int2> neighbors = GetUnsafeIndexes( cell.index, Direction.trueDirections );
-			Direction flowDirection = Direction.None;
 			short integrationCost = cell.integrationCost;
+			Direction flowDirection = Direction.None;
 
 			for ( int i = 0; i < neighbors.Count; i++ )
 			{
 				int2 n1 = neighbors[ i ];
-				UpdateIntegrationCost( cell.index, n1, ref integrationCost, ref flowDirection );
 
-				if ( i + 1 < neighbors.Count )
+				if ( ValidateCell( n1, Cells, out Cell n1Cell ) )
 				{
 					int2 n2 = neighbors[ i + 1 ];
 					int2 n3 = neighbors[ ( i + 2 ) % neighbors.Count ];
 
-					if ( ValidateIndex( n2, GridSize ) && ValidateIndex( n3, GridSize ) )
-						UpdateIntegrationCost( cell.index, n2, ref integrationCost, ref flowDirection );
+					UpdateIntegrationCost( cell, n1Cell, ref integrationCost, ref flowDirection );
+
+					if ( ValidateCell( n2, Cells, out Cell n2Cell ) && ValidateCell( n3, Cells, out _ ) )
+						UpdateIntegrationCost( cell, n2Cell, ref integrationCost, ref flowDirection );
 				}
 				i++;
 			}
-
 			cell.Direction = flowDirection;
 		}
 	}
 
-	private void UpdateIntegrationCost( int2 cellIndex, int2 neighborIndex, ref short integrationCost, ref Direction flowDirection )
+	private void UpdateIntegrationCost( Cell cell, Cell neighbor, ref short integrationCost, ref Direction flowDirection )
 	{
-		if ( ValidateIndex( neighborIndex, GridSize ) )
+		if ( neighbor.integrationCost < integrationCost )
 		{
-			Cell neighborCell = Cells[ neighborIndex.x, neighborIndex.y ];
-			if ( neighborCell.cost < byte.MaxValue && neighborCell.integrationCost < integrationCost )
-			{
-				integrationCost = neighborCell.integrationCost;
-				flowDirection = Direction.GetDirection( neighborIndex - cellIndex );
-			}
+			integrationCost = neighbor.integrationCost;
+			flowDirection = Direction.GetDirection( neighbor.index - cell.index );
 		}
 	}
 
