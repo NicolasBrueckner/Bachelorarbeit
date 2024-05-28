@@ -19,6 +19,7 @@ public enum CostMap
 	map_04_03,
 	map_05_01,
 	map_05_02,
+	blank,
 }
 
 [System.Serializable]
@@ -226,6 +227,25 @@ public class Sector
 		{   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2 },
 	};
 
+	private static readonly byte[,] costs_blank =
+	{
+		{   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 },
+		{   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 },
+		{   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 },
+		{   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 },
+		{   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 },
+		{   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 },
+		{   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 },
+		{   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 },
+		{   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 },
+		{   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 },
+		{   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 },
+		{   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 },
+		{   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 },
+		{   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 },
+		{   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 },
+	};
+
 	public static readonly float cellRadius = 0.5f;
 	public static readonly float cellDiameter = cellRadius * 2;
 	public static readonly int2 gridSize = new( costs_01_01.GetLength( 0 ), costs_01_01.GetLength( 1 ) );
@@ -243,5 +263,6 @@ public class Sector
 		{ CostMap.map_04_03, costs_04_03 },
 		{ CostMap.map_05_01, costs_05_01 },
 		{ CostMap.map_05_02, costs_05_02 },
+		{ CostMap.blank, costs_blank },
 	};
 }

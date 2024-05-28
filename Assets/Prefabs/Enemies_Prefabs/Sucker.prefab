@@ -150,6 +150,6 @@ MonoBehaviour:
   maxHP: 100
   atk: 5
   def: 5
-  spd: 30
+  spd: 60
   rb2D: {fileID: 3462387927659597024}
   flowFieldController: {fileID: 0}

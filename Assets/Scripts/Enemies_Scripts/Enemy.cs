@@ -49,7 +49,6 @@ public class Enemy : MonoBehaviour
 		while ( true )
 		{
 			SetDirection();
-			Debug.Log( $"direction: {_direction_}" );
 
 			yield return new WaitForSeconds( 0.2f );
 		}
