@@ -19,12 +19,16 @@ public enum FlowFieldDisplayType
 public class DebugGizmos : MonoBehaviour
 {
 	public bool showGrid;
+	public Color gridColor;
+	public bool showColliders;
+	public Color colliderColor;
 	public FlowFieldDisplayType displayType;
 
 	private Dictionary<Direction, string> _directionToIcon;
 	private FlowField _currentGrid;
 	private float3 _gridOrigin;
 	private int2 _gridSize;
+	private SectorView[,] _allSectors;
 
 	private void Start()
 	{
@@ -38,6 +42,10 @@ public class DebugGizmos : MonoBehaviour
 		_gridSize = grid.GridSize;
 	}
 
+	public void SetSectors( SectorView[,] sectors )
+	{
+		_allSectors = sectors;
+	}
 
 	public void DrawIcon( Cell cell )
 	{
@@ -55,6 +63,12 @@ public class DebugGizmos : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
+		DrawFlowField();
+		DrawPolygons();
+	}
+
+	private void DrawFlowField()
+	{
 		if ( _currentGrid == null )
 			return;
 
@@ -65,12 +79,13 @@ public class DebugGizmos : MonoBehaviour
 		}
 
 		if ( showGrid )
-			DrawGizmoGrid( _gridOrigin, _gridSize, Color.green, Sector.cellRadius );
+			DrawGizmoGrid( _gridOrigin, _gridSize, Sector.cellRadius );
 
 		GUIStyle style = new( GUI.skin.label )
 		{
 			alignment = TextAnchor.MiddleCenter,
-			fontSize = 10
+			fontSize = 10,
+			normal = { textColor = Color.black },
 		};
 
 		switch ( displayType )
@@ -94,6 +109,28 @@ public class DebugGizmos : MonoBehaviour
 			default:
 				break;
 		}
+
+	}
+
+	private void DrawGizmoGrid( float3 gridOrigin, int2 gridSize, float cellHalfSize )
+	{
+		Gizmos.color = gridColor;
+		float cellSize = cellHalfSize * 2;
+		Vector3 size = Vector3.one * cellSize;
+
+		float startX = gridOrigin.x + cellHalfSize;
+		float startY = gridOrigin.y + cellHalfSize;
+
+		for ( int x = 0; x < gridSize.x; x++ )
+		{
+			float posX = startX + ( cellSize * x );
+			for ( int y = 0; y < gridSize.y; y++ )
+			{
+				float posY = startY + ( cellSize * y );
+				Vector3 center = new( posX, posY, gridOrigin.z );
+				Gizmos.DrawWireCube( center, size );
+			}
+		}
 	}
 
 	private void InitializeDirectionToIcon()
@@ -113,24 +150,16 @@ public class DebugGizmos : MonoBehaviour
 		};
 	}
 
-	private void DrawGizmoGrid( float3 gridOrigin, int2 gridSize, Color32 gridColor, float cellHalfSize )
+	private void DrawPolygons()
 	{
-		Gizmos.color = gridColor;
-		float cellSize = cellHalfSize * 2;
-		Vector3 size = Vector3.one * cellSize;
+		if ( !showColliders )
+			return;
 
-		float startX = gridOrigin.x + cellHalfSize;
-		float startY = gridOrigin.y + cellHalfSize;
+		Gizmos.color = colliderColor;
 
-		for ( int x = 0; x < gridSize.x; x++ )
+		foreach ( SectorView sectorView in _allSectors )
 		{
-			float posX = startX + ( cellSize * x );
-			for ( int y = 0; y < gridSize.y; y++ )
-			{
-				float posY = startY + ( cellSize * y );
-				Vector3 center = new( posX, posY, gridOrigin.z );
-				Gizmos.DrawWireCube( center, size );
-			}
+			PolygonCollider2D collider = sectorView.GetComponent<PolygonCollider2D>();
 		}
 	}
 }
