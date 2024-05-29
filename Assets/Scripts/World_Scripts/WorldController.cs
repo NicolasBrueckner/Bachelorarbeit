@@ -39,9 +39,9 @@ public class WorldController : MonoBehaviour
 
 		GameObject sectorObject = Instantiate( sectors[ sectorGrid[ x, y ] ], position, Quaternion.identity, transform );
 		SectorView sectorView = sectorObject.GetComponent<SectorView>();
-		Sector newSector = new( position, new int2( x, y ), sectorView.costMap );
+		sectorView.InitilizeValues( new( x, y ) );
 
-		sectorView.sector = newSector;
-		allSectorData[ x, y ] = newSector;
+		sectorView.InitializeSector();
+		allSectorData[ x, y ] = sectorView.Sector;
 	}
 }
