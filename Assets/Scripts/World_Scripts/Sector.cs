@@ -25,16 +25,30 @@ public enum CostMap
 [System.Serializable]
 public class Sector
 {
-	public float3 position;
-	public int2 index;
-	public byte[,] costs;
+	public float3 Position { get; private set; }
+	public int2 Index { get; private set; }
+	public byte[,] Costs { get; private set; }
+
+	private SectorStats stats = SectorStats.Instance;
 
 	public Sector( float3 position, int2 index, CostMap costMap )
 	{
-		this.position = position;
-		this.index = index;
+		Position = position;
+		Index = index;
 
-		costs = costsBySector[ costMap ];
+		Costs = new byte[ stats.gridSize.x, stats.gridSize.y ];
+
+		SetCostField();
+	}
+
+	private void SetCostField()
+	{
+		float cellRadius = stats.cellRadius;
+		int2 gridSize = stats.gridSize;
+
+		int terrainMask = LayerMask.GetMask( "cost_255, cost_1, cost_2, cost_3" );
+
+
 	}
 
 	private static readonly byte[,] costs_01_01 =
