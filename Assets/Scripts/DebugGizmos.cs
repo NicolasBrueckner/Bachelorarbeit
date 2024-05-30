@@ -9,26 +9,24 @@ using UnityEngine;
 public enum FlowFieldDisplayType
 {
 	None,
-	All,
 	Cost,
 	Integration,
 	Destination,
-	RealDirection,
 }
 
 public class DebugGizmos : MonoBehaviour
 {
-	public bool showGrid;
-	public Color gridColor;
-	public bool showColliders;
-	public Color colliderColor;
-	public FlowFieldDisplayType displayType;
+	[SerializeField]
+	private bool _showGrid;
+	[SerializeField]
+	private Color _gridColor;
+	[SerializeField]
+	private FlowFieldDisplayType _displayType;
 
 	private Dictionary<Direction, string> _directionToIcon;
 	private FlowField _currentGrid;
 	private float3 _gridOrigin;
 	private int2 _gridSize;
-	private SectorView[,] _allSectors;
 
 	private void Start()
 	{
@@ -42,12 +40,48 @@ public class DebugGizmos : MonoBehaviour
 		_gridSize = grid.GridSize;
 	}
 
-	public void SetSectors( SectorView[,] sectors )
+	private void OnDrawGizmos()
 	{
-		_allSectors = sectors;
+		DrawFlowField();
 	}
 
-	public void DrawIcon( Cell cell )
+	private void DrawFlowField()
+	{
+		if ( _currentGrid == null )
+			return;
+
+		if ( _showGrid || _displayType == FlowFieldDisplayType.Destination )
+		{
+			foreach ( Transform t in transform )
+				DestroyImmediate( t.gameObject );
+		}
+
+		if ( _showGrid )
+			DrawGizmoGrid( _gridOrigin, _gridSize, Sector.cellRadius );
+
+		GUIStyle style = new( GUI.skin.label )
+		{
+			alignment = TextAnchor.MiddleCenter,
+			fontSize = 10,
+			normal = { textColor = Color.black },
+		};
+
+		foreach ( Cell cell in _currentGrid.Cells )
+		{
+			string label = _displayType switch
+			{
+				FlowFieldDisplayType.Cost => cell.cost.ToString(),
+				FlowFieldDisplayType.Integration => cell.integrationCost.ToString(),
+				FlowFieldDisplayType.Destination => DrawIconAndReturnString( cell ),
+				_ => null,
+			};
+
+			Handles.Label( cell.position, label ?? string.Empty, style );
+		}
+
+	}
+
+	private void DrawIcon( Cell cell )
 	{
 		Vector3 position = cell.position;
 
@@ -61,60 +95,15 @@ public class DebugGizmos : MonoBehaviour
 		Handles.Label( position, label );
 	}
 
-	private void OnDrawGizmos()
+	private string DrawIconAndReturnString( Cell cell )
 	{
-		DrawFlowField();
-		DrawPolygons();
-	}
-
-	private void DrawFlowField()
-	{
-		if ( _currentGrid == null )
-			return;
-
-		if ( showGrid || displayType == FlowFieldDisplayType.Destination )
-		{
-			foreach ( Transform t in transform )
-				DestroyImmediate( t.gameObject );
-		}
-
-		if ( showGrid )
-			DrawGizmoGrid( _gridOrigin, _gridSize, Sector.cellRadius );
-
-		GUIStyle style = new( GUI.skin.label )
-		{
-			alignment = TextAnchor.MiddleCenter,
-			fontSize = 10,
-			normal = { textColor = Color.black },
-		};
-
-		switch ( displayType )
-		{
-			case FlowFieldDisplayType.Cost:
-				foreach ( Cell cell in _currentGrid.Cells )
-					Handles.Label( cell.position, cell.cost.ToString(), style );
-				break;
-			case FlowFieldDisplayType.Integration:
-				foreach ( Cell cell in _currentGrid.Cells )
-					Handles.Label( cell.position, cell.integrationCost.ToString(), style );
-				break;
-			case FlowFieldDisplayType.Destination:
-				foreach ( Cell cell in _currentGrid.Cells )
-					DrawIcon( cell );
-				break;
-			case FlowFieldDisplayType.RealDirection:
-				foreach ( Cell cell in _currentGrid.Cells )
-					Handles.Label( cell.position, cell.realDirection.ToString(), style );
-				break;
-			default:
-				break;
-		}
-
+		DrawIcon( cell );
+		return null;
 	}
 
 	private void DrawGizmoGrid( float3 gridOrigin, int2 gridSize, float cellHalfSize )
 	{
-		Gizmos.color = gridColor;
+		Gizmos.color = _gridColor;
 		float cellSize = cellHalfSize * 2;
 		Vector3 size = Vector3.one * cellSize;
 
@@ -148,18 +137,5 @@ public class DebugGizmos : MonoBehaviour
 			{Direction.W, icons[6] },
 			{Direction.NW, icons[7] }
 		};
-	}
-
-	private void DrawPolygons()
-	{
-		if ( !showColliders )
-			return;
-
-		Gizmos.color = colliderColor;
-
-		foreach ( SectorView sectorView in _allSectors )
-		{
-			PolygonCollider2D collider = sectorView.GetComponent<PolygonCollider2D>();
-		}
 	}
 }

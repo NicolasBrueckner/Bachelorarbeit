@@ -20,7 +20,7 @@ public class FlowField
 	{
 		Sectors = sectors;
 
-		GridOrigin = Sectors[ 0, 0 ].position;
+		GridOrigin = Sectors[ 0, 0 ].Position;
 		GridSize = Sector.gridSize * new int2( Sectors.GetLength( 0 ), Sectors.GetLength( 1 ) );
 		_cellRadius = Sector.cellRadius;
 		_cellDiameter = Sector.cellDiameter;
@@ -40,7 +40,7 @@ public class FlowField
 					GridOrigin.y + ( _cellDiameter * y ) + _cellRadius, 0 );
 				int2 sectorIndex = new( x / sectorGridSize.x, y / sectorGridSize.y );
 				int2 localIndex = new( x % sectorGridSize.x, y % sectorGridSize.y );
-				byte cost = Sectors[ sectorIndex.x, sectorIndex.y ].costs[ localIndex.x, localIndex.y ];
+				byte cost = Sectors[ sectorIndex.x, sectorIndex.y ].Costs[ localIndex.x, localIndex.y ];
 
 				Cells[ x, y ] = new Cell( position, new int2( x, y ), cost );
 			}

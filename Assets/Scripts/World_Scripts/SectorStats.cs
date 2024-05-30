@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
+
+
 [CreateAssetMenu( menuName = "FlowField/SectorStats" )]
 public class SectorStats : ScriptableObject
 {
@@ -19,4 +21,13 @@ public class SectorStats : ScriptableObject
 
 	public float cellRadius;
 	public int2 gridSize;
+
+	public float cellDiameter
+	{
+		get => cellRadius * 2;
+	}
+	public float2 sectorSize
+	{
+		get => new( gridSize.x * cellDiameter, gridSize.y * cellDiameter );
+	}
 }
