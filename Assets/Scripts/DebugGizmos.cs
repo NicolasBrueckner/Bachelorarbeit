@@ -5,6 +5,7 @@ using Unity.Mathematics;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using stats = SectorStats;
 
 public enum FlowFieldDisplayType
 {
@@ -57,7 +58,7 @@ public class DebugGizmos : MonoBehaviour
 		}
 
 		if ( _showGrid )
-			DrawGizmoGrid( _gridOrigin, _gridSize, Sector.cellRadius );
+			DrawGizmoGrid( _gridOrigin, _gridSize, stats.cellRadius );
 
 		GUIStyle style = new( GUI.skin.label )
 		{

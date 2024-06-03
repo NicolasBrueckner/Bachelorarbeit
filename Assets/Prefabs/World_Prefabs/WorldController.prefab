@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &962530650588643094
+--- !u!1 &3204481019253860316
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7622565996363774920}
-  - component: {fileID: 9157647249554445237}
-  - component: {fileID: 2069027176818619145}
+  - component: {fileID: 2043134134781562458}
+  - component: {fileID: 4964512523720525777}
   m_Layer: 0
   m_Name: WorldController
   m_TagString: Untagged
@@ -18,34 +17,34 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7622565996363774920
+--- !u!4 &2043134134781562458
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 962530650588643094}
+  m_GameObject: {fileID: 3204481019253860316}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9157647249554445237
+--- !u!114 &4964512523720525777
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 962530650588643094}
+  m_GameObject: {fileID: 3204481019253860316}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8eb4a8ae690b4394ca25f78d074952f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flowFieldController: {fileID: 2069027176818619145}
+  stats: {fileID: 11400000, guid: 4017d279bb3fd9b498ea1f071bf6a035, type: 2}
   sectors:
   - {fileID: 1753522770430234551, guid: ac9da9e6f5bdb7a4f8ebc966256a8024, type: 3}
   - {fileID: 5726106135430635502, guid: 9e3df0cd9f137744ea2886c2388548a0, type: 3}
@@ -58,18 +57,3 @@ MonoBehaviour:
   - {fileID: 2713234720227605411, guid: 5f8b501bae1092f44989af06cda474fa, type: 3}
   - {fileID: 2713234720227605411, guid: df272b9b82675664d8737a6b4a0e66ea, type: 3}
   worldMap: 2
---- !u!114 &2069027176818619145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 962530650588643094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51ee753e126f7684fbc7e1f39fdb9ff8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
-  debugGizmos: {fileID: 0}
-  player: {fileID: 0}
