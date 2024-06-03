@@ -3,6 +3,7 @@ using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 using static GridUtility;
+using stats = SectorStats;
 
 public class FlowField
 {
@@ -21,15 +22,15 @@ public class FlowField
 		Sectors = sectors;
 
 		GridOrigin = Sectors[ 0, 0 ].Position;
-		GridSize = Sector.gridSize * new int2( Sectors.GetLength( 0 ), Sectors.GetLength( 1 ) );
-		_cellRadius = Sector.cellRadius;
-		_cellDiameter = Sector.cellDiameter;
+		GridSize = stats.gridSize * new int2( Sectors.GetLength( 0 ), Sectors.GetLength( 1 ) );
+		_cellRadius = stats.cellRadius;
+		_cellDiameter = stats.cellDiameter;
 	}
 
 	public void InitializeFlowField()
 	{
 		Cells = new Cell[ GridSize.x, GridSize.y ];
-		int2 sectorGridSize = Sector.gridSize;
+		int2 sectorGridSize = stats.gridSize;
 
 		for ( int x = 0; x < GridSize.x; x++ )
 		{
@@ -49,9 +50,9 @@ public class FlowField
 
 	public void SetDestinationCell( float3 position )
 	{
-		RestoreCellsToDefault();
+		_destinationCell?.RestoreDefault();
 
-		int2 destinationIndex = GetIndexFromPosition( position, GridOrigin, GridSize, Sector.cellDiameter );
+		int2 destinationIndex = GetIndexFromPosition( position, GridOrigin, GridSize, stats.cellDiameter );
 		_destinationCell = Cells[ destinationIndex.x, destinationIndex.y ];
 
 		_destinationCell.cost = 0;

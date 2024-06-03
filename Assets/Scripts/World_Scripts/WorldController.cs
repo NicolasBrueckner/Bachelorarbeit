@@ -5,6 +5,7 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 using UnityEngine.UIElements;
+using stats = SectorStats;
 
 public class WorldController : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class WorldController : MonoBehaviour
 
 	private void CreateSector( int x, int y )
 	{
-		float3 position = new( Sector.sectorSize.x * x, Sector.sectorSize.y * y, 0 );
+		float3 position = new( stats.sectorSize.x * x, stats.sectorSize.y * y, 0 );
 
 		GameObject sectorObject = Instantiate( sectors[ sectorGrid[ x, y ] ], position, Quaternion.identity, transform );
 		SectorView sectorView = sectorObject.GetComponent<SectorView>();

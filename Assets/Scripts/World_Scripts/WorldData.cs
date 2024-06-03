@@ -9,6 +9,7 @@ public enum WorldMap
 	map_01,
 	map_02,
 	blank,
+	blank_one,
 }
 
 public static class WorldData
@@ -48,10 +49,16 @@ public static class WorldData
 		{ 9, 9, 9, 9, 9, 9 },
 	};
 
+	public static byte[,] blank_one =
+	{
+		{9 },
+	};
+
 	public static readonly Dictionary<WorldMap, byte[,]> sectorsByMap = new()
 	{
 		{WorldMap.map_01, indexArray_01 },
 		{WorldMap.map_02, indexArray_02 },
 		{WorldMap.blank, blank },
+		{WorldMap.blank_one, blank_one },
 	};
 }

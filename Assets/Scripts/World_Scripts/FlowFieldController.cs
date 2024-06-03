@@ -3,11 +3,10 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static GridUtility;
+using stats = SectorStats;
 
 public class FlowFieldController : MonoBehaviour
 {
-	public static FlowFieldController Instance { get; private set; }
-
 	public Camera mainCamera;
 	public DebugGizmos debugGizmos;
 	public GameObject player;
@@ -16,28 +15,12 @@ public class FlowFieldController : MonoBehaviour
 	public Sector[,] Sectors { get; set; }
 	public FlowField FlowField { get; private set; }
 
-	private int2 _mainSectorIndex;
-
-	private void Awake()
-	{
-		InitializeSingleton();
-	}
+	private int2 _mainSectorIndex = new( -1, -1 );
 
 	private void Start()
 	{
 		WorldGridSize = new int2( Sectors.GetLength( 0 ), Sectors.GetLength( 1 ) );
 		StartCoroutine( FlowFieldCoroutine() );
-	}
-
-	private void InitializeSingleton()
-	{
-		if ( Instance == null )
-		{
-			Instance = this;
-			DontDestroyOnLoad( gameObject );
-		}
-		else
-			Destroy( gameObject );
 	}
 
 	IEnumerator FlowFieldCoroutine()
@@ -52,7 +35,7 @@ public class FlowFieldController : MonoBehaviour
 
 	public void BuildFlowField( float3 position )
 	{
-		int2 sectorIndex = GetIndexFromPosition( position, transform.position, WorldGridSize, Sector.sectorSize );
+		int2 sectorIndex = GetIndexFromPosition( position, transform.position, WorldGridSize, stats.sectorSize );
 
 		if ( math.any( sectorIndex != _mainSectorIndex ) )
 		{
