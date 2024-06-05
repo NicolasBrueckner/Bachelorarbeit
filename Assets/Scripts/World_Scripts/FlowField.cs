@@ -50,7 +50,7 @@ public class FlowField
 
 	public void SetDestinationCell( float3 position )
 	{
-		_destinationCell?.RestoreDefault();
+		RestoreCellsToDefault();
 
 		int2 destinationIndex = GetIndexFromPosition( position, GridOrigin, GridSize, stats.cellDiameter );
 		_destinationCell = Cells[ destinationIndex.x, destinationIndex.y ];
