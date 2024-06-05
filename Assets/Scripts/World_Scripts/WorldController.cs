@@ -1,5 +1,7 @@
+using AYellowpaper.SerializedCollections;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Burst;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -7,41 +9,51 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using stats = SectorStats;
 
+public enum WorldMap
+{
+	WorldMap_01,
+}
 public class WorldController : MonoBehaviour
 {
 	public FlowFieldController flowFieldController;
 	public GameObject[] sectors;
-	public WorldMap worldMap;
+	public SerializedDictionary<WorldMap, GameObject> worldMaps;
+	public WorldMap activeWorldMap;
 
-	private Sector[,] allSectorData;
-	private byte[,] sectorGrid;
+	private int2 _worldSize;
+	private Sector[,] _allSectorData;
 
 	private void Awake()
 	{
-		sectorGrid = WorldData.sectorsByMap[ worldMap ];
-		allSectorData = new Sector[ sectorGrid.GetLength( 0 ), sectorGrid.GetLength( 1 ) ];
+		_worldSize = GetWorldDimensions();
+		_allSectorData = new Sector[ _worldSize.x, _worldSize.y ];
 
 		CreateWorld();
-		flowFieldController.Sectors = allSectorData;
+		flowFieldController.Sectors = _allSectorData;
 	}
 
 	private void CreateWorld()
 	{
-		for ( int x = 0; x < sectorGrid.GetLength( 0 ); x++ )
+		GameObject activeWorld = Instantiate( worldMaps[ activeWorldMap ] );
+
+		foreach ( Transform sectorObject in activeWorld.transform )
 		{
-			for ( int y = 0; y < sectorGrid.GetLength( 1 ); y++ )
-				CreateSector( x, y );
+			SectorView sectorView = sectorObject.GetComponent<SectorView>();
+			sectorView.InitilizeSectorView();
+			_allSectorData[ sectorView.Index.x, sectorView.Index.y ] = sectorView.Sector;
 		}
 	}
 
-	private void CreateSector( int x, int y )
+	private int2 GetWorldDimensions()
 	{
-		float3 position = new( stats.sectorSize.x * x, stats.sectorSize.y * y, 0 );
+		var indeces = worldMaps[ activeWorldMap ].transform
+			.Cast<Transform>()
+			.Select( sector => sector.GetComponent<SectorView>() )
+			.Select( sectorView => sectorView.Index );
 
-		GameObject sectorObject = Instantiate( sectors[ sectorGrid[ x, y ] ], position, Quaternion.identity, transform );
-		SectorView sectorView = sectorObject.GetComponent<SectorView>();
-		sectorView.InitilizeSectorView( new( x, y ) );
-		allSectorData[ x, y ] = sectorView.Sector;
+		int xMax = indeces.Max( index => index.x ) + 1;
+		int yMax = indeces.Max( index => index.y ) + 1;
 
+		return new( xMax, yMax );
 	}
 }

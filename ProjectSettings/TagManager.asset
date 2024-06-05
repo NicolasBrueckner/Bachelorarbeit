@@ -14,10 +14,10 @@ TagManager:
   - 
   - 
   - 
-  - cost_1
-  - cost_2
-  - cost_3
-  - cost_255
+  - cost_street
+  - cost_grass
+  - cost_mud
+  - cost_impassable
   - 
   - 
   - 

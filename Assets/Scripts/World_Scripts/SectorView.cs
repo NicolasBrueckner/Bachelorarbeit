@@ -8,12 +8,11 @@ using stats = SectorStats;
 
 public class SectorView : MonoBehaviour
 {
+	public int2 Index;
 	public Sector Sector { get; private set; }
-	public int2 Index { get; private set; }
 
-	public void InitilizeSectorView( int2 index )
+	public void InitilizeSectorView()
 	{
-		Index = index;
 		ScaleSectorObject();
 		Sector = new Sector( transform.position, Index );
 	}

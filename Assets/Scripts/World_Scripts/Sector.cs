@@ -32,7 +32,7 @@ public class Sector
 		float cellDiameter = stats.cellDiameter;
 		float2 gridSize = stats.gridSize;
 
-		int terrainMask = LayerMask.GetMask( "cost_1", "cost_2", "cost_3", "cost_255" );
+		int terrainMask = LayerMask.GetMask( "cost_street", "cost_grass", "cost_mud", "cost_impassable" );
 
 		for ( int x = 0; x < gridSize.x; x++ )
 		{

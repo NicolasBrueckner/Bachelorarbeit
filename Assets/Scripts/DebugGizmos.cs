@@ -22,6 +22,8 @@ public class DebugGizmos : MonoBehaviour
 	[SerializeField]
 	private Color _gridColor;
 	[SerializeField]
+	private Color _labelColor;
+	[SerializeField]
 	private FlowFieldDisplayType _displayType;
 
 	private Dictionary<Direction, string> _directionToIcon;
@@ -63,8 +65,9 @@ public class DebugGizmos : MonoBehaviour
 		GUIStyle style = new( GUI.skin.label )
 		{
 			alignment = TextAnchor.MiddleCenter,
-			fontSize = 10,
-			normal = { textColor = Color.black },
+			fontSize = 15,
+			fontStyle = FontStyle.Bold,
+			normal = { textColor = _labelColor },
 		};
 
 		foreach ( Cell cell in _currentGrid.Cells )
