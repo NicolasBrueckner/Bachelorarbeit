@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
 
 	protected void SetDirection()
 	{
-		if ( flowFieldController.FlowField != null )
+		if ( flowFieldController != null && flowFieldController.FlowField != null )
 		{
 			int2 cellIndex = GetIndexFromPosition(
 				transform.position,
