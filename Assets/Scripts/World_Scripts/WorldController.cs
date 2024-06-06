@@ -19,7 +19,6 @@ public enum WorldMap
 public class WorldController : MonoBehaviour
 {
 	public FlowFieldController flowFieldController;
-	public GameObject[] sectors;
 	public SerializedDictionary<WorldMap, GameObject> worldMaps;
 	public WorldMap activeWorldMap;
 
