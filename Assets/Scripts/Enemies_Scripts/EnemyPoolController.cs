@@ -15,8 +15,7 @@ public struct EnemyPool
 
 public class EnemyPoolController : MonoBehaviour
 {
-	public static EnemyPoolController Instance { get; private set; }
-
+	public FlowFieldController flowFieldController;
 	public GameObject player;
 	public float spawnRange;
 	public float spawnFrequency;
@@ -25,26 +24,10 @@ public class EnemyPoolController : MonoBehaviour
 	private List<GameObject> _enemyPool;
 	private Queue<GameObject> _inactiveEnemies;
 
-	private void Awake()
-	{
-		InitializeSingleton();
-	}
-
 	private void Start()
 	{
 		InitializeObjectPool();
 		StartCoroutine( SpawnEnemy() );
-	}
-
-	private void InitializeSingleton()
-	{
-		if ( Instance == null )
-		{
-			Instance = this;
-			DontDestroyOnLoad( gameObject );
-		}
-		else
-			Destroy( gameObject );
 	}
 
 	private void InitializeObjectPool()
@@ -57,6 +40,8 @@ public class EnemyPoolController : MonoBehaviour
 			for ( int j = 0; j < serializedEnemies[ i ].amount; j++ )
 			{
 				temp = Instantiate( serializedEnemies[ i ].prefab );
+				Enemy enemy = temp.GetComponent<Enemy>();
+				enemy.flowFieldController = flowFieldController;
 				temp.SetActive( false );
 				_enemyPool.Add( temp );
 			}
