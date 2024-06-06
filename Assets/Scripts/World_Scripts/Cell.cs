@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Cell
 {
-	public bool realDirection;
-
 	public float3 position;
 	public int2 index;
 	public byte cost;

@@ -13,11 +13,11 @@ TagManager:
   - UI
   - 
   - 
-  - Impassable
   - 
-  - 
-  - 
-  - 
+  - cost_street
+  - cost_grass
+  - cost_mud
+  - cost_impassable
   - 
   - 
   - 

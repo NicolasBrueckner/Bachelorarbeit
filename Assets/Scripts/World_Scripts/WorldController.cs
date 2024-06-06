@@ -1,47 +1,75 @@
+using AYellowpaper.SerializedCollections;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Burst;
 using Unity.Mathematics;
 using Unity.Transforms;
+using UnityEditor.Build.Pipeline;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static GridUtility;
+using stats = SectorStats;
+
+public enum WorldMap
+{
+	WorldMap_01,
+}
 
 public class WorldController : MonoBehaviour
 {
 	public FlowFieldController flowFieldController;
 	public GameObject[] sectors;
-	public WorldMap worldMap;
+	public SerializedDictionary<WorldMap, GameObject> worldMaps;
+	public WorldMap activeWorldMap;
 
-	private Sector[,] allSectorData;
-	private byte[,] sectorGrid;
+	private int2 _worldSize;
+	private Sector[,] _allSectorData;
+	private Dictionary<int2, Transform> _sectorsByIndex;
 
 	private void Awake()
 	{
-		sectorGrid = WorldData.sectorsByMap[ worldMap ];
-		allSectorData = new Sector[ sectorGrid.GetLength( 0 ), sectorGrid.GetLength( 1 ) ];
+		SetSectorIndices();
+		SetWorldDimensions();
 
 		CreateWorld();
-		flowFieldController.Sectors = allSectorData;
+		flowFieldController.Sectors = _allSectorData;
 	}
 
 	private void CreateWorld()
 	{
-		for ( int x = 0; x < sectorGrid.GetLength( 0 ); x++ )
+		Instantiate( worldMaps[ activeWorldMap ] );
+		_allSectorData = new Sector[ _worldSize.x, _worldSize.y ];
+
+		foreach ( int2 index in _sectorsByIndex.Keys )
 		{
-			for ( int y = 0; y < sectorGrid.GetLength( 1 ); y++ )
-				CreateSector( x, y );
+			SectorView sectorView = _sectorsByIndex[ index ].GetComponent<SectorView>();
+
+			sectorView.InitilizeSectorView( index );
+
+			_allSectorData[ index.x, index.y ] = sectorView.Sector;
 		}
 	}
 
-	private void CreateSector( int x, int y )
+	private void SetSectorIndices()
 	{
-		float3 position = new( Sector.sectorSize.x * x, Sector.sectorSize.y * y, 0 );
+		_sectorsByIndex = new Dictionary<int2, Transform>();
 
-		GameObject sectorObject = Instantiate( sectors[ sectorGrid[ x, y ] ], position, Quaternion.identity, transform );
-		SectorView sectorView = sectorObject.GetComponent<SectorView>();
-		Sector newSector = new( position, new int2( x, y ), sectorView.costMap );
+		foreach ( Transform sectorObject in worldMaps[ activeWorldMap ].transform )
+		{
+			int2 index = GetUnsafeIndexFromPosition( sectorObject.position, stats.sectorSize );
+			_sectorsByIndex[ index ] = sectorObject;
+		}
+	}
 
-		sectorView.sector = newSector;
-		allSectorData[ x, y ] = newSector;
+	private void SetWorldDimensions()
+	{
+		if ( _sectorsByIndex.Count == 0 )
+			return;
+
+		int xMax = _sectorsByIndex.Keys.Max( index => index.x );
+		int yMax = _sectorsByIndex.Keys.Max( index => index.y );
+
+		_worldSize = new( xMax + 1, yMax + 1 );
 	}
 }
