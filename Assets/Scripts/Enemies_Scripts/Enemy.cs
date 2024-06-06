@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using static GridUtility;
+using stats = SectorStats;
 
 public class Enemy : MonoBehaviour
 {
@@ -20,7 +21,6 @@ public class Enemy : MonoBehaviour
 
 	protected virtual void Awake()
 	{
-		flowFieldController = FlowFieldController.Instance;
 	}
 
 	protected virtual void OnEnable()
@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour
 				transform.position,
 				flowFieldController.FlowField.GridOrigin,
 				flowFieldController.FlowField.GridSize,
-				Sector.cellDiameter );
+				stats.cellDiameter );
 
 			object cellDirection = flowFieldController.FlowField.Cells[ cellIndex.x, cellIndex.y ].Direction;
 

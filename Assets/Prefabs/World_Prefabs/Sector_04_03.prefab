@@ -76,11 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1047664721
-<<<<<<<< HEAD:Assets/Prefabs/World_Prefabs/Sector_05_02.prefab
-  m_SortingLayer: 1
-========
   m_SortingLayer: 0
->>>>>>>> World:Assets/Prefabs/World_Prefabs/Sector_04_03.prefab
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c8bed50b323a7cd41ae8c5774bfad6e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
