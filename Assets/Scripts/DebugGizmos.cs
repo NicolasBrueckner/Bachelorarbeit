@@ -5,21 +5,26 @@ using Unity.Mathematics;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using stats = SectorStats;
 
 public enum FlowFieldDisplayType
 {
 	None,
-	All,
 	Cost,
 	Integration,
 	Destination,
-	RealDirection,
 }
 
 public class DebugGizmos : MonoBehaviour
 {
-	public bool showGrid;
-	public FlowFieldDisplayType displayType;
+	[SerializeField]
+	private bool _showGrid;
+	[SerializeField]
+	private Color _gridColor;
+	[SerializeField]
+	private Color _labelColor;
+	[SerializeField]
+	private FlowFieldDisplayType _displayType;
 
 	private Dictionary<Direction, string> _directionToIcon;
 	private FlowField _currentGrid;
@@ -38,7 +43,49 @@ public class DebugGizmos : MonoBehaviour
 		_gridSize = grid.GridSize;
 	}
 
-	public void DrawIcon( Cell cell )
+	private void OnDrawGizmos()
+	{
+		DrawFlowField();
+	}
+
+	private void DrawFlowField()
+	{
+		if ( _currentGrid == null )
+			return;
+
+		if ( _showGrid || _displayType == FlowFieldDisplayType.Destination )
+		{
+			foreach ( Transform t in transform )
+				DestroyImmediate( t.gameObject );
+		}
+
+		if ( _showGrid )
+			DrawGizmoGrid( _gridOrigin, _gridSize, stats.cellRadius );
+
+		GUIStyle style = new( GUI.skin.label )
+		{
+			alignment = TextAnchor.MiddleCenter,
+			fontSize = 15,
+			fontStyle = FontStyle.Bold,
+			normal = { textColor = _labelColor },
+		};
+
+		foreach ( Cell cell in _currentGrid.Cells )
+		{
+			string label = _displayType switch
+			{
+				FlowFieldDisplayType.Cost => cell.cost.ToString(),
+				FlowFieldDisplayType.Integration => cell.integrationCost.ToString(),
+				FlowFieldDisplayType.Destination => DrawIconAndReturnString( cell ),
+				_ => null,
+			};
+
+			Handles.Label( cell.position, label ?? string.Empty, style );
+		}
+
+	}
+
+	private void DrawIcon( Cell cell )
 	{
 		Vector3 position = cell.position;
 
@@ -52,46 +99,30 @@ public class DebugGizmos : MonoBehaviour
 		Handles.Label( position, label );
 	}
 
-	private void OnDrawGizmos()
+	private string DrawIconAndReturnString( Cell cell )
 	{
-		if ( _currentGrid == null )
-			return;
+		DrawIcon( cell );
+		return null;
+	}
 
-		if ( showGrid || displayType == FlowFieldDisplayType.Destination )
+	private void DrawGizmoGrid( float3 gridOrigin, int2 gridSize, float cellHalfSize )
+	{
+		Gizmos.color = _gridColor;
+		float cellSize = cellHalfSize * 2;
+		Vector3 size = Vector3.one * cellSize;
+
+		float startX = gridOrigin.x + cellHalfSize;
+		float startY = gridOrigin.y + cellHalfSize;
+
+		for ( int x = 0; x < gridSize.x; x++ )
 		{
-			foreach ( Transform t in transform )
-				DestroyImmediate( t.gameObject );
-		}
-
-		if ( showGrid )
-			DrawGizmoGrid( _gridOrigin, _gridSize, Color.green, Sector.cellRadius );
-
-		GUIStyle style = new( GUI.skin.label )
-		{
-			alignment = TextAnchor.MiddleCenter,
-			fontSize = 10
-		};
-
-		switch ( displayType )
-		{
-			case FlowFieldDisplayType.Cost:
-				foreach ( Cell cell in _currentGrid.Cells )
-					Handles.Label( cell.position, cell.cost.ToString(), style );
-				break;
-			case FlowFieldDisplayType.Integration:
-				foreach ( Cell cell in _currentGrid.Cells )
-					Handles.Label( cell.position, cell.integrationCost.ToString(), style );
-				break;
-			case FlowFieldDisplayType.Destination:
-				foreach ( Cell cell in _currentGrid.Cells )
-					DrawIcon( cell );
-				break;
-			case FlowFieldDisplayType.RealDirection:
-				foreach ( Cell cell in _currentGrid.Cells )
-					Handles.Label( cell.position, cell.realDirection.ToString(), style );
-				break;
-			default:
-				break;
+			float posX = startX + ( cellSize * x );
+			for ( int y = 0; y < gridSize.y; y++ )
+			{
+				float posY = startY + ( cellSize * y );
+				Vector3 center = new( posX, posY, gridOrigin.z );
+				Gizmos.DrawWireCube( center, size );
+			}
 		}
 	}
 
@@ -110,26 +141,5 @@ public class DebugGizmos : MonoBehaviour
 			{Direction.W, icons[6] },
 			{Direction.NW, icons[7] }
 		};
-	}
-
-	private void DrawGizmoGrid( float3 gridOrigin, int2 gridSize, Color32 gridColor, float cellHalfSize )
-	{
-		Gizmos.color = gridColor;
-		float cellSize = cellHalfSize * 2;
-		Vector3 size = Vector3.one * cellSize;
-
-		float startX = gridOrigin.x + cellHalfSize;
-		float startY = gridOrigin.y + cellHalfSize;
-
-		for ( int x = 0; x < gridSize.x; x++ )
-		{
-			float posX = startX + ( cellSize * x );
-			for ( int y = 0; y < gridSize.y; y++ )
-			{
-				float posY = startY + ( cellSize * y );
-				Vector3 center = new( posX, posY, gridOrigin.z );
-				Gizmos.DrawWireCube( center, size );
-			}
-		}
 	}
 }

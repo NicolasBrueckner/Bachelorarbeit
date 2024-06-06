@@ -54,4 +54,11 @@ public static class GridUtility
 
 		return gridPosition;
 	}
+
+	public static int2 GetUnsafeIndexFromPosition( float3 position, float2 gridSize )
+	{
+		return new(
+			( int )math.floor( position.x / gridSize.x ),
+			( int )math.floor( position.y / gridSize.y ) );
+	}
 }
