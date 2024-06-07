@@ -41,7 +41,7 @@ public class EnemyPoolController : MonoBehaviour
 			{
 				temp = Instantiate( serializedEnemies[ i ].prefab );
 				Enemy enemy = temp.GetComponent<Enemy>();
-				enemy.flowFieldController = flowFieldController;
+				enemy.flowFieldController ??= flowFieldController;
 				temp.SetActive( false );
 				_enemyPool.Add( temp );
 			}
