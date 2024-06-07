@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sucker : Enemy
+public class Chaser : Enemy
 {
 	protected override void OnEnable()
 	{
 		base.OnEnable();
+	}
+
+	protected override void OnDisable()
+	{
+		base.OnDisable();
 	}
 
 	protected override void Update()

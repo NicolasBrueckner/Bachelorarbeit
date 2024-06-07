@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
-using mathRandom = Unity.Mathematics.Random;
 using Random = UnityEngine.Random;
 
 [Serializable]
@@ -16,39 +15,19 @@ public struct EnemyPool
 
 public class EnemyPoolController : MonoBehaviour
 {
-	public static EnemyPoolController Instance { get; private set; }
-
+	public FlowFieldController flowFieldController;
 	public GameObject player;
 	public float spawnRange;
 	public float spawnFrequency;
 	public List<EnemyPool> serializedEnemies;
 
-	private mathRandom _random;
-	private Coroutine _spawnCoroutine;
 	private List<GameObject> _enemyPool;
 	private Queue<GameObject> _inactiveEnemies;
-
-	private void Awake()
-	{
-		InitializeSingleton();
-		_random = new mathRandom( ( uint )DateTime.Now.Ticks );
-	}
 
 	private void Start()
 	{
 		InitializeObjectPool();
-		_spawnCoroutine = StartCoroutine( SpawnEnemy() );
-	}
-
-	private void InitializeSingleton()
-	{
-		if ( Instance == null )
-		{
-			Instance = this;
-			DontDestroyOnLoad( gameObject );
-		}
-		else
-			Destroy( gameObject );
+		StartCoroutine( SpawnEnemy() );
 	}
 
 	private void InitializeObjectPool()
@@ -61,6 +40,8 @@ public class EnemyPoolController : MonoBehaviour
 			for ( int j = 0; j < serializedEnemies[ i ].amount; j++ )
 			{
 				temp = Instantiate( serializedEnemies[ i ].prefab );
+				Enemy enemy = temp.GetComponent<Enemy>();
+				enemy.flowFieldController ??= flowFieldController;
 				temp.SetActive( false );
 				_enemyPool.Add( temp );
 			}
@@ -99,9 +80,7 @@ public class EnemyPoolController : MonoBehaviour
 		for ( int i = 0; i <= last; i++ )
 		{
 			int random = Random.Range( 0, count );
-			GameObject tempObject = list[ i ];
-			list[ i ] = list[ random ];
-			list[ random ] = tempObject;
+			(list[ random ], list[ i ]) = (list[ i ], list[ random ]);
 		}
 	}
 }
