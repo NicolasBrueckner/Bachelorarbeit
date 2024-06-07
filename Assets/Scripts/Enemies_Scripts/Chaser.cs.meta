@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/InputActions.cs.meta
+guid: ffdf9a2c099c0be41ad9b62c8327c9c4
+========
 guid: d43caef62e825024ba1e5446ad5ba4ac
+>>>>>>>> Enemies:Assets/Scripts/Chaser.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
