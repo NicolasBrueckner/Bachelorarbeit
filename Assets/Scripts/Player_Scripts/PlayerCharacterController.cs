@@ -48,7 +48,6 @@ public class PlayerCharacterController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		Debug.Log( $"spd: {stats.spd}" );
 		_rb2D.velocity = _moveDirection * stats.spd * Time.deltaTime;
 	}
 
@@ -59,8 +58,7 @@ public class PlayerCharacterController : MonoBehaviour
 
 	private void OnAimAction( InputAction.CallbackContext context )
 	{
-		float2 center = new float2( Screen.width / 2, Screen.height / 2 );
+		float2 center = new( Screen.width / 2, Screen.height / 2 );
 		AimDirection = math.normalize( ( float2 )context.ReadValue<Vector2>() - center );
-		Debug.Log( $"aim direction: {AimDirection}" );
 	}
 }

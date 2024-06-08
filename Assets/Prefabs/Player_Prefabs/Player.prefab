@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7807978141695586386}
-  - component: {fileID: 6299229564071169340}
+  - component: {fileID: 53769403332124065}
   m_Layer: 0
   m_Name: FistController
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4053436295978467552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6299229564071169340
+--- !u!114 &53769403332124065
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1267110398994869622}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4945c2caefc598047b12898421830fe9, type: 3}
+  m_Script: {fileID: 11500000, guid: b79f0d8d54f442446ae31777ad73a894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weaponObject: {fileID: 3487691125199460689, guid: d2df76e0331832b45a9105b33611dfb4, type: 3}
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2010410882133518046}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43b70801c588d86458ce71f919d67b96, type: 3}
+  m_Script: {fileID: 11500000, guid: 95c3c90c842cf6d47b3b3cc0ec5bf359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weaponObject: {fileID: 6827070394564824665, guid: d9d3891301b7fd743b1c9306e708fbe4, type: 3}
@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 4053436295978467552}
   - component: {fileID: 2304034886182637008}
   - component: {fileID: 5515575959173260861}
-  - component: {fileID: 466334302028744185}
+  - component: {fileID: 6766596409654062671}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -218,7 +218,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &466334302028744185
+--- !u!114 &6766596409654062671
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4493890750373634138}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fbdbc8a8e90a4549adefb55283e136e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9bfe78e09caef59418e453f0b0f04eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats: {fileID: 11400000, guid: df1d3c224b4f5e348865245cf0897786, type: 2}
@@ -246,7 +246,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1539534215179059674}
-  - component: {fileID: 3191205183796870515}
+  - component: {fileID: 1944398327371663804}
   m_Layer: 0
   m_Name: SwipeController
   m_TagString: Untagged
@@ -269,7 +269,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4053436295978467552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3191205183796870515
+--- !u!114 &1944398327371663804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -278,7 +278,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6174317532921900704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f461b3175130eb44d9fc1c61002b1ac4, type: 3}
+  m_Script: {fileID: 11500000, guid: bc98c7f458865944eaec3e59507b55cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weaponObject: {fileID: 3700224977712296481, guid: 6a25924726dcf9d4ab3a0a68b75c366e, type: 3}
@@ -296,7 +296,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3757225932509685053}
-  - component: {fileID: 5422194644836009914}
+  - component: {fileID: 9057334150176131112}
   m_Layer: 0
   m_Name: ScreamController
   m_TagString: Untagged
@@ -319,7 +319,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4053436295978467552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5422194644836009914
+--- !u!114 &9057334150176131112
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -328,7 +328,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6231216148084562185}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f03384a8bb68a734885191f43363446e, type: 3}
+  m_Script: {fileID: 11500000, guid: ca401e04cb3c4ec499522a5a84c6278d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weaponObject: {fileID: 503519840348566708, guid: f2f2282953eb0584a978fdc9dacd8367, type: 3}
