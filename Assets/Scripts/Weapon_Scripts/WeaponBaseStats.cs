@@ -8,5 +8,6 @@ public class WeaponBaseStats : ScriptableObject
 	public float atk;
 	public float atk_spd;
 	public float spd;
+	public float duration;
 	public int pierce;
 }
