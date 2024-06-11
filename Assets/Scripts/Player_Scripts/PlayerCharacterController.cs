@@ -5,23 +5,24 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class PlayerCharacterController : MonoBehaviour
 {
 	public BaseCharacterStats baseStats;
-	public CharacterStats stats;
-	public float2 AimDirection { get; private set; }
+	public CharacterStats currenStats;
+	public Vector2 AimDirection { get; private set; } = new Vector2( 0f, 0f );
 
 	private Rigidbody2D _rb2D;
-	private float2 _moveDirection;
+	private Vector2 _moveDirection;
 	private InputActions _actions;
 	private InputAction _moveAction;
 	private InputAction _aimAction;
 
 	private void Awake()
 	{
-		stats = new CharacterStats( baseStats );
+		currenStats = new( baseStats );
 		_rb2D = GetComponent<Rigidbody2D>();
-		_actions = new InputActions();
+		_actions = new();
 	}
 
 	private void OnEnable()
@@ -48,17 +49,17 @@ public class PlayerCharacterController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		_rb2D.velocity = _moveDirection * stats.spd * Time.deltaTime;
+		_rb2D.velocity = currenStats.spd * Time.deltaTime * _moveDirection;
 	}
 
 	private void OnMoveAction( InputAction.CallbackContext context )
 	{
-		_moveDirection = ( float2 )context.ReadValue<Vector2>();
+		_moveDirection = context.ReadValue<Vector2>();
 	}
 
 	private void OnAimAction( InputAction.CallbackContext context )
 	{
-		float2 center = new( Screen.width / 2, Screen.height / 2 );
-		AimDirection = math.normalize( ( float2 )context.ReadValue<Vector2>() - center );
+		Vector2 center = new( Screen.width / 2, Screen.height / 2 );
+		AimDirection = math.normalize( context.ReadValue<Vector2>() - center );
 	}
 }

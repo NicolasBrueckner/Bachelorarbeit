@@ -44,12 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b79f0d8d54f442446ae31777ad73a894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterController: {fileID: 6766596409654062671}
   weaponObject: {fileID: 3487691125199460689, guid: d2df76e0331832b45a9105b33611dfb4, type: 3}
-  atk: 0
   atk_spd: 0
-  spd: 0
-  pierce: 0
-  baseStats: {fileID: 11400000, guid: 1927c27838647e94d91777a77a2c2af5, type: 2}
 --- !u!1 &2010410882133518046
 GameObject:
   m_ObjectHideFlags: 0
@@ -66,7 +63,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6235396194798152076
 Transform:
   m_ObjectHideFlags: 0
@@ -94,13 +91,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95c3c90c842cf6d47b3b3cc0ec5bf359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterController: {fileID: 6766596409654062671}
   weaponObject: {fileID: 6827070394564824665, guid: d9d3891301b7fd743b1c9306e708fbe4, type: 3}
-  atk: 0
-  atk_spd: 0
-  spd: 0
-  pierce: 0
-  baseStats: {fileID: 11400000, guid: 82a1670ee2526e4499ea62200f797d67, type: 2}
-  duration: 0
+  atk_spd: 0.2
 --- !u!1 &4493890750373634138
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,12 +274,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc98c7f458865944eaec3e59507b55cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterController: {fileID: 6766596409654062671}
   weaponObject: {fileID: 3700224977712296481, guid: 6a25924726dcf9d4ab3a0a68b75c366e, type: 3}
-  atk: 0
   atk_spd: 0
-  spd: 0
-  pierce: 0
-  baseStats: {fileID: 11400000, guid: e57394900f106354db86e70447b767bb, type: 2}
 --- !u!1 &6231216148084562185
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,9 +321,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca401e04cb3c4ec499522a5a84c6278d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterController: {fileID: 6766596409654062671}
   weaponObject: {fileID: 503519840348566708, guid: f2f2282953eb0584a978fdc9dacd8367, type: 3}
-  atk: 0
   atk_spd: 0
-  spd: 0
-  pierce: 0
-  baseStats: {fileID: 11400000, guid: 1ef179bf0be70564c859c54995cb124e, type: 2}
