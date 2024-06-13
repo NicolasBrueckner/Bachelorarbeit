@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595a4102c8bfebe48a4ab8e802ab56bb, type: 3}
   m_Name: BubbleBaseStats
   m_EditorClassIdentifier: 
-  atk: 0
-  atk_spd: 0
-  spd: 0
+  atk: 20
+  atk_spd: 0.7
+  spd: 50
+  duration: 3
+  size: 1
   pierce: 0

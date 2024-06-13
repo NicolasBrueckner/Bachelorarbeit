@@ -13,16 +13,25 @@ public class Weapon : MonoBehaviour
 	public WeaponController controller;
 
 	protected Vector2 _direction_;
+	protected Vector3 _size_;
 
 	protected virtual void Awake()
 	{
 		currentStats = new( baseStats );
+
+		ScaleToSize();
 	}
 
 	protected virtual void Update()
 	{
 		_direction_ = controller.Direction;
 		RotateToDirection();
+	}
+
+	private void ScaleToSize()
+	{
+		_size_ = Vector3.one * currentStats.size;
+		transform.localScale = _size_;
 	}
 
 	private void RotateToDirection()
