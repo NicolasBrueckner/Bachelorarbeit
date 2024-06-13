@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterController: {fileID: 6766596409654062671}
   weaponObject: {fileID: 3487691125199460689, guid: d2df76e0331832b45a9105b33611dfb4, type: 3}
-  atk_spd: 0
+  weapon: {fileID: 0}
 --- !u!1 &2010410882133518046
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterController: {fileID: 6766596409654062671}
   weaponObject: {fileID: 6827070394564824665, guid: d9d3891301b7fd743b1c9306e708fbe4, type: 3}
-  atk_spd: 0.2
+  weapon: {fileID: 404513496357335176, guid: d9d3891301b7fd743b1c9306e708fbe4, type: 3}
 --- !u!1 &4493890750373634138
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats: {fileID: 11400000, guid: df1d3c224b4f5e348865245cf0897786, type: 2}
-  stats:
+  currenStats:
     hp: 0
     atk: 0
     atk_spd: 0
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterController: {fileID: 6766596409654062671}
   weaponObject: {fileID: 3700224977712296481, guid: 6a25924726dcf9d4ab3a0a68b75c366e, type: 3}
-  atk_spd: 0
+  weapon: {fileID: 0}
 --- !u!1 &6231216148084562185
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,4 +323,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterController: {fileID: 6766596409654062671}
   weaponObject: {fileID: 503519840348566708, guid: f2f2282953eb0584a978fdc9dacd8367, type: 3}
-  atk_spd: 0
+  weapon: {fileID: 0}

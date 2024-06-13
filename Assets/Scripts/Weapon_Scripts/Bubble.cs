@@ -49,6 +49,6 @@ public class Bubble : Weapon
 
 	private void DestroyBubble()
 	{
-		( controller as BubbleController ).ReEnqueueBubble( gameObject );
+		( controller as BubbleController ).EnqueueBubble( gameObject );
 	}
 }

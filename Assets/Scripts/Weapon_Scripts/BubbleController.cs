@@ -11,8 +11,6 @@ public class BubbleController : WeaponController
 	protected override void Start()
 	{
 		base.Start();
-
-		InitializeWeapon();
 	}
 
 	protected override void Update()
@@ -31,15 +29,17 @@ public class BubbleController : WeaponController
 		}
 	}
 
-	public void ReEnqueueBubble( GameObject bubble )
+	public void EnqueueBubble( GameObject bubble )
 	{
 		bubble.SetActive( false );
 		bubble.transform.position = transform.position;
 		_bubbles.Enqueue( bubble );
 	}
 
-	private void InitializeWeapon()
+	protected override void InitializeWeapon()
 	{
+		base.InitializeWeapon();
+
 		for ( int i = 0; i < 10; i++ )
 		{
 			GameObject bubbleObject = Instantiate( weaponObject );
