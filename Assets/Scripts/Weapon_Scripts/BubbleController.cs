@@ -8,9 +8,9 @@ public class BubbleController : WeaponController
 {
 	private Queue<GameObject> _bubbles = new();
 
-	protected override void Start()
+	protected override void Awake()
 	{
-		base.Start();
+		base.Awake();
 	}
 
 	protected override void Update()
@@ -42,11 +42,10 @@ public class BubbleController : WeaponController
 
 		for ( int i = 0; i < 10; i++ )
 		{
-			GameObject bubbleObject = Instantiate( weaponObject );
+			GameObject bubbleObject = Instantiate( weaponObject, transform );
 			Bubble bubble = bubbleObject.GetComponent<Bubble>();
 
-			bubble.controller = this;
-			bubbleObject.SetActive( false );
+			InitializeWeaponObject( bubbleObject, bubble );
 			_bubbles.Enqueue( bubbleObject );
 		}
 	}

@@ -9,26 +9,25 @@ public class Fist : Weapon
 		base.Awake();
 	}
 
-	protected override void Update()
+	public void ScaleFist()
 	{
-		base.Update();
+		RotateToDirection();
+		StartCoroutine( ScaleFistCoroutine() );
 	}
 
-	public void ScaleWeapon( float duration )
-	{
-		StartCoroutine( ScaleCoroutine( duration ) );
-	}
-
-	private IEnumerator ScaleCoroutine( float duration )
+	private IEnumerator ScaleFistCoroutine()
 	{
 		float timer = 0f;
 
-		while ( timer < duration )
+		while ( timer < currentStats.duration )
 		{
-			float ratio = timer / duration;
-			transform.localScale = Vector3.Lerp( Vector3.zero, _size_, ratio );
+			float ratio = timer / currentStats.spd;
+			_transform_.localScale = Vector3.Lerp( Vector3.zero, _size_, ratio );
 			timer += Time.deltaTime;
+
 			yield return null;
 		}
+
+		_transform_.localScale = Vector3.zero;
 	}
 }

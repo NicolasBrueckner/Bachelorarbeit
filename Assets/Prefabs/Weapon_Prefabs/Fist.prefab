@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2218764784078090505}
   - component: {fileID: 2932243386777569630}
   - component: {fileID: 7923066269876760275}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Fist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b5f82d93071d948bef0cdd605f8fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseStats: {fileID: 11400000, guid: 1927c27838647e94d91777a77a2c2af5, type: 2}
+  controller: {fileID: 0}
   currentStats:
     atk: 0
     atk_spd: 0
@@ -151,4 +151,3 @@ MonoBehaviour:
     duration: 0
     size: 0
     pierce: 0
-  controller: {fileID: 0}

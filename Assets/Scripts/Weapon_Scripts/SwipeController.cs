@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SwipeController : WeaponController
 {
-	protected override void Start()
+	private GameObject _swipeObject;
+	private Swipe _swipe;
+
+	protected override void Awake()
 	{
-		base.Start();
+		base.Awake();
 	}
 
 	protected override void Update()
@@ -17,5 +18,24 @@ public class SwipeController : WeaponController
 	protected override void Attack()
 	{
 		base.Attack();
+
+		_swipe.ScaleSwipe();
+	}
+
+	protected override void InitializeWeapon()
+	{
+		base.InitializeWeapon();
+
+		_swipeObject = Instantiate( weaponObject, transform );
+		_swipe = _swipeObject.GetComponent<Swipe>();
+
+		InitializeWeaponObject( _swipeObject, _swipe );
+	}
+
+	protected override void InternalToggleWeapon()
+	{
+		base.InternalToggleWeapon();
+
+		_swipeObject.SetActive( _isActive_ );
 	}
 }

@@ -17,12 +17,12 @@ public class Bubble : Weapon
 
 	private void OnEnable()
 	{
-		_direction_ = controller?.Direction ?? Vector2.zero;
+		_direction_ = ( controller != null ) ? controller.Direction : Vector2.zero;
 		_timer = 0f;
 		_hits = 0;
 	}
 
-	protected override void Update()
+	protected void LateUpdate()
 	{
 		UpdateTimer();
 		Move();
