@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4520945941475340685}
   - component: {fileID: 8752995057914674712}
   - component: {fileID: 7805582531346693947}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Scream
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,5 +155,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 017fee458a7e7a343be3c52ac01449c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseStats: {fileID: 11400000, guid: 1ef179bf0be70564c859c54995cb124e, type: 2}
   controller: {fileID: 0}
+  currentStats:
+    atk: 0
+    atk_spd: 0
+    spd: 0
+    duration: 0
+    size: 0
+    pierce: 0

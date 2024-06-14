@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 602623290568673466}
   - component: {fileID: 7108146418632721230}
-  - component: {fileID: 4158830503297552666}
   - component: {fileID: 8780910041918794698}
   - component: {fileID: 666814013550020619}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Swipe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,27 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!95 &4158830503297552666
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3700224977712296481}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d7804b25771053745b0826a6464c63e8, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!58 &8780910041918794698
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -155,5 +133,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c9d2de7b01ed304ea108204a151655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseStats: {fileID: 11400000, guid: e57394900f106354db86e70447b767bb, type: 2}
   controller: {fileID: 0}
+  currentStats:
+    atk: 0
+    atk_spd: 0
+    spd: 0
+    duration: 0
+    size: 0
+    pierce: 0

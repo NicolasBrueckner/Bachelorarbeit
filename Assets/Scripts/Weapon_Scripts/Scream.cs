@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class Scream : Weapon
 {
-
+	protected override void Awake()
+	{
+		base.Awake();
+	}
 }

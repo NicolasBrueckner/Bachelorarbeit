@@ -1,16 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FistController : WeaponController
 {
+	private GameObject _fistObject;
 	private Fist _fist;
 
-	protected override void Start()
+	protected override void Awake()
 	{
-		base.Start();
-
-		_fist = weapon as Fist;
+		base.Awake();
 	}
 
 	protected override void Update()
@@ -22,17 +19,23 @@ public class FistController : WeaponController
 	{
 		base.Attack();
 
-		_fist.ScaleWeapon( Frequency );
+		_fist.ScaleFist();
 	}
 
 	protected override void InitializeWeapon()
 	{
 		base.InitializeWeapon();
 
-		_weaponObjectCopy_ = Instantiate( weaponObject );
-		_fist = _weaponObjectCopy_.GetComponent<Fist>();
+		_fistObject = Instantiate( weaponObject, transform );
+		_fist = _fistObject.GetComponent<Fist>();
 
-		_fist.controller = this;
-		_weaponObjectCopy_.SetActive( false );
+		InitializeWeaponObject( _fistObject, _fist );
+	}
+
+	protected override void InternalToggleWeapon()
+	{
+		base.InternalToggleWeapon();
+
+		_fistObject.SetActive( _isActive_ );
 	}
 }

@@ -11,39 +11,57 @@ public class WeaponController : MonoBehaviour
 {
 	public PlayerCharacterController characterController;
 	public GameObject weaponObject;
+	public WeaponBaseStats baseStats;
+	public WeaponStats currentStats;
 
-	public float Frequency => weapon.currentStats.atk_spd * characterController.currenStats.atk_spd;
+	public float Frequency => currentStats.atk_spd * characterController.currenStats.atk_spd;
 	public Vector2 Direction => characterController.AimDirection;
 
-
-	protected GameObject _weaponObjectCopy_;
-	protected Weapon weapon;
+	protected bool _isActive_ = false;
 
 	private float _currentCooldown;
 
-	protected virtual void Start()
+	protected virtual void Awake()
 	{
 		_currentCooldown = 0f;
+		currentStats = new( baseStats );
 		InitializeWeapon();
-		weapon = weaponObject.GetComponent<Weapon>();
+		ToggleWeapon();
 	}
 
 	protected virtual void Update()
 	{
 		_currentCooldown += Time.deltaTime;
-		if ( _currentCooldown >= Frequency )
+		if ( _isActive_ && _currentCooldown >= Frequency )
 			Attack();
 	}
 
 	protected virtual void Attack()
 	{
-		Debug.Log( $"weapon atk spd: {weapon.currentStats.atk_spd}" );
-		Debug.Log( $"player atk spd: {characterController.currenStats.atk_spd}" );
-		Debug.Log( $"Frequency: {Frequency}" );
 		_currentCooldown = 0f;
 	}
 
+
 	protected virtual void InitializeWeapon()
 	{
+
+	}
+
+	protected void InitializeWeaponObject( GameObject weaponObject, Weapon weapon )
+	{
+		weapon.controller = this;
+		weapon.currentStats = currentStats;
+		weapon.ScaleToSize();
+		weaponObject.SetActive( false );
+	}
+
+	public void ToggleWeapon()
+	{
+		InternalToggleWeapon();
+	}
+
+	protected virtual void InternalToggleWeapon()
+	{
+		_isActive_ = !_isActive_;
 	}
 }
