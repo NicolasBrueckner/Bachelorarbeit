@@ -1,67 +1,108 @@
-using AYellowpaper.SerializedCollections;
-using System;
+using EditorAttributes;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 
 public class WeaponController : MonoBehaviour
 {
-	public PlayerCharacterController characterController;
-	public GameObject weaponObject;
-	public WeaponBaseStats baseStats;
+	[ReadOnly]
 	public WeaponStats currentStats;
 
-	public float Frequency => currentStats.atk_spd * characterController.currenStats.atk_spd;
-	public Vector2 Direction => characterController.AimDirection;
+	public GameObject weaponObject;
+	public WeaponBaseStats baseStats;
+	public int weaponQueueSize;
+	public bool startsActive;
 
-	protected bool _isActive_ = false;
+	public float Frequency => currentStats.atk_spd * _characterController.currenStats.atk_spd;
+	public Vector2 Direction => _characterController.AimDirection;
 
+	private bool _isActive;
 	private float _currentCooldown;
+	private Coroutine _weaponAttackCoroutine;
+	private Queue<GameObject> _weaponObjectQueue;
+	private PlayerCharacterController _characterController;
 
-	protected virtual void Awake()
+	private void Awake()
 	{
-		_currentCooldown = 0f;
 		currentStats = new( baseStats );
-		InitializeWeapon();
-		ToggleWeapon();
-	}
-
-	protected virtual void Update()
-	{
-		_currentCooldown += Time.deltaTime;
-		if ( _isActive_ && _currentCooldown >= Frequency )
-			Attack();
-	}
-
-	protected virtual void Attack()
-	{
 		_currentCooldown = 0f;
+		_weaponObjectQueue = new Queue<GameObject>();
+		_characterController = GetComponentInParent<PlayerCharacterController>();
+
+		InitializeWeapon();
+		ToggleWeapon( startsActive );
 	}
 
-
-	protected virtual void InitializeWeapon()
+	private IEnumerator WeaponAttackCoroutine()
 	{
+		while ( _isActive )
+		{
+			_currentCooldown += Time.deltaTime;
+			if ( _currentCooldown >= Frequency )
+				Attack();
 
+			yield return null;
+		}
 	}
 
-	protected void InitializeWeaponObject( GameObject weaponObject, Weapon weapon )
+	private void Attack()
+	{
+		if ( _weaponObjectQueue.Count > 0 )
+		{
+			_currentCooldown = 0f;
+			GameObject dequeuedWeaponObject = _weaponObjectQueue.Dequeue();
+			dequeuedWeaponObject.SetActive( _isActive );
+			dequeuedWeaponObject.GetComponent<Weapon>().StartAttack();
+		}
+	}
+
+	public void EnqueueWeaponObject( GameObject weaponObject )
+	{
+		weaponObject.SetActive( false );
+		weaponObject.transform.position = transform.position;
+		_weaponObjectQueue.Enqueue( weaponObject );
+	}
+
+	private void InitializeWeapon()
+	{
+		for ( int i = 0; i < weaponQueueSize; i++ )
+		{
+			GameObject weaponObjectCopy = Instantiate( weaponObject, transform );
+			Weapon weapon = weaponObjectCopy.GetComponent<Weapon>();
+
+			InitializeWeaponObject( weaponObjectCopy, weapon );
+			_weaponObjectQueue.Enqueue( weaponObjectCopy );
+		}
+	}
+
+	private void InitializeWeaponObject( GameObject weaponObjectCopy, Weapon weapon )
 	{
 		weapon.controller = this;
 		weapon.currentStats = currentStats;
-		weapon.ScaleToSize();
-		weaponObject.SetActive( false );
+		weapon.SetDefaults();
+		weaponObjectCopy.SetActive( _isActive );
 	}
 
-	public void ToggleWeapon()
+	[ContextMenu( "Activate Weapon" )]
+	public void DebugToggleWeapon()
 	{
-		InternalToggleWeapon();
+		ToggleWeapon( null );
 	}
-
-	protected virtual void InternalToggleWeapon()
+	public void ToggleWeapon( bool? isActive )
 	{
-		_isActive_ = !_isActive_;
+		_isActive = isActive ?? !_isActive;
+
+		if ( _isActive )
+		{
+			StartCoroutine( WeaponAttackCoroutine() );
+		}
+		else
+		{
+			StopCoroutine( WeaponAttackCoroutine() );
+			foreach ( GameObject weaponObject in _weaponObjectQueue )
+				weaponObject.SetActive( _isActive );
+		}
+
 	}
 }

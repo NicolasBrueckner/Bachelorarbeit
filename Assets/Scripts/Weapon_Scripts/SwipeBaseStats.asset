@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: SwipeBaseStats
   m_EditorClassIdentifier: 
   atk: 0
-  atk_spd: 0
-  spd: 0
+  atk_spd: 1
+  spd: 0.5
+  duration: 0.7
+  size: 2
   pierce: 0

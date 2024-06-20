@@ -15,4 +15,6 @@ MonoBehaviour:
   atk: 0
   atk_spd: 0
   spd: 0
+  duration: 0
+  size: 5
   pierce: 0
