@@ -1,54 +1,69 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bubble : Weapon
 {
 	public Rigidbody2D rb2d;
 
-	private float _timer;
+	private int _wallLayer;
 	private int _hits;
+	private float _timer;
+	private Vector2 _direction;
 
-	protected override void Awake()
+	public override void SetDefaults()
 	{
-		base.Awake();
+		base.SetDefaults();
+
+		_wallLayer = LayerMask.NameToLayer( "Wall" );
 	}
 
-	private void OnEnable()
+	protected override void StartAttackInternal()
 	{
-		_direction_ = ( controller != null ) ? controller.Direction : Vector2.zero;
+		base.StartAttackInternal();
+
 		_timer = 0f;
 		_hits = 0;
+
+		StartCoroutine( MoveCoroutine() );
 	}
 
-	protected void LateUpdate()
+	private IEnumerator MoveCoroutine()
 	{
-		UpdateTimer();
-		Move();
+		_direction = Direction;
+		while ( true )
+		{
+			UpdateTimer();
+			Move();
+			yield return null;
+		}
 	}
 
 	private void OnTriggerEnter2D( Collider2D collision )
 	{
-		_hits++;
-		if ( _hits > currentStats.pierce )
-			DestroyBubble();
+		if ( collision.gameObject.layer == _wallLayer )
+		{
+			DestroyWeaponObject();
+			return;
+		}
+
+		if ( collision.gameObject.layer == _enemyLayer_ )
+		{
+			DoDamage();
+			_hits++;
+			if ( _hits > currentStats.pierce )
+				DestroyWeaponObject();
+		}
 	}
 
 	private void Move()
 	{
-		rb2d.velocity = _direction_ * currentStats.spd;
+		rb2d.velocity = _direction * currentStats.spd;
 	}
 
 	private void UpdateTimer()
 	{
 		_timer += Time.deltaTime;
 		if ( _timer > currentStats.duration )
-			DestroyBubble();
-	}
-
-	private void DestroyBubble()
-	{
-		( controller as BubbleController ).EnqueueBubble( gameObject );
+			DestroyWeaponObject();
 	}
 }

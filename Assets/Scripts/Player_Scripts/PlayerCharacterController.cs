@@ -1,15 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
+using EditorAttributes;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 
 public class PlayerCharacterController : MonoBehaviour
 {
-	public BaseCharacterStats baseStats;
+	[ReadOnly]
 	public CharacterStats currenStats;
+
+	public BaseCharacterStats baseStats;
+
 	public Vector2 AimDirection { get; private set; } = new Vector2( 0f, 0f );
 
 	private Rigidbody2D _rb2D;
