@@ -18,15 +18,12 @@ public class WeaponController : MonoBehaviour
 	public Vector2 Direction => _characterController.AimDirection;
 
 	private bool _isActive;
-	private float _currentCooldown;
-	private Coroutine _weaponAttackCoroutine;
 	private Queue<GameObject> _weaponObjectQueue;
 	private PlayerCharacterController _characterController;
 
 	private void Awake()
 	{
 		currentStats = new( baseStats );
-		_currentCooldown = 0f;
 		_weaponObjectQueue = new Queue<GameObject>();
 		_characterController = GetComponentInParent<PlayerCharacterController>();
 
@@ -38,11 +35,9 @@ public class WeaponController : MonoBehaviour
 	{
 		while ( _isActive )
 		{
-			_currentCooldown += Time.deltaTime;
-			if ( _currentCooldown >= Frequency )
-				Attack();
+			Attack();
 
-			yield return null;
+			yield return new WaitForSeconds( Frequency );
 		}
 	}
 
@@ -50,8 +45,8 @@ public class WeaponController : MonoBehaviour
 	{
 		if ( _weaponObjectQueue.Count > 0 )
 		{
-			_currentCooldown = 0f;
 			GameObject dequeuedWeaponObject = _weaponObjectQueue.Dequeue();
+
 			dequeuedWeaponObject.SetActive( _isActive );
 			dequeuedWeaponObject.GetComponent<Weapon>().StartAttack();
 		}
@@ -71,17 +66,16 @@ public class WeaponController : MonoBehaviour
 			GameObject weaponObjectCopy = Instantiate( weaponObject, transform );
 			Weapon weapon = weaponObjectCopy.GetComponent<Weapon>();
 
-			InitializeWeaponObject( weaponObjectCopy, weapon );
-			_weaponObjectQueue.Enqueue( weaponObjectCopy );
+			InitializeWeaponInstance( weapon );
+			EnqueueWeaponObject( weaponObjectCopy );
 		}
 	}
 
-	private void InitializeWeaponObject( GameObject weaponObjectCopy, Weapon weapon )
+	private void InitializeWeaponInstance( Weapon weapon )
 	{
 		weapon.controller = this;
 		weapon.currentStats = currentStats;
 		weapon.SetDefaults();
-		weaponObjectCopy.SetActive( _isActive );
 	}
 
 	[ContextMenu( "Activate Weapon" )]
@@ -89,6 +83,7 @@ public class WeaponController : MonoBehaviour
 	{
 		ToggleWeapon( null );
 	}
+
 	public void ToggleWeapon( bool? isActive )
 	{
 		_isActive = isActive ?? !_isActive;

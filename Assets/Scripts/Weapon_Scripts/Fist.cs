@@ -15,10 +15,9 @@ public class Fist : Weapon
 		ScaleFist();
 	}
 
-	private void OnTriggerEnter2D( Collider2D collision )
+	protected override void OnTriggerEnter2D( Collider2D collision )
 	{
-		if ( collision.gameObject.layer == _enemyLayer_ )
-			DoDamage();
+		base.OnTriggerEnter2D( collision );
 	}
 
 	private void ScaleFist()

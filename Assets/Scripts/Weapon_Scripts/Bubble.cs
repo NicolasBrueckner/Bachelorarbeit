@@ -7,7 +7,6 @@ public class Bubble : Weapon
 
 	private int _wallLayer;
 	private int _hits;
-	private float _timer;
 	private Vector2 _direction;
 
 	public override void SetDefaults()
@@ -21,7 +20,6 @@ public class Bubble : Weapon
 	{
 		base.StartAttackInternal();
 
-		_timer = 0f;
 		_hits = 0;
 
 		StartCoroutine( MoveCoroutine() );
@@ -30,40 +28,20 @@ public class Bubble : Weapon
 	private IEnumerator MoveCoroutine()
 	{
 		_direction = Direction;
-		while ( true )
-		{
-			UpdateTimer();
-			Move();
-			yield return null;
-		}
+		rb2d.velocity = _direction * currentStats.spd;
+
+		yield return new WaitForSeconds( currentStats.duration );
+		DestroyWeaponObject();
 	}
 
-	private void OnTriggerEnter2D( Collider2D collision )
+	protected override void OnTriggerEnter2D( Collider2D collision )
 	{
 		if ( collision.gameObject.layer == _wallLayer )
-		{
 			DestroyWeaponObject();
-			return;
-		}
 
-		if ( collision.gameObject.layer == _enemyLayer_ )
-		{
-			DoDamage();
-			_hits++;
-			if ( _hits > currentStats.pierce )
-				DestroyWeaponObject();
-		}
-	}
+		base.OnTriggerEnter2D( collision );
 
-	private void Move()
-	{
-		rb2d.velocity = _direction * currentStats.spd;
-	}
-
-	private void UpdateTimer()
-	{
-		_timer += Time.deltaTime;
-		if ( _timer > currentStats.duration )
+		if ( ++_hits > currentStats.pierce )
 			DestroyWeaponObject();
 	}
 }

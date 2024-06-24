@@ -11,7 +11,7 @@ public class PlayerCharacterController : MonoBehaviour
 
 	public BaseCharacterStats baseStats;
 
-	public Vector2 AimDirection { get; private set; } = new Vector2( 0f, 0f );
+	public Vector2 AimDirection { get; private set; } = new Vector2( 0f, 1f );
 
 	private Rigidbody2D _rb2D;
 	private Vector2 _moveDirection;
