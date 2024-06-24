@@ -8,7 +8,7 @@ public class Weapon : MonoBehaviour
 	[ReadOnly]
 	public WeaponStats currentStats;
 
-	public Vector2 Direction => controller ? controller.Direction : Vector2.zero;
+	public Vector2 Direction => controller ? controller.Direction : Vector2.up;
 	public Vector3 Size => Vector3.one * currentStats.size;
 
 	protected int _enemyLayer_;
@@ -31,6 +31,12 @@ public class Weapon : MonoBehaviour
 	protected virtual void StartAttackInternal()
 	{
 
+	}
+
+	protected virtual void OnTriggerEnter2D( Collider2D collision )
+	{
+		if ( collision.gameObject.layer == _enemyLayer_ )
+			DoDamage();
 	}
 
 	public void ScaleToSize()

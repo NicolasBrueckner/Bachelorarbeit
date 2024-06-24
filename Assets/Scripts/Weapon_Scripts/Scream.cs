@@ -1,11 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Scream : Weapon
 {
-	private HashSet<Collider2D> _collidersInTrigger = new();
-
 	public override void SetDefaults()
 	{
 		base.SetDefaults();
@@ -15,32 +12,23 @@ public class Scream : Weapon
 	{
 		base.StartAttackInternal();
 
-		StartCoroutine( DamageCoroutine() );
+		StartCoroutine( CollisionCoroutine() );
 	}
 
-	private void OnTriggerEnter2D( Collider2D collision )
+	protected override void OnTriggerEnter2D( Collider2D collision )
 	{
-		if ( collision.gameObject.layer == _enemyLayer_ )
+		base.OnTriggerEnter2D( collision );
+	}
+
+	private IEnumerator CollisionCoroutine()
+	{
+		while ( gameObject.activeInHierarchy )
 		{
-			_collidersInTrigger.Add( collision );
-		}
-	}
+			_collider_.enabled = true;
+			yield return new WaitForEndOfFrame();
 
-	private void OnTriggerExit2D( Collider2D collision )
-	{
-		_collidersInTrigger.Remove( collision );
-	}
-
-	private IEnumerator DamageCoroutine()
-	{
-		while ( true )
-		{
+			_collider_.enabled = false;
 			yield return new WaitForSeconds( currentStats.atk_spd );
-
-			foreach ( Collider2D collider in _collidersInTrigger )
-			{
-				DoDamage();
-			}
 		}
 	}
 }
