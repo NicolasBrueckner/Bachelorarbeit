@@ -43,6 +43,7 @@ public class WeaponController : MonoBehaviour
 
 	private void Attack()
 	{
+		Debug.Log( $"weapon queue count: {_weaponObjectQueue.Count}" );
 		if ( _weaponObjectQueue.Count > 0 )
 		{
 			GameObject dequeuedWeaponObject = _weaponObjectQueue.Dequeue();
