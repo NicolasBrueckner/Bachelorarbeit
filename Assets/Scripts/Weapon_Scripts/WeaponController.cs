@@ -1,40 +1,103 @@
-using System;
+using EditorAttributes;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 public class WeaponController : MonoBehaviour
 {
-	[Header( "Weapon Stats" )]
+	[ReadOnly]
+	public WeaponStats currentStats;
+
 	public GameObject weaponObject;
-	public float atk;
-	public float atk_spd;
-	public float spd;
-	public int pierce;
-
-	[Header( "Weapon Base Stats" )]
 	public WeaponBaseStats baseStats;
+	public int weaponQueueSize;
+	public bool startsActive;
 
-	protected float3 direction;
+	public float Frequency => currentStats.atk_spd * _characterController.currenStats.atk_spd;
+	public Vector2 Direction => _characterController.AimDirection;
 
-	private float _currentCooldown;
+	private bool _isActive;
+	private Queue<GameObject> _weaponObjectQueue;
+	private PlayerCharacterController _characterController;
 
-	protected virtual void Start()
+	private void Awake()
 	{
-		_currentCooldown = atk_spd;
+		currentStats = new( baseStats );
+		_weaponObjectQueue = new Queue<GameObject>();
+		_characterController = GetComponentInParent<PlayerCharacterController>();
+
+		InitializeWeapon();
+		ToggleWeapon( startsActive );
 	}
 
-	protected virtual void Update()
+	private IEnumerator WeaponAttackCoroutine()
 	{
-		_currentCooldown -= Time.deltaTime;
-		if ( _currentCooldown <= 0f )
+		while ( _isActive )
+		{
 			Attack();
+
+			yield return new WaitForSeconds( Frequency );
+		}
 	}
 
-	protected virtual void Attack()
+	private void Attack()
 	{
-		_currentCooldown = atk_spd;
+		if ( _weaponObjectQueue.Count > 0 )
+		{
+			GameObject dequeuedWeaponObject = _weaponObjectQueue.Dequeue();
+
+			dequeuedWeaponObject.SetActive( _isActive );
+			dequeuedWeaponObject.GetComponent<Weapon>().StartAttack();
+		}
+	}
+
+	public void EnqueueWeaponObject( GameObject weaponObject )
+	{
+		weaponObject.SetActive( false );
+		weaponObject.transform.position = transform.position;
+		_weaponObjectQueue.Enqueue( weaponObject );
+	}
+
+	private void InitializeWeapon()
+	{
+		for ( int i = 0; i < weaponQueueSize; i++ )
+		{
+			GameObject weaponObjectCopy = Instantiate( weaponObject, transform );
+			Weapon weapon = weaponObjectCopy.GetComponent<Weapon>();
+
+			InitializeWeaponInstance( weapon );
+			EnqueueWeaponObject( weaponObjectCopy );
+		}
+	}
+
+	private void InitializeWeaponInstance( Weapon weapon )
+	{
+		weapon.controller = this;
+		weapon.currentStats = currentStats;
+		weapon.SetDefaults();
+	}
+
+	[ContextMenu( "Activate Weapon" )]
+	public void DebugToggleWeapon()
+	{
+		ToggleWeapon( null );
+	}
+
+	public void ToggleWeapon( bool? isActive )
+	{
+		_isActive = isActive ?? !_isActive;
+
+		if ( _isActive )
+		{
+			StartCoroutine( WeaponAttackCoroutine() );
+		}
+		else
+		{
+			StopCoroutine( WeaponAttackCoroutine() );
+			foreach ( GameObject weaponObject in _weaponObjectQueue )
+				weaponObject.SetActive( _isActive );
+		}
+
 	}
 }

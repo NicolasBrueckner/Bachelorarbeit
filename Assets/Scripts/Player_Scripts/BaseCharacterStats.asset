@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseHP: 100
   baseATK: 10
-  baseATK_SPD: 0.5
+  baseATK_SPD: 1
   baseDEF: 10
   baseSPD: 100
