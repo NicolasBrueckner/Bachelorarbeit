@@ -5,6 +5,7 @@ public class Bubble : Weapon
 {
 	public Rigidbody2D rb2d;
 
+	private bool _isBeingQueued;
 	private int _wallLayer;
 	private int _hits;
 	private Vector2 _direction;
@@ -20,6 +21,7 @@ public class Bubble : Weapon
 	{
 		base.StartAttackInternal();
 
+		_isBeingQueued = false;
 		_hits = 0;
 
 		StartCoroutine( MoveCoroutine() );
@@ -41,7 +43,11 @@ public class Bubble : Weapon
 
 		base.OnTriggerEnter2D( collision );
 
-		if ( ++_hits > currentStats.pierce )
+		Debug.Log( $"hit count: {_hits}" );
+		if ( !_isBeingQueued && ++_hits > currentStats.pierce )
+		{
+			_isBeingQueued = true;
 			DestroyWeaponObject();
+		}
 	}
 }

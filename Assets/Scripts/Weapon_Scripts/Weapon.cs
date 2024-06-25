@@ -30,7 +30,6 @@ public class Weapon : MonoBehaviour
 
 	protected virtual void StartAttackInternal()
 	{
-
 	}
 
 	protected virtual void OnTriggerEnter2D( Collider2D collision )

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -15,11 +13,13 @@ public class WeaponStats
 
 	public WeaponStats( WeaponBaseStats baseStats )
 	{
+		Debug.Log( $"pierce before initialization: {baseStats.pierce}" );
 		atk = baseStats.atk;
 		atk_spd = baseStats.atk_spd;
 		spd = baseStats.spd;
 		duration = baseStats.duration;
 		size = baseStats.size;
 		pierce = baseStats.pierce;
+		Debug.Log( $"pierce after initialization: {baseStats.pierce}" );
 	}
 }
