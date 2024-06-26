@@ -9,7 +9,7 @@ public class PlayerCharacterController : MonoBehaviour
 	[ReadOnly]
 	public CharacterStats currenStats;
 
-	public BaseCharacterStats baseStats;
+	public CharacterBaseStats baseStats;
 
 	public Vector2 AimDirection { get; private set; } = new Vector2( 0f, 1f );
 

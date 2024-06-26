@@ -74,7 +74,7 @@ public class WeaponController : MonoBehaviour
 
 	private void InitializeWeaponInstance( Weapon weapon )
 	{
-		weapon.controller = this;
+		weapon.weaponController = this;
 		weapon.currentStats = currentStats;
 		weapon.SetDefaults();
 	}

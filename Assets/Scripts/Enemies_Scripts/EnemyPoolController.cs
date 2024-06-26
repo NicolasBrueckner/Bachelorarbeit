@@ -1,65 +1,64 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 [Serializable]
 public struct EnemyPool
 {
-	public GameObject prefab;
+	public GameObject enemyObject;
 	public int amount;
 }
 
 public class EnemyPoolController : MonoBehaviour
 {
-	public FlowFieldController flowFieldController;
-	public GameObject player;
-	public float spawnRange;
 	public float spawnFrequency;
+	public Vector2 spawnRange;
+	public GameObject targetObject;
 	public List<EnemyPool> serializedEnemies;
+	public FlowFieldController flowFieldController;
 
-	private List<GameObject> _enemyPool;
-	private Queue<GameObject> _inactiveEnemies;
+	private Queue<GameObject> _enemyObjectQueue;
 
 	private void Start()
 	{
-		InitializeObjectPool();
+		InitializeEnemyObjectPool();
 		StartCoroutine( SpawnEnemy() );
 	}
 
-	private void InitializeObjectPool()
+	private void InitializeEnemyObjectPool()
 	{
-		_enemyPool = new();
-		GameObject temp;
+		List<GameObject> enemyShuffleList = new();
 
 		for ( int i = 0; i < serializedEnemies.Count; i++ )
 		{
 			for ( int j = 0; j < serializedEnemies[ i ].amount; j++ )
 			{
-				temp = Instantiate( serializedEnemies[ i ].prefab );
-				Enemy enemy = temp.GetComponent<Enemy>();
+				GameObject enemyCopyObject = Instantiate( serializedEnemies[ i ].enemyObject );
+				Enemy enemy = enemyCopyObject.GetComponent<Enemy>();
+
 				enemy.flowFieldController ??= flowFieldController;
-				temp.SetActive( false );
-				_enemyPool.Add( temp );
+				enemy.enemyPoolController = this;
+				enemyCopyObject.SetActive( false );
+				enemyShuffleList.Add( enemyCopyObject );
 			}
 		}
 
-		ShuffleList( _enemyPool );
-		_inactiveEnemies = new Queue<GameObject>( _enemyPool );
+		ShuffleList( enemyShuffleList );
+		_enemyObjectQueue = new Queue<GameObject>( enemyShuffleList );
 	}
 
 	private IEnumerator SpawnEnemy()
 	{
 		while ( true )
 		{
-			if ( _inactiveEnemies.Count > 0 )
+			if ( _enemyObjectQueue.Count > 0 )
 			{
-				GameObject enemy = _inactiveEnemies.Dequeue();
-				float2 onCircle = Random.insideUnitCircle.normalized * spawnRange;
-				enemy.transform.position = player.transform.position + new Vector3( onCircle.x, onCircle.y, 0f );
+				GameObject enemy = _enemyObjectQueue.Dequeue();
+				Vector2 onCircle = Random.insideUnitCircle.normalized * spawnRange;
+
+				enemy.transform.position = targetObject.transform.position + new Vector3( onCircle.x, onCircle.y, 0f );
 				enemy.SetActive( true );
 			}
 
@@ -67,10 +66,10 @@ public class EnemyPoolController : MonoBehaviour
 		}
 	}
 
-	public void OnEnemyDefeated( GameObject enemy )
+	public void EnqueueEnemyObject( GameObject enemyObject )
 	{
-		enemy.SetActive( false );
-		_inactiveEnemies.Enqueue( enemy );
+		enemyObject.SetActive( false );
+		_enemyObjectQueue.Enqueue( enemyObject );
 	}
 
 	private void ShuffleList( List<GameObject> list )
