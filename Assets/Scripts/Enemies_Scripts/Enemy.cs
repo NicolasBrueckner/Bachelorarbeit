@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using static GridUtility;
@@ -68,9 +67,14 @@ public class Enemy : MonoBehaviour
 
 			if ( cellDirection is Direction direction )
 				_direction_ = ( float2 )direction;
-			else if ( cellDirection is float2 float2 )
-				_direction_ = float2;
+			else if ( cellDirection is float2 directDirection )
+				_direction_ = directDirection;
 		}
+	}
+
+	protected void TakeDamage( float damage )
+	{
+
 	}
 
 }
