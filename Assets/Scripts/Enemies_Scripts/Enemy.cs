@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using static GridUtility;
@@ -7,31 +6,22 @@ using stats = SectorStats;
 
 public class Enemy : MonoBehaviour
 {
-	[Header( "Stats" )]
-	public float maxHP;
-	public float atk;
-	public float def;
-	public float spd;
-
-	public Rigidbody2D rb2D;
 	public FlowFieldController flowFieldController;
+	public EnemyPoolController enemyPoolController;
+	public EnemyStats currentStats;
+	public Rigidbody2D rb2D;
 
-	protected float _currentHP_;
 	protected float2 _direction_;
 
-	protected virtual void Awake()
+	public void StartAttacking()
 	{
+		StartAttackingInternal();
 	}
 
-	protected virtual void OnEnable()
+	protected virtual void StartAttackingInternal()
 	{
 		SetDirection();
-		StartCoroutine( ChangeDirection() );
-	}
-
-	protected virtual void OnDisable()
-	{
-		StopCoroutine( ChangeDirection() );
+		StartCoroutine( FindDirectionCoroutine() );
 	}
 
 	protected virtual void Update()
@@ -41,10 +31,10 @@ public class Enemy : MonoBehaviour
 
 	protected void MoveInDirection()
 	{
-		rb2D.velocity = _direction_ * spd * Time.deltaTime;
+		rb2D.velocity = _direction_ * currentStats.spd;
 	}
 
-	protected IEnumerator ChangeDirection()
+	protected IEnumerator FindDirectionCoroutine()
 	{
 		while ( true )
 		{
@@ -71,6 +61,20 @@ public class Enemy : MonoBehaviour
 			else if ( cellDirection is float2 float2 )
 				_direction_ = float2;
 		}
+	}
+
+	public void TakeDamage( float damage )
+	{
+		currentStats.hp -= math.max( damage - currentStats.def, damage * 0.15f );
+
+		if ( currentStats.hp < 0 )
+			DestroyEnemyobject();
+	}
+
+	protected void DestroyEnemyobject()
+	{
+		StopAllCoroutines();
+		enemyPoolController.EnqueueEnemyObject( gameObject );
 	}
 
 }

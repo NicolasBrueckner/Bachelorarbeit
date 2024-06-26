@@ -1,9 +1,8 @@
 using UnityEngine;
 
-[System.Serializable]
-public class CharacterStats
+public class EnemyStats
 {
-	[Header( "Current Character Stats" )]
+	[Header( "Current Enemy Stats" )]
 	public float hp;
 	public float atk;
 	public float atk_spd;
@@ -11,7 +10,7 @@ public class CharacterStats
 	public float spd;
 	public float size;
 
-	public CharacterStats( CharacterBaseStats baseStats )
+	public EnemyStats( EnemyBaseStats baseStats )
 	{
 		hp = baseStats.hp;
 		atk = baseStats.atk;

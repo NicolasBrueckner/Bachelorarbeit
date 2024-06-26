@@ -4,11 +4,11 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
 	[ReadOnly]
-	public WeaponController controller;
+	public WeaponController weaponController;
 	[ReadOnly]
 	public WeaponStats currentStats;
 
-	public Vector2 Direction => controller ? controller.Direction : Vector2.up;
+	public Vector2 Direction => weaponController ? weaponController.Direction : Vector2.up;
 	public Vector3 Size => Vector3.one * currentStats.size;
 
 	protected int _enemyLayer_;
@@ -35,7 +35,7 @@ public class Weapon : MonoBehaviour
 	protected virtual void OnTriggerEnter2D( Collider2D collision )
 	{
 		if ( collision.gameObject.layer == _enemyLayer_ )
-			DoDamage();
+			DoDamage( collision.gameObject.GetComponent<Enemy>() );
 	}
 
 	public void ScaleToSize()
@@ -43,9 +43,9 @@ public class Weapon : MonoBehaviour
 		_transform_.localScale = Size;
 	}
 
-	protected void DoDamage()
+	protected void DoDamage( Enemy enemy )
 	{
-
+		enemy.TakeDamage( currentStats.atk );
 	}
 
 	protected void RotateToDirection()
@@ -56,6 +56,6 @@ public class Weapon : MonoBehaviour
 	protected void DestroyWeaponObject()
 	{
 		StopAllCoroutines();
-		controller.EnqueueWeaponObject( gameObject );
+		weaponController.EnqueueWeaponObject( gameObject );
 	}
 }

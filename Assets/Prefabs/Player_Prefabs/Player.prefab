@@ -51,7 +51,7 @@ MonoBehaviour:
     duration: 0
     size: 0
     pierce: 0
-  weaponObject: {fileID: 3487691125199460689, guid: d2df76e0331832b45a9105b33611dfb4, type: 3}
+  weaponObject: {fileID: 3487691125199460689, guid: 147fb837cc1964a438e60b39569bc44f, type: 3}
   baseStats: {fileID: 11400000, guid: 1927c27838647e94d91777a77a2c2af5, type: 2}
   weaponQueueSize: 1
   startsActive: 0
@@ -106,7 +106,7 @@ MonoBehaviour:
     duration: 0
     size: 0
     pierce: 0
-  weaponObject: {fileID: 6827070394564824665, guid: d9d3891301b7fd743b1c9306e708fbe4, type: 3}
+  weaponObject: {fileID: 6827070394564824665, guid: fef8fa968c458aa4fa97ce522d413bae, type: 3}
   baseStats: {fileID: 11400000, guid: 82a1670ee2526e4499ea62200f797d67, type: 2}
   weaponQueueSize: 10
   startsActive: 0
@@ -239,13 +239,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bfe78e09caef59418e453f0b0f04eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseStats: {fileID: 11400000, guid: df1d3c224b4f5e348865245cf0897786, type: 2}
   currenStats:
     hp: 0
     atk: 0
     atk_spd: 0
     def: 0
     spd: 0
+  baseStats: {fileID: 11400000, guid: 28174e63a861f9a4b92be135842e5a09, type: 2}
 --- !u!1 &6174317532921900704
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,7 +297,7 @@ MonoBehaviour:
     duration: 0
     size: 0
     pierce: 0
-  weaponObject: {fileID: 3700224977712296481, guid: 6a25924726dcf9d4ab3a0a68b75c366e, type: 3}
+  weaponObject: {fileID: 3700224977712296481, guid: 08dc47d7fbe6f034ea75d3f017ac9701, type: 3}
   baseStats: {fileID: 11400000, guid: e57394900f106354db86e70447b767bb, type: 2}
   weaponQueueSize: 1
   startsActive: 0
@@ -352,7 +352,7 @@ MonoBehaviour:
     duration: 0
     size: 0
     pierce: 0
-  weaponObject: {fileID: 503519840348566708, guid: f2f2282953eb0584a978fdc9dacd8367, type: 3}
+  weaponObject: {fileID: 503519840348566708, guid: 33b635d1965fa9441b6568ee280b0b40, type: 3}
   baseStats: {fileID: 11400000, guid: 1ef179bf0be70564c859c54995cb124e, type: 2}
   weaponQueueSize: 1
   startsActive: 0

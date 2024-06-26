@@ -1,17 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class Sucker : Enemy
 {
-	protected override void OnEnable()
+	protected override void StartAttackingInternal()
 	{
-		base.OnEnable();
-	}
-
-	protected override void OnDisable()
-	{
-		base.OnDisable();
+		base.StartAttackingInternal();
 	}
 
 	protected override void Update()

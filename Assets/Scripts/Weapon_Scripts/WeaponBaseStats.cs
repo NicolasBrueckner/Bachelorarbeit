@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu( menuName = "Weapons" )]
+[CreateAssetMenu( menuName = "BaseStats/Weapons" )]
 public class WeaponBaseStats : ScriptableObject
 {
 	public float atk;

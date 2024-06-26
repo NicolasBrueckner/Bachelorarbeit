@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ce88c3e38bed4f46bf87aa61038b1cc, type: 3}
-  m_Name: BaseCharacterStats
+  m_Script: {fileID: 11500000, guid: 4c573c8cd698a40489b6e68192000aad, type: 3}
+  m_Name: CharacterBaseStats
   m_EditorClassIdentifier: 
   baseHP: 100
   baseATK: 10
