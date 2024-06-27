@@ -9,12 +9,12 @@ public class WeaponController : MonoBehaviour
 	[ReadOnly]
 	public WeaponStats currentStats;
 
-	public GameObject weaponObject;
 	public WeaponBaseStats baseStats;
+	public GameObject weaponObject;
 	public int weaponQueueSize;
 	public bool startsActive;
 
-	public float Frequency => currentStats.atk_spd * _characterController.currenStats.atk_spd;
+	public float Frequency => currentStats.atk_spd * _characterController.currentStats.atk_spd;
 	public Vector2 Direction => _characterController.AimDirection;
 
 	private bool _isActive;

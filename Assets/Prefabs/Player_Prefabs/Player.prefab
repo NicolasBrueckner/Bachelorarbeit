@@ -51,8 +51,8 @@ MonoBehaviour:
     duration: 0
     size: 0
     pierce: 0
-  weaponObject: {fileID: 3487691125199460689, guid: 147fb837cc1964a438e60b39569bc44f, type: 3}
   baseStats: {fileID: 11400000, guid: 1927c27838647e94d91777a77a2c2af5, type: 2}
+  weaponObject: {fileID: 3487691125199460689, guid: 147fb837cc1964a438e60b39569bc44f, type: 3}
   weaponQueueSize: 1
   startsActive: 0
 --- !u!1 &2010410882133518046
@@ -106,8 +106,8 @@ MonoBehaviour:
     duration: 0
     size: 0
     pierce: 0
-  weaponObject: {fileID: 6827070394564824665, guid: fef8fa968c458aa4fa97ce522d413bae, type: 3}
   baseStats: {fileID: 11400000, guid: 82a1670ee2526e4499ea62200f797d67, type: 2}
+  weaponObject: {fileID: 6827070394564824665, guid: fef8fa968c458aa4fa97ce522d413bae, type: 3}
   weaponQueueSize: 10
   startsActive: 0
 --- !u!1 &4493890750373634138
@@ -122,7 +122,8 @@ GameObject:
   - component: {fileID: 2304034886182637008}
   - component: {fileID: 5515575959173260861}
   - component: {fileID: 6766596409654062671}
-  m_Layer: 0
+  - component: {fileID: 4187008612800909916}
+  m_Layer: 22
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,13 +240,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bfe78e09caef59418e453f0b0f04eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currenStats:
+  currentStats:
     hp: 0
     atk: 0
     atk_spd: 0
     def: 0
     spd: 0
+    size: 0
   baseStats: {fileID: 11400000, guid: 28174e63a861f9a4b92be135842e5a09, type: 2}
+--- !u!61 &4187008612800909916
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4493890750373634138}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.5, y: 1}
+    newSize: {x: 2, y: 4}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &6174317532921900704
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,8 +344,8 @@ MonoBehaviour:
     duration: 0
     size: 0
     pierce: 0
-  weaponObject: {fileID: 3700224977712296481, guid: 08dc47d7fbe6f034ea75d3f017ac9701, type: 3}
   baseStats: {fileID: 11400000, guid: e57394900f106354db86e70447b767bb, type: 2}
+  weaponObject: {fileID: 3700224977712296481, guid: 08dc47d7fbe6f034ea75d3f017ac9701, type: 3}
   weaponQueueSize: 1
   startsActive: 0
 --- !u!1 &6231216148084562185
@@ -352,7 +399,7 @@ MonoBehaviour:
     duration: 0
     size: 0
     pierce: 0
-  weaponObject: {fileID: 503519840348566708, guid: 33b635d1965fa9441b6568ee280b0b40, type: 3}
   baseStats: {fileID: 11400000, guid: 1ef179bf0be70564c859c54995cb124e, type: 2}
+  weaponObject: {fileID: 503519840348566708, guid: 33b635d1965fa9441b6568ee280b0b40, type: 3}
   weaponQueueSize: 1
   startsActive: 0

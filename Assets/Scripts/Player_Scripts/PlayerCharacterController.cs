@@ -7,23 +7,25 @@ using UnityEngine.InputSystem;
 public class PlayerCharacterController : MonoBehaviour
 {
 	[ReadOnly]
-	public CharacterStats currenStats;
+	public CharacterStats currentStats;
 
 	public CharacterBaseStats baseStats;
 
 	public Vector2 AimDirection { get; private set; } = new Vector2( 0f, 1f );
 
-	private Rigidbody2D _rb2D;
 	private Vector2 _moveDirection;
+	private Rigidbody2D _rb2D;
 	private InputActions _actions;
 	private InputAction _moveAction;
 	private InputAction _aimAction;
+	private ExperienceSytem _experienceSytem;
 
 	private void Awake()
 	{
-		currenStats = new( baseStats );
+		currentStats = new( baseStats );
 		_rb2D = GetComponent<Rigidbody2D>();
 		_actions = new();
+		_experienceSytem = new( 0.3f, 0, 0 );
 	}
 
 	private void OnEnable()
@@ -50,7 +52,18 @@ public class PlayerCharacterController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		_rb2D.velocity = currenStats.spd * Time.deltaTime * _moveDirection;
+		_rb2D.velocity = currentStats.spd * Time.deltaTime * _moveDirection;
+		Debug.Log( $"player hp:{currentStats.hp}" );
+		_experienceSytem.AddExperience( 1 );
+		Debug.Log( $"current level: {_experienceSytem.CurrentLevel}, current exp: {_experienceSytem.CurrentExperience}" );
+	}
+
+	private void OnTriggerEnter2D( Collider2D collision )
+	{
+		Enemy enemy = collision.GetComponent<Enemy>();
+
+		if ( enemy )
+			TakeDamage( enemy.currentStats.atk );
 	}
 
 	private void OnMoveAction( InputAction.CallbackContext context )
@@ -62,5 +75,13 @@ public class PlayerCharacterController : MonoBehaviour
 	{
 		Vector2 center = new( Screen.width / 2, Screen.height / 2 );
 		AimDirection = math.normalize( context.ReadValue<Vector2>() - center );
+	}
+
+	private void TakeDamage( float damage )
+	{
+		Debug.Log( "taking damage" );
+		currentStats.hp -= math.max( damage - currentStats.def, damage * 0.15f );
+
+		//if ( currentStats.hp < 0 )
 	}
 }

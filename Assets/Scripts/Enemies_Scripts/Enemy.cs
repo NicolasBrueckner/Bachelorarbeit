@@ -1,3 +1,4 @@
+using EditorAttributes;
 using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
@@ -6,22 +7,24 @@ using stats = SectorStats;
 
 public class Enemy : MonoBehaviour
 {
+	[ReadOnly]
+	public EnemyStats currentStats;
+
+	public Rigidbody2D rb2D;
 	public FlowFieldController flowFieldController;
 	public EnemyPoolController enemyPoolController;
-	public EnemyStats currentStats;
-	public Rigidbody2D rb2D;
 
 	protected float2 _direction_;
 
-	public void StartAttacking()
+	public void StartAttack()
 	{
-		StartAttackingInternal();
+		StartAttackInternal();
 	}
 
-	protected virtual void StartAttackingInternal()
+	protected virtual void StartAttackInternal()
 	{
-		SetDirection();
 		StartCoroutine( FindDirectionCoroutine() );
+		StartCoroutine( CheckDistanceCoroutine() );
 	}
 
 	protected virtual void Update()
@@ -31,12 +34,12 @@ public class Enemy : MonoBehaviour
 
 	protected void MoveInDirection()
 	{
-		rb2D.velocity = _direction_ * currentStats.spd;
+		rb2D.velocity = _direction_ * currentStats.spd * Time.deltaTime;
 	}
 
 	protected IEnumerator FindDirectionCoroutine()
 	{
-		while ( true )
+		while ( gameObject.activeInHierarchy )
 		{
 			SetDirection();
 
@@ -44,6 +47,17 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
+	protected IEnumerator CheckDistanceCoroutine()
+	{
+		while ( gameObject.activeInHierarchy )
+		{
+			if ( math.distance( transform.position, enemyPoolController.targetObject.transform.position ) > 20f )
+				DestroyEnemyobject();
+
+			yield return new WaitForSeconds( 1f );
+		}
+
+	}
 	protected void SetDirection()
 	{
 		if ( flowFieldController != null && flowFieldController.FlowField != null )
