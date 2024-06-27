@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 public struct EnemyPool
 {
 	public GameObject enemyObject;
+	public EnemyBaseStats baseStats;
 	public int amount;
 }
 
@@ -38,8 +39,8 @@ public class EnemyPoolController : MonoBehaviour
 				GameObject enemyCopyObject = Instantiate( serializedEnemies[ i ].enemyObject );
 				Enemy enemy = enemyCopyObject.GetComponent<Enemy>();
 
-				enemy.flowFieldController ??= flowFieldController;
-				enemy.enemyPoolController = this;
+				InitializeEnemyInstance( enemy, serializedEnemies[ i ].baseStats );
+
 				enemyCopyObject.SetActive( false );
 				enemyShuffleList.Add( enemyCopyObject );
 			}
@@ -49,9 +50,16 @@ public class EnemyPoolController : MonoBehaviour
 		_enemyObjectQueue = new Queue<GameObject>( enemyShuffleList );
 	}
 
+	private void InitializeEnemyInstance( Enemy enemy, EnemyBaseStats baseStats )
+	{
+		enemy.flowFieldController ??= flowFieldController;
+		enemy.enemyPoolController = this;
+		enemy.currentStats = new( baseStats );
+	}
+
 	private IEnumerator SpawnEnemy()
 	{
-		while ( true )
+		while ( gameObject.activeInHierarchy )
 		{
 			if ( _enemyObjectQueue.Count > 0 )
 			{
@@ -60,6 +68,7 @@ public class EnemyPoolController : MonoBehaviour
 
 				enemy.transform.position = targetObject.transform.position + new Vector3( onCircle.x, onCircle.y, 0f );
 				enemy.SetActive( true );
+				enemy.GetComponent<Enemy>().StartAttack();
 			}
 
 			yield return new WaitForSeconds( spawnFrequency );

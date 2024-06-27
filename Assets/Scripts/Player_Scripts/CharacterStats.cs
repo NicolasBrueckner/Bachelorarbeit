@@ -4,6 +4,8 @@ using UnityEngine;
 public class CharacterStats
 {
 	[Header( "Current Character Stats" )]
+	public int level;
+	public int experience;
 	public float hp;
 	public float atk;
 	public float atk_spd;
@@ -13,6 +15,8 @@ public class CharacterStats
 
 	public CharacterStats( CharacterBaseStats baseStats )
 	{
+		level = baseStats.level;
+		experience = baseStats.experience;
 		hp = baseStats.hp;
 		atk = baseStats.atk;
 		atk_spd = baseStats.atk_spd;

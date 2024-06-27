@@ -1,8 +1,8 @@
 public class Sucker : Enemy
 {
-	protected override void StartAttackingInternal()
+	protected override void StartAttackInternal()
 	{
-		base.StartAttackingInternal();
+		base.StartAttackInternal();
 	}
 
 	protected override void Update()

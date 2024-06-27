@@ -43,7 +43,6 @@ public class Bubble : Weapon
 
 		base.OnTriggerEnter2D( collision );
 
-		Debug.Log( $"hit count: {_hits}" );
 		if ( !_isBeingQueued && ++_hits > currentStats.pierce )
 		{
 			_isBeingQueued = true;
