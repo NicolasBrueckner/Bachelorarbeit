@@ -9,6 +9,7 @@ public class CharacterBaseStats : ScriptableObject
 	[ReadOnly]
 	public int experience = 0;
 
+	public float max_hp;
 	public float hp;
 	public float atk;
 	public float atk_spd;

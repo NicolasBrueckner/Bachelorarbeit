@@ -79,9 +79,11 @@ public class PlayerCharacterController : MonoBehaviour
 
 	private void TakeDamage( float damage )
 	{
-		Debug.Log( "taking damage" );
 		currentStats.hp -= math.max( damage - currentStats.def, damage * 0.15f );
 
-		//if ( currentStats.hp < 0 )
+		EventManager.Instance.HealthChanged( currentStats.hp / currentStats.max_hp );
+
+		if ( currentStats.hp <= 0 )
+			EventManager.Instance.PlayerDied();
 	}
 }
