@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public enum UIScreenTypes
@@ -8,36 +10,44 @@ public enum UIScreenTypes
 	HUD,
 	Pause,
 	GameOver,
+	LevelUp,
 }
 
-public class UIScreenManager : MonoBehaviour
+public class UIScreenController : MonoBehaviour
 {
-	public static UIScreenManager Instance { get; private set; }
-
 	public UIDocument rootDocument;
 
 	private Dictionary<UIScreenTypes, VisualElement> _screensByType = new();
 	private VisualElement _currentScreen;
 	private VisualElement _root;
 
-	private void Awake()
-	{
-		if ( Instance != null && Instance != this )
-		{
-			Destroy( gameObject );
-			return;
-		}
-
-		Instance = this;
-		DontDestroyOnLoad( gameObject );
-	}
+	private InputActions _actions;
+	private InputAction _pauseAction;
+	private Action<InputAction.CallbackContext> _onPauseContext;
 
 	private void Start()
 	{
 		_root = rootDocument.rootVisualElement;
+		_actions = new();
+		_onPauseContext = ctx => ShowScreen( UIScreenTypes.Pause );
 
 		InitializeScreens();
 		ShowScreen( UIScreenTypes.Main );
+	}
+
+	private void OnEnable()
+	{
+		_pauseAction = _actions.Player.Pause;
+		_pauseAction.Enable();
+
+		_pauseAction.performed += _onPauseContext;
+	}
+
+	private void OnDisable()
+	{
+		_pauseAction.performed -= _onPauseContext;
+
+		_pauseAction.Disable();
 	}
 
 	private void InitializeScreens()

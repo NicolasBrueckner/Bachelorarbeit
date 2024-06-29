@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyStats
+public struct EnemyStats
 {
 	[Header( "Current Enemy Stats" )]
 	public float hp;

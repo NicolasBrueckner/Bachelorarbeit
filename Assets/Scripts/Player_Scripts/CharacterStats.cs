@@ -1,11 +1,12 @@
 using UnityEngine;
 
 [System.Serializable]
-public class CharacterStats
+public struct CharacterStats
 {
 	[Header( "Current Character Stats" )]
 	public int level;
 	public int experience;
+	public float max_hp;
 	public float hp;
 	public float atk;
 	public float atk_spd;
@@ -17,6 +18,7 @@ public class CharacterStats
 	{
 		level = baseStats.level;
 		experience = baseStats.experience;
+		max_hp = baseStats.max_hp;
 		hp = baseStats.hp;
 		atk = baseStats.atk;
 		atk_spd = baseStats.atk_spd;
