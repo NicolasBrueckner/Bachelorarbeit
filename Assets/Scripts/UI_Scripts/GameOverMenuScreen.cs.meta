@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/CameraController.cs.meta
+guid: 68be2b64f1f014847921610b693b72fc
+========
 guid: 9d6335c0b8f66114797acf43a79c158a
+>>>>>>>> UI:Assets/Scripts/UI_Scripts/GameOverMenuScreen.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

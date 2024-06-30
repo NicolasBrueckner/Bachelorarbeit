@@ -6,9 +6,23 @@ public class PauseMenuScreen : MenuScreen
 	private Button _resumeButton;
 	private Button _quitButton;
 
-	protected override void Awake()
+	protected override void SetDefaults()
 	{
-		base.Awake();
+		base.SetDefaults();
+	}
+
+	protected override void OnActivation()
+	{
+		base.OnActivation();
+
+		Time.timeScale = 0;
+	}
+
+	protected override void OnDeactivation()
+	{
+		base.OnDeactivation();
+
+		Time.timeScale = 1;
 	}
 
 	protected override void GetElements()
@@ -16,7 +30,7 @@ public class PauseMenuScreen : MenuScreen
 		base.GetElements();
 
 		_resumeButton = _root_.Q<Button>( "Resume" );
-		_quitButton = _root_.Q<Button>( "rawr" );
+		_quitButton = _root_.Q<Button>( "Quit" );
 	}
 
 	protected override void BindElements()
@@ -27,15 +41,18 @@ public class PauseMenuScreen : MenuScreen
 		_quitButton.clicked += OnQuitButtonClicked;
 	}
 
+	protected override void BindEvents()
+	{
+		base.BindEvents();
+	}
+
 	private void OnResumeButtonClicked()
 	{
-		Debug.Log( "ogbenroubg" );
-		UIScreenManager.Instance.ShowScreen( UIScreenTypes.HUD );
+		uiScreenController.ShowScreen( UIScreenTypes.HUD );
 	}
 
 	private void OnQuitButtonClicked()
 	{
-		Debug.Log( "ogbenroubg" );
-		UIScreenManager.Instance.ShowScreen( UIScreenTypes.GameOver );
+		uiScreenController.ShowScreen( UIScreenTypes.GameOver );
 	}
 }
