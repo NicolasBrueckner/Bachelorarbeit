@@ -6,9 +6,19 @@ public class GameOverMenuScreen : MenuScreen
 	private Button _restartButton;
 	private Button _returnButton;
 
-	protected override void Awake()
+	protected override void SetDefaults()
 	{
-		base.Awake();
+		base.SetDefaults();
+	}
+
+	protected override void OnActivation()
+	{
+		base.OnActivation();
+	}
+
+	protected override void OnDeactivation()
+	{
+		base.OnDeactivation();
 	}
 
 	protected override void GetElements()
@@ -16,7 +26,7 @@ public class GameOverMenuScreen : MenuScreen
 		base.GetElements();
 
 		_restartButton = _root_.Q<Button>( "Restart" );
-		_returnButton = _root_.Q<Button>( "Return" );
+		_returnButton = _root_.Q<Button>( "Quit" );
 	}
 
 	protected override void BindElements()
@@ -27,15 +37,20 @@ public class GameOverMenuScreen : MenuScreen
 		_returnButton.clicked += OnReturnButtonCLicked;
 	}
 
+	protected override void BindEvents()
+	{
+		base.BindEvents();
+	}
+
 	private void OnRestartButtonClicked()
 	{
-		UIScreenManager.Instance.ShowScreen( UIScreenTypes.HUD );
+		uiScreenController.ShowScreen( UIScreenTypes.HUD );
 		Debug.Log( "ogbenroubg" );
 	}
 
 	private void OnReturnButtonCLicked()
 	{
-		UIScreenManager.Instance.ShowScreen( UIScreenTypes.Main );
+		uiScreenController.ShowScreen( UIScreenTypes.Main );
 		Debug.Log( "ogbenroubg" );
 	}
 }

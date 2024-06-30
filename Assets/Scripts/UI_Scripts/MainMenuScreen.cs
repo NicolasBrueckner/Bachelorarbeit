@@ -6,9 +6,19 @@ public class MainMenuScreen : MenuScreen
 	private Button _startButton;
 	private Button _quitButton;
 
-	protected override void Awake()
+	protected override void SetDefaults()
 	{
-		base.Awake();
+		base.SetDefaults();
+	}
+
+	protected override void OnActivation()
+	{
+		base.OnActivation();
+	}
+
+	protected override void OnDeactivation()
+	{
+		base.OnDeactivation();
 	}
 
 	protected override void GetElements()
@@ -27,9 +37,14 @@ public class MainMenuScreen : MenuScreen
 		_quitButton.clicked += OnQuitButtonClicked;
 	}
 
+	protected override void BindEvents()
+	{
+		base.BindEvents();
+	}
+
 	private void OnStartButtonClicked()
 	{
-		UIScreenManager.Instance.ShowScreen( UIScreenTypes.HUD );
+		uiScreenController.ShowScreen( UIScreenTypes.HUD );
 	}
 
 	private void OnQuitButtonClicked()
