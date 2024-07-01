@@ -1,3 +1,18 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="Background" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.55);" />
+    <ui:Template name="LevelUpItem" src="project://database/Assets/UI_Screens/LevelUpItem.uxml?fileID=9197481963319205126&amp;guid=9d035422ea9d6024fa971e7efa6cb64c&amp;type=3#LevelUpItem" />
+    <Style src="project://database/Assets/UI_Screens/StyleSheets.uss?fileID=7433441132597879392&amp;guid=053c0196ad5dea34aa18d26276542afc&amp;type=3#StyleSheets" />
+    <ui:VisualElement name="Background" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.55); padding-top: 5%; padding-right: 10%; padding-bottom: 5px; padding-left: 10%; justify-content: center; align-items: stretch;">
+        <ui:Label tabindex="-1" text="Level Up!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Title" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 75%; -unity-font: url(&apos;project://database/Assets/Square.ttf?fileID=12800000&amp;guid=38d10b7c39850aa45945a88fd829f16a&amp;type=3#Square&apos;); -unity-text-align: middle-center; color: rgb(255, 255, 255);" />
+        <ui:VisualElement name="ItemsContainer" style="flex-grow: 1; flex-direction: row; padding-top: 5%; padding-bottom: 5%; align-self: stretch; flex-shrink: 1; background-color: rgba(0, 0, 0, 0);">
+            <ui:VisualElement name="ItemContainer_1" class="level-up-item-container" style="flex-grow: 1;">
+                <ui:Instance template="LevelUpItem" name="LevelUpItem" focusable="false" class="level-up-item" />
+            </ui:VisualElement>
+            <ui:VisualElement name="ItemContainer_2" class="level-up-item-container" style="flex-grow: 1;">
+                <ui:Instance template="LevelUpItem" name="LevelUpItem" class="level-up-item" />
+            </ui:VisualElement>
+            <ui:VisualElement name="ItemContainer_3" class="level-up-item-container" style="flex-grow: 1;">
+                <ui:Instance template="LevelUpItem" name="LevelUpItem" class="level-up-item" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>

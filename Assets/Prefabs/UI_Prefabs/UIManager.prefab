@@ -10,11 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7937051565434325220}
   - component: {fileID: 349138840341669755}
-  - component: {fileID: 6786335639855185444}
-  - component: {fileID: 5991186426320174575}
-  - component: {fileID: 5956677150131785505}
   - component: {fileID: 4958388819984401698}
-  - component: {fileID: 3395558028083451476}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -53,51 +49,6 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 2757b616337df4846b3189f9ddafab37, type: 3}
   m_SortingOrder: 0
---- !u!114 &6786335639855185444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4388808591340248554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 563d24aeb5bb7b643a69a3d255b3cf6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiScreenController: {fileID: 0}
-  type: 1
-  screen: {fileID: 9197481963319205126, guid: 61cd02a0d06091742a16f7a42d45d745, type: 3}
---- !u!114 &5991186426320174575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4388808591340248554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 939c22d95c2b73743a2d979e9aa3fd55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiScreenController: {fileID: 0}
-  type: 0
-  screen: {fileID: 9197481963319205126, guid: 58a16e0d69fe362459ffb249ec66223b, type: 3}
---- !u!114 &5956677150131785505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4388808591340248554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccb9bd16861ba2847b95dcfcc0145dac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiScreenController: {fileID: 0}
-  type: 2
-  screen: {fileID: 9197481963319205126, guid: f0395a506668c0a4284aa584c71a36ab, type: 3}
 --- !u!114 &4958388819984401698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,19 +61,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da0931594ee89941aa841899053f48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rootDocument: {fileID: 0}
---- !u!114 &3395558028083451476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4388808591340248554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfa463c137ed32847854c7f9fb970c41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiScreenController: {fileID: 0}
-  type: 0
-  screen: {fileID: 0}
+  rootDocument: {fileID: 349138840341669755}
+  _screensByType:
+    _serializedList:
+    - Key: 0
+      Value:
+        uiScreenController: {fileID: 0}
+        type: 0
+        screen: {fileID: 0}
+    - Key: 1
+      Value:
+        uiScreenController: {fileID: 0}
+        type: 0
+        screen: {fileID: 0}
+    - Key: 2
+      Value:
+        uiScreenController: {fileID: 0}
+        type: 0
+        screen: {fileID: 0}
+    - Key: 3
+      Value:
+        uiScreenController: {fileID: 0}
+        type: 0
+        screen: {fileID: 0}
+    - Key: 4
+      Value:
+        uiScreenController: {fileID: 0}
+        type: 0
+        screen: {fileID: 0}

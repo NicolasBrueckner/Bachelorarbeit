@@ -6,27 +6,27 @@ public class MainMenuScreen : MenuScreen
 	private Button _startButton;
 	private Button _quitButton;
 
-	protected override void SetDefaults()
+	protected override void SetDefaultsInternal( UIScreenTypes type, UIScreenController controller )
 	{
-		base.SetDefaults();
+		base.SetDefaultsInternal( type, controller );
 	}
 
-	protected override void OnActivation()
+	protected override void OnActivationInternal()
 	{
-		base.OnActivation();
+		base.OnActivationInternal();
 	}
 
-	protected override void OnDeactivation()
+	protected override void OnDeactivationInternal()
 	{
-		base.OnDeactivation();
+		base.OnDeactivationInternal();
 	}
 
 	protected override void GetElements()
 	{
 		base.GetElements();
 
-		_startButton = _root_.Q<Button>( "Start" );
-		_quitButton = _root_.Q<Button>( "Quit" );
+		_startButton = Root.Q<Button>( "Start" );
+		_quitButton = Root.Q<Button>( "Quit" );
 	}
 
 	protected override void BindElements()

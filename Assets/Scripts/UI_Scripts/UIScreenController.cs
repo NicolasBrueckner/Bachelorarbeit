@@ -1,5 +1,5 @@
+using AYellowpaper.SerializedCollections;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -16,8 +16,8 @@ public enum UIScreenTypes
 public class UIScreenController : MonoBehaviour
 {
 	public UIDocument rootDocument;
+	public SerializedDictionary<UIScreenTypes, MenuScreen> _screensByType = new();
 
-	private Dictionary<UIScreenTypes, VisualElement> _screensByType = new();
 	private VisualElement _currentScreen;
 	private VisualElement _root;
 
@@ -32,6 +32,7 @@ public class UIScreenController : MonoBehaviour
 		_onPauseContext = ctx => ShowScreen( UIScreenTypes.Pause );
 
 		InitializeScreens();
+		AddScreensToRoot();
 		ShowScreen( UIScreenTypes.Main );
 	}
 
@@ -52,11 +53,17 @@ public class UIScreenController : MonoBehaviour
 
 	private void InitializeScreens()
 	{
+		foreach ( UIScreenTypes type in _screensByType.Keys )
+			_screensByType[ type ].SetDefaults( type, this );
+	}
+
+	private void AddScreensToRoot()
+	{
 		VisualElement currentScreen;
 
 		foreach ( UIScreenTypes type in _screensByType.Keys )
 		{
-			currentScreen = _screensByType[ type ];
+			currentScreen = _screensByType[ type ].Root;
 			currentScreen.style.display = DisplayStyle.None;
 			currentScreen.AddToClassList( "ui-screen" );
 			_root.Add( currentScreen );
@@ -71,17 +78,11 @@ public class UIScreenController : MonoBehaviour
 		if ( _currentScreen != null )
 			_currentScreen.style.display = DisplayStyle.None;
 
-		_currentScreen = _screensByType[ screenType ];
+		_currentScreen = _screensByType[ screenType ].Root;
 		_currentScreen.style.display = DisplayStyle.Flex;
 	}
 
-	public void AddScreen( UIScreenTypes type, VisualElement screen )
-	{
-		if ( !_screensByType.ContainsKey( type ) )
-			_screensByType[ type ] = screen;
-	}
-
-	public VisualElement GetScreenByType( UIScreenTypes screenType )
+	public MenuScreen GetScreenByType( UIScreenTypes screenType )
 	{
 		return _screensByType[ screenType ];
 	}

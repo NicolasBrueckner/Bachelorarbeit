@@ -1,28 +1,43 @@
-using UnityEngine;
 using UnityEngine.UIElements;
 
 [System.Serializable]
-public class MenuScreen : MonoBehaviour
+public class MenuScreen
 {
-	public UIScreenController uiScreenController;
-	public UIScreenTypes type;
 	public VisualTreeAsset screen;
 
-	protected VisualElement _root_;
+	public VisualElement Root { get; private set; }
 
-	protected virtual void SetDefaults()
+	protected UIScreenTypes type;
+	protected UIScreenController uiScreenController;
+
+	public void SetDefaults( UIScreenTypes type, UIScreenController controller )
 	{
-		_root_ = screen.CloneTree();
+		SetDefaultsInternal( type, controller );
+	}
+
+	protected virtual void SetDefaultsInternal( UIScreenTypes type, UIScreenController controller )
+	{
+
+		Root = screen.CloneTree();
 
 		GetElements();
 		BindElements();
-
-		uiScreenController?.AddScreen( type, _root_ );
+		BindEvents();
 	}
 
-	protected virtual void OnActivation() { }
+	public void OnActivation()
+	{
+		OnActivationInternal();
+	}
 
-	protected virtual void OnDeactivation() { }
+	protected virtual void OnActivationInternal() { }
+
+	public void OnDeactivation()
+	{
+		OnDeactivationInternal();
+	}
+
+	protected virtual void OnDeactivationInternal() { }
 
 	protected virtual void GetElements() { }
 
