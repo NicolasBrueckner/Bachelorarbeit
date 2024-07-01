@@ -5,27 +5,27 @@ public class HUDMenuScreen : MenuScreen
 	private Button _pauseButton;
 	private VisualElement _healthbar;
 
-	protected override void SetDefaults()
+	protected override void SetDefaultsInternal( UIScreenTypes type, UIScreenController controller )
 	{
-		base.SetDefaults();
+		base.SetDefaultsInternal( type, controller );
 	}
 
-	protected override void OnActivation()
+	protected override void OnActivationInternal()
 	{
-		base.OnActivation();
+		base.OnActivationInternal();
 	}
 
-	protected override void OnDeactivation()
+	protected override void OnDeactivationInternal()
 	{
-		base.OnDeactivation();
+		base.OnDeactivationInternal();
 	}
 
 	protected override void GetElements()
 	{
 		base.GetElements();
 
-		_pauseButton = _root_.Q<Button>( "PauseButton" );
-		_healthbar = _root_.Q<VisualElement>( "Healthbar" );
+		_pauseButton = Root.Q<Button>( "PauseButton" );
+		_healthbar = Root.Q<VisualElement>( "Healthbar" );
 	}
 
 	protected override void BindElements()

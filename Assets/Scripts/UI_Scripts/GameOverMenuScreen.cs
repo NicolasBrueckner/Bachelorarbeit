@@ -6,27 +6,27 @@ public class GameOverMenuScreen : MenuScreen
 	private Button _restartButton;
 	private Button _returnButton;
 
-	protected override void SetDefaults()
+	protected override void SetDefaultsInternal( UIScreenTypes type, UIScreenController controller )
 	{
-		base.SetDefaults();
+		base.SetDefaultsInternal( type, controller );
 	}
 
-	protected override void OnActivation()
+	protected override void OnActivationInternal()
 	{
-		base.OnActivation();
+		base.OnActivationInternal();
 	}
 
-	protected override void OnDeactivation()
+	protected override void OnDeactivationInternal()
 	{
-		base.OnDeactivation();
+		base.OnDeactivationInternal();
 	}
 
 	protected override void GetElements()
 	{
 		base.GetElements();
 
-		_restartButton = _root_.Q<Button>( "Restart" );
-		_returnButton = _root_.Q<Button>( "Quit" );
+		_restartButton = Root.Q<Button>( "Restart" );
+		_returnButton = Root.Q<Button>( "Quit" );
 	}
 
 	protected override void BindElements()

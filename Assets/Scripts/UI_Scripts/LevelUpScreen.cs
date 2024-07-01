@@ -1,18 +1,26 @@
+using System.Collections.Generic;
+using UnityEngine.UIElements;
+
 public class LevelUpScreen : MenuScreen
 {
-	protected override void SetDefaults()
+	private Button item1;
+	private Button item2;
+	private Button item3;
+	private Dictionary<(string, string), VisualElement> _labelsByElement = new();
+
+	protected override void SetDefaultsInternal( UIScreenTypes type, UIScreenController controller )
 	{
-		base.SetDefaults();
+		base.SetDefaultsInternal( type, controller );
 	}
 
-	protected override void OnActivation()
+	protected override void OnActivationInternal()
 	{
-		base.OnActivation();
+		base.OnActivationInternal();
 	}
 
-	protected override void OnDeactivation()
+	protected override void OnDeactivationInternal()
 	{
-		base.OnDeactivation();
+		base.OnDeactivationInternal();
 	}
 
 	protected override void GetElements()
