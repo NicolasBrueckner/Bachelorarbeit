@@ -49,9 +49,9 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   serializedEnemies:
   - enemyObject: {fileID: 7630027490721236061, guid: 3aa53beec56d7aa4a9b25dcdfad8e5ef, type: 3}
-    baseStats: {fileID: 11400000, guid: a9ca9c1f9ae81a644bedad6bfae1dba8, type: 2}
+    baseStats: {fileID: 11400000, guid: cd9dd4ef38edade45bec28785b828de6, type: 2}
     amount: 200
   - enemyObject: {fileID: 5413159905188788259, guid: fbbe7f44f021899439504493546743fc, type: 3}
-    baseStats: {fileID: 11400000, guid: 51f8fede2da7434409edb33a908ec417, type: 2}
+    baseStats: {fileID: 11400000, guid: 923a09d41fbe2a54fafa35ee4512c110, type: 2}
     amount: 100
   flowFieldController: {fileID: 0}

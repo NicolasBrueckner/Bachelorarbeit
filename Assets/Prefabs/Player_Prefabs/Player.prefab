@@ -44,14 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbd30f2cdb8fa9d4bb70f51f73815de2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentStats:
-    atk: 0
-    atk_spd: 0
-    spd: 0
-    duration: 0
-    size: 0
-    pierce: 0
-  baseStats: {fileID: 11400000, guid: 1927c27838647e94d91777a77a2c2af5, type: 2}
+  baseStats: {fileID: 11400000, guid: 07bfd6fd2e8d0fe4cb15ef941164ad85, type: 2}
   weaponObject: {fileID: 3487691125199460689, guid: 147fb837cc1964a438e60b39569bc44f, type: 3}
   weaponQueueSize: 1
   startsActive: 0
@@ -99,14 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbd30f2cdb8fa9d4bb70f51f73815de2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentStats:
-    atk: 0
-    atk_spd: 0
-    spd: 0
-    duration: 0
-    size: 0
-    pierce: 0
-  baseStats: {fileID: 11400000, guid: 82a1670ee2526e4499ea62200f797d67, type: 2}
+  baseStats: {fileID: 11400000, guid: 70939c8429fb89947b4674f75fdafafb, type: 2}
   weaponObject: {fileID: 6827070394564824665, guid: fef8fa968c458aa4fa97ce522d413bae, type: 3}
   weaponQueueSize: 10
   startsActive: 0
@@ -240,14 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bfe78e09caef59418e453f0b0f04eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentStats:
-    hp: 0
-    atk: 0
-    atk_spd: 0
-    def: 0
-    spd: 0
-    size: 0
-  baseStats: {fileID: 11400000, guid: 28174e63a861f9a4b92be135842e5a09, type: 2}
+  baseStats: {fileID: 11400000, guid: 1dc007a706cd91546b6daada5472b4a7, type: 2}
 --- !u!61 &4187008612800909916
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -337,14 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbd30f2cdb8fa9d4bb70f51f73815de2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentStats:
-    atk: 0
-    atk_spd: 0
-    spd: 0
-    duration: 0
-    size: 0
-    pierce: 0
-  baseStats: {fileID: 11400000, guid: e57394900f106354db86e70447b767bb, type: 2}
+  baseStats: {fileID: 11400000, guid: b1a0e45317551874b8a4c391449ea7f4, type: 2}
   weaponObject: {fileID: 3700224977712296481, guid: 08dc47d7fbe6f034ea75d3f017ac9701, type: 3}
   weaponQueueSize: 1
   startsActive: 0
@@ -392,14 +364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbd30f2cdb8fa9d4bb70f51f73815de2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentStats:
-    atk: 0
-    atk_spd: 0
-    spd: 0
-    duration: 0
-    size: 0
-    pierce: 0
-  baseStats: {fileID: 11400000, guid: 1ef179bf0be70564c859c54995cb124e, type: 2}
+  baseStats: {fileID: 11400000, guid: d94e0079214d7e14b994f5888834f576, type: 2}
   weaponObject: {fileID: 503519840348566708, guid: 33b635d1965fa9441b6568ee280b0b40, type: 3}
   weaponQueueSize: 1
   startsActive: 0

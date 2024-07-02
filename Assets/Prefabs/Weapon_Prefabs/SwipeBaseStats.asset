@@ -9,12 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 595a4102c8bfebe48a4ab8e802ab56bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 02481427e17b68e4882c1ad3f8249102, type: 3}
   m_Name: SwipeBaseStats
   m_EditorClassIdentifier: 
-  atk: 0
-  atk_spd: 1
-  spd: 0.5
-  duration: 0.7
-  size: 2
-  pierce: 0
+  valuesByStatType:
+    _serializedList:
+    - Key: 4
+      Value: 10
+    - Key: 5
+      Value: 1
+    - Key: 6
+      Value: 0.7
+    - Key: 8
+      Value: 1
+    - Key: 9
+      Value: 1

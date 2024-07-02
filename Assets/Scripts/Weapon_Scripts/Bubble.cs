@@ -30,9 +30,9 @@ public class Bubble : Weapon
 	private IEnumerator MoveCoroutine()
 	{
 		_direction = Direction;
-		rb2d.velocity = _direction * currentStats.spd;
+		rb2d.velocity = _direction * currentStats[ StatType.spd ];
 
-		yield return new WaitForSeconds( currentStats.duration );
+		yield return new WaitForSeconds( currentStats[ StatType.duration ] );
 		DestroyWeaponObject();
 	}
 
@@ -43,7 +43,7 @@ public class Bubble : Weapon
 
 		base.OnTriggerEnter2D( collision );
 
-		if ( !_isBeingQueued && ++_hits > currentStats.pierce )
+		if ( !_isBeingQueued && ++_hits > currentStats[ StatType.pierce ] )
 		{
 			_isBeingQueued = true;
 			DestroyWeaponObject();

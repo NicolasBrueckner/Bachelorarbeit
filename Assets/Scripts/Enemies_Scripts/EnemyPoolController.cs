@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 public struct EnemyPool
 {
 	public GameObject enemyObject;
-	public EnemyBaseStats baseStats;
+	public BaseStats baseStats;
 	public int amount;
 }
 
@@ -50,7 +50,7 @@ public class EnemyPoolController : MonoBehaviour
 		_enemyObjectQueue = new Queue<GameObject>( enemyShuffleList );
 	}
 
-	private void InitializeEnemyInstance( Enemy enemy, EnemyBaseStats baseStats )
+	private void InitializeEnemyInstance( Enemy enemy, BaseStats baseStats )
 	{
 		enemy.flowFieldController ??= flowFieldController;
 		enemy.enemyPoolController = this;
