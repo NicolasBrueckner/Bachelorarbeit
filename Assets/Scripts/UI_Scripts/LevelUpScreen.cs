@@ -1,10 +1,12 @@
-using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.UIElements;
 
-public class MainMenuScreen : MenuScreen
+public class LevelUpScreen : MenuScreen
 {
-	private Button _startButton;
-	private Button _quitButton;
+	private Button item1;
+	private Button item2;
+	private Button item3;
+	private Dictionary<(string, string), VisualElement> _labelsByElement = new();
 
 	protected override void SetDefaultsInternal( UIScreenTypes type, UIScreenController controller )
 	{
@@ -24,31 +26,15 @@ public class MainMenuScreen : MenuScreen
 	protected override void GetElements()
 	{
 		base.GetElements();
-
-		_startButton = Root.Q<Button>( "Start" );
-		_quitButton = Root.Q<Button>( "Quit" );
 	}
 
 	protected override void BindElements()
 	{
 		base.BindElements();
-
-		_startButton.clicked += OnStartButtonClicked;
-		_quitButton.clicked += OnQuitButtonClicked;
 	}
 
 	protected override void BindEvents()
 	{
 		base.BindEvents();
-	}
-
-	private void OnStartButtonClicked()
-	{
-		uiScreenController.ShowScreen( UIScreenTypes.HUD );
-	}
-
-	private void OnQuitButtonClicked()
-	{
-		Application.Quit();
 	}
 }

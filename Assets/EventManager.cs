@@ -34,4 +34,9 @@ public class EventManager : MonoBehaviour
 	{
 		OnLevelUp?.Invoke();
 	}
+
+	public void UpgradeSelected()
+	{
+
+	}
 }
