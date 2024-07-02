@@ -28,7 +28,7 @@ public class Scream : Weapon
 			yield return new WaitForEndOfFrame();
 
 			_collider_.enabled = false;
-			yield return new WaitForSeconds( currentStats.atk_spd );
+			yield return new WaitForSeconds( currentStats[ StatType.atk_spd ] );
 		}
 	}
 }

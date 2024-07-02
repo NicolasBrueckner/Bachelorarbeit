@@ -7,9 +7,9 @@ using UnityEngine.InputSystem;
 public class PlayerCharacterController : MonoBehaviour
 {
 	[ReadOnly]
-	public CharacterStats currentStats;
+	public Stats currentStats;
 
-	public CharacterBaseStats baseStats;
+	public BaseStats baseStats;
 
 	public Vector2 AimDirection { get; private set; } = new Vector2( 0f, 1f );
 
@@ -52,8 +52,8 @@ public class PlayerCharacterController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		_rb2D.velocity = currentStats.spd * Time.deltaTime * _moveDirection;
-		Debug.Log( $"player hp:{currentStats.hp}" );
+		_rb2D.velocity = currentStats[ StatType.spd ] * Time.deltaTime * _moveDirection;
+		Debug.Log( $"player hp:{currentStats[ StatType.hp ]}" );
 		_experienceSytem.AddExperience( 1 );
 		Debug.Log( $"current level: {_experienceSytem.CurrentLevel}, current exp: {_experienceSytem.CurrentExperience}" );
 	}
@@ -63,7 +63,7 @@ public class PlayerCharacterController : MonoBehaviour
 		Enemy enemy = collision.GetComponent<Enemy>();
 
 		if ( enemy )
-			TakeDamage( enemy.currentStats.atk );
+			TakeDamage( enemy.currentStats[ StatType.atk ] );
 	}
 
 	private void OnMoveAction( InputAction.CallbackContext context )
@@ -79,11 +79,11 @@ public class PlayerCharacterController : MonoBehaviour
 
 	private void TakeDamage( float damage )
 	{
-		currentStats.hp -= math.max( damage - currentStats.def, damage * 0.15f );
+		currentStats[ StatType.hp ] -= math.max( damage - currentStats[ StatType.def ], damage * 0.15f );
 
-		EventManager.Instance.HealthChanged( currentStats.hp / currentStats.max_hp );
+		EventManager.Instance.HealthChanged( currentStats[ StatType.hp ] / currentStats[ StatType.max_hp ] );
 
-		if ( currentStats.hp <= 0 )
+		if ( currentStats[ StatType.hp ] <= 0 )
 			EventManager.Instance.PlayerDied();
 	}
 }

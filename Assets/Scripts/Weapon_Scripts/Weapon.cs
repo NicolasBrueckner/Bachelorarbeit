@@ -6,10 +6,10 @@ public class Weapon : MonoBehaviour
 	[ReadOnly]
 	public WeaponController weaponController;
 	[ReadOnly]
-	public WeaponStats currentStats;
+	public Stats currentStats;
 
 	public Vector2 Direction => weaponController ? weaponController.Direction : Vector2.up;
-	public Vector3 Size => Vector3.one * currentStats.size;
+	public Vector3 Size => Vector3.one * currentStats[ StatType.size ];
 
 	protected int _enemyLayer_;
 	protected Transform _transform_;
@@ -45,7 +45,7 @@ public class Weapon : MonoBehaviour
 
 	protected void DoDamage( Enemy enemy )
 	{
-		enemy.TakeDamage( currentStats.atk );
+		enemy.TakeDamage( currentStats[ StatType.atk ] );
 	}
 
 	protected void RotateToDirection()

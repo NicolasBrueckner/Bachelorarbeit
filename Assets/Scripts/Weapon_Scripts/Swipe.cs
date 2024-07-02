@@ -30,9 +30,9 @@ public class Swipe : Weapon
 	{
 		float timer = 0f;
 
-		while ( timer < currentStats.duration )
+		while ( timer < currentStats[ StatType.duration ] )
 		{
-			float ratio = timer / currentStats.spd;
+			float ratio = timer / currentStats[ StatType.spd ];
 			_transform_.localScale = Vector3.Lerp( Vector3.zero, Size, ratio );
 			timer += Time.deltaTime;
 

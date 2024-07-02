@@ -7,14 +7,14 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
 	[ReadOnly]
-	public WeaponStats currentStats;
+	public Stats currentStats;
 
-	public WeaponBaseStats baseStats;
+	public BaseStats baseStats;
 	public GameObject weaponObject;
 	public int weaponQueueSize;
 	public bool startsActive;
 
-	public float Frequency => currentStats.atk_spd * _characterController.currentStats.atk_spd;
+	public float Frequency => currentStats[ StatType.atk_spd ] * _characterController.currentStats[ StatType.atk_spd ];
 	public Vector2 Direction => _characterController.AimDirection;
 
 	private bool _isActive;

@@ -8,7 +8,7 @@ using stats = SectorStats;
 public class Enemy : MonoBehaviour
 {
 	[ReadOnly]
-	public EnemyStats currentStats;
+	public Stats currentStats;
 
 	public Rigidbody2D rb2D;
 	public FlowFieldController flowFieldController;
@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
 
 	protected void MoveInDirection()
 	{
-		rb2D.velocity = _direction_ * currentStats.spd * Time.deltaTime;
+		rb2D.velocity = _direction_ * currentStats[ StatType.spd ] * Time.deltaTime;
 	}
 
 	protected IEnumerator FindDirectionCoroutine()
@@ -79,9 +79,9 @@ public class Enemy : MonoBehaviour
 
 	public void TakeDamage( float damage )
 	{
-		currentStats.hp -= math.max( damage - currentStats.def, damage * 0.15f );
+		currentStats[ StatType.hp ] -= math.max( damage - currentStats[ StatType.def ], damage * 0.15f );
 
-		if ( currentStats.hp < 0 )
+		if ( currentStats[ StatType.hp ] < 0 )
 			DestroyEnemyobject();
 	}
 
