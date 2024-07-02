@@ -17,7 +17,6 @@ public class MenuScreen
 
 	protected virtual void SetDefaultsInternal( UIScreenTypes type, UIScreenController controller )
 	{
-
 		Root = screen.CloneTree();
 
 		GetElements();

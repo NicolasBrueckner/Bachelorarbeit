@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EventManager : MonoBehaviour
@@ -7,7 +8,7 @@ public class EventManager : MonoBehaviour
 
 	public event Action<float> OnHealthChanged;
 	public event Action OnPlayerDied;
-	public event Action OnLevelUp;
+	public event Action<List<(StatType, float)>> OnLevelUp;
 
 	private void Awake()
 	{
@@ -30,9 +31,9 @@ public class EventManager : MonoBehaviour
 		OnPlayerDied?.Invoke();
 	}
 
-	public void LevelUp()
+	public void LevelUp( List<(StatType type, float value)> itemValues )
 	{
-		OnLevelUp?.Invoke();
+		OnLevelUp?.Invoke( itemValues );
 	}
 
 	public void UpgradeSelected()
