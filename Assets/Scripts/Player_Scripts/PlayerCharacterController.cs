@@ -18,14 +18,12 @@ public class PlayerCharacterController : MonoBehaviour
 	private InputActions _actions;
 	private InputAction _moveAction;
 	private InputAction _aimAction;
-	private ExperienceSytem _experienceSytem;
 
 	private void Awake()
 	{
 		currentStats = new( baseStats );
 		_rb2D = GetComponent<Rigidbody2D>();
 		_actions = new();
-		_experienceSytem = new( 0.3f, 0, 0 );
 	}
 
 	private void OnEnable()
@@ -53,9 +51,6 @@ public class PlayerCharacterController : MonoBehaviour
 	private void FixedUpdate()
 	{
 		_rb2D.velocity = currentStats[ StatType.spd ] * Time.deltaTime * _moveDirection;
-		Debug.Log( $"player hp:{currentStats[ StatType.hp ]}" );
-		_experienceSytem.AddExperience( 1 );
-		Debug.Log( $"current level: {_experienceSytem.CurrentLevel}, current exp: {_experienceSytem.CurrentExperience}" );
 	}
 
 	private void OnTriggerEnter2D( Collider2D collision )

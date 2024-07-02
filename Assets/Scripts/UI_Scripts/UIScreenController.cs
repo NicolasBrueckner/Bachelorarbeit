@@ -25,7 +25,7 @@ public class UIScreenController : MonoBehaviour
 	private InputAction _pauseAction;
 	private Action<InputAction.CallbackContext> _onPauseContext;
 
-	private void Start()
+	private void Awake()
 	{
 		_root = rootDocument.rootVisualElement;
 		_actions = new();

@@ -28,6 +28,10 @@ public class WeaponController : MonoBehaviour
 		_characterController = GetComponentInParent<PlayerCharacterController>();
 
 		InitializeWeapon();
+	}
+
+	private void Start()
+	{
 		ToggleWeapon( startsActive );
 	}
 
@@ -100,5 +104,6 @@ public class WeaponController : MonoBehaviour
 				weaponObject.SetActive( _isActive );
 		}
 
+		EventManager.Instance.WeaponToggled( this, _isActive );
 	}
 }

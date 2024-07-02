@@ -6,9 +6,11 @@ public class EventManager : MonoBehaviour
 {
 	public static EventManager Instance { get; private set; }
 
+	public event Action<WeaponController, bool> OnWeaponToggled;
 	public event Action<float> OnHealthChanged;
 	public event Action OnPlayerDied;
-	public event Action<List<(StatType, float)>> OnLevelUp;
+	public event Action<Stats, List<StatType>, List<float>> OnLevelUp;
+	public event Action<Stats, StatType, float> OnUpgradePicked;
 
 	private void Awake()
 	{
@@ -31,13 +33,18 @@ public class EventManager : MonoBehaviour
 		OnPlayerDied?.Invoke();
 	}
 
-	public void LevelUp( List<(StatType type, float value)> itemValues )
+	public void LevelUp( Stats stats, List<StatType> types, List<float> values )
 	{
-		OnLevelUp?.Invoke( itemValues );
+		OnLevelUp?.Invoke( stats, types, values );
 	}
 
-	public void UpgradeSelected()
+	public void UpgradePicked( Stats stats, StatType type, float value )
 	{
+		OnUpgradePicked?.Invoke( stats, type, value );
+	}
 
+	public void WeaponToggled( WeaponController controller, bool isActive )
+	{
+		OnWeaponToggled?.Invoke( controller, isActive );
 	}
 }
