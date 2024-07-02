@@ -6,21 +6,21 @@ public class PauseMenuScreen : MenuScreen
 	private Button _resumeButton;
 	private Button _quitButton;
 
-	protected override void SetDefaults()
+	protected override void SetDefaultsInternal( UIScreenTypes type, UIScreenController controller )
 	{
-		base.SetDefaults();
+		base.SetDefaultsInternal( type, controller );
 	}
 
-	protected override void OnActivation()
+	protected override void OnActivationInternal()
 	{
-		base.OnActivation();
+		base.OnActivationInternal();
 
 		Time.timeScale = 0;
 	}
 
-	protected override void OnDeactivation()
+	protected override void OnDeactivationInternal()
 	{
-		base.OnDeactivation();
+		base.OnDeactivationInternal();
 
 		Time.timeScale = 1;
 	}
@@ -29,8 +29,8 @@ public class PauseMenuScreen : MenuScreen
 	{
 		base.GetElements();
 
-		_resumeButton = _root_.Q<Button>( "Resume" );
-		_quitButton = _root_.Q<Button>( "Quit" );
+		_resumeButton = Root.Q<Button>( "Resume" );
+		_quitButton = Root.Q<Button>( "Quit" );
 	}
 
 	protected override void BindElements()
