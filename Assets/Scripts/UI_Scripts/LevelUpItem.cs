@@ -1,14 +1,16 @@
 using UnityEngine.UIElements;
+using static StatNames;
 
 public class LevelUpItem
 {
-	public StatType upgradeType;
-	public float upgradeValue;
+	public Stats stats;
+	public StatType type;
+	public float value;
 
 	public VisualElement root;
-	public Button button;
-	public Label name;
-	public Label value;
+	public Button itemButton;
+	public Label nameLabel;
+	public Label valueLabel;
 
 	public LevelUpItem( VisualElement root )
 	{
@@ -18,20 +20,29 @@ public class LevelUpItem
 		BindElements();
 	}
 
-	public void GetElements()
+	private void GetElements()
 	{
-		button = root.Q<Button>( "ItemButton" );
-		name = root.Q<Label>( "ItemName" );
-		value = root.Q<Label>( "ItemValue" );
+		itemButton = root.Q<Button>( "ItemButton" );
+		nameLabel = root.Q<Label>( "ItemName" );
+		valueLabel = root.Q<Label>( "ItemValue" );
 	}
 
-	public void BindElements()
+	private void BindElements()
 	{
-		button.clicked += OnItemClicked;
+		itemButton.clicked += OnItemClicked;
+	}
+
+	public void SetItemValues( Stats stats, StatType type, float value )
+	{
+		this.stats = stats;
+		this.type = type;
+		this.value = value;
+		nameLabel.text = statNames[ type ];
+		valueLabel.text = "+" + ( value * 100 ).ToString() + "%";
 	}
 
 	private void OnItemClicked()
 	{
-
+		EventManager.Instance.UpgradePicked( stats, type, value );
 	}
 }

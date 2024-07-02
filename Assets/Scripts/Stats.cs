@@ -4,10 +4,16 @@ using EditorAttributes;
 public class Stats
 {
 	[ReadOnly]
+	public string statName;
+	[ReadOnly]
+	public BaseStats baseStats;
+	[ReadOnly]
 	public SerializedDictionary<StatType, float> valuesByStatType;
 
 	public Stats( BaseStats baseStats )
 	{
+		statName = baseStats.statName;
+		this.baseStats = baseStats;
 		valuesByStatType = baseStats.valuesByStatType;
 	}
 

@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02481427e17b68e4882c1ad3f8249102, type: 3}
   m_Name: ScreamBaseStats
   m_EditorClassIdentifier: 
+  statName: Scream
   valuesByStatType:
     _serializedList:
-    - Key: 4
-      Value: 10
     - Key: 5
+      Value: 10
+    - Key: 6
       Value: 1
-    - Key: 8
+    - Key: 9
       Value: 1

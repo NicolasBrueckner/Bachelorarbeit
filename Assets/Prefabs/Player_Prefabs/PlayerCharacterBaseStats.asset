@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02481427e17b68e4882c1ad3f8249102, type: 3}
   m_Name: PlayerCharacterBaseStats
   m_EditorClassIdentifier: 
+  statName: Character
   valuesByStatType:
     _serializedList:
     - Key: 0
@@ -31,4 +32,6 @@ MonoBehaviour:
     - Key: 7
       Value: 10
     - Key: 8
+      Value: 1
+    - Key: 9
       Value: 1

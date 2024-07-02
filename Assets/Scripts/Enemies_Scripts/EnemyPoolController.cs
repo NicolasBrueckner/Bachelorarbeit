@@ -66,7 +66,7 @@ public class EnemyPoolController : MonoBehaviour
 				GameObject enemy = _enemyObjectQueue.Dequeue();
 				Vector2 onCircle = Random.insideUnitCircle.normalized * spawnRange;
 
-				enemy.transform.position = targetObject.transform.position + new Vector3( onCircle.x, onCircle.y, 0f );
+				enemy.transform.position = targetObject.transform.position + ( Vector3 )onCircle;
 				enemy.SetActive( true );
 				enemy.GetComponent<Enemy>().StartAttack();
 			}

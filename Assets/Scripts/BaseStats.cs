@@ -39,5 +39,12 @@ public static class StatNames
 [CreateAssetMenu( menuName = "BaseStats" )]
 public class BaseStats : ScriptableObject
 {
+	public string statName;
 	public SerializedDictionary<StatType, float> valuesByStatType;
+
+	public float this[ StatType type ]
+	{
+		get => valuesByStatType[ type ];
+		set => valuesByStatType[ type ] = value;
+	}
 }
