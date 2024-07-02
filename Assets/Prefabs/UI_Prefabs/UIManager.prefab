@@ -66,26 +66,16 @@ MonoBehaviour:
     _serializedList:
     - Key: 0
       Value:
-        uiScreenController: {fileID: 0}
-        type: 0
-        screen: {fileID: 0}
+        screen: {fileID: 9197481963319205126, guid: 58a16e0d69fe362459ffb249ec66223b, type: 3}
     - Key: 1
       Value:
-        uiScreenController: {fileID: 0}
-        type: 0
-        screen: {fileID: 0}
+        screen: {fileID: 9197481963319205126, guid: 61cd02a0d06091742a16f7a42d45d745, type: 3}
     - Key: 2
       Value:
-        uiScreenController: {fileID: 0}
-        type: 0
-        screen: {fileID: 0}
+        screen: {fileID: 9197481963319205126, guid: f0395a506668c0a4284aa584c71a36ab, type: 3}
     - Key: 3
       Value:
-        uiScreenController: {fileID: 0}
-        type: 0
-        screen: {fileID: 0}
+        screen: {fileID: 9197481963319205126, guid: 7c39ec32050b5e849bb7eadd63438390, type: 3}
     - Key: 4
       Value:
-        uiScreenController: {fileID: 0}
-        type: 0
-        screen: {fileID: 0}
+        screen: {fileID: 9197481963319205126, guid: 4d664e766185ddb48a592796274117d9, type: 3}
