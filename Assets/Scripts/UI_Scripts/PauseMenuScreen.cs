@@ -48,11 +48,11 @@ public class PauseMenuScreen : MenuScreen
 
 	private void OnResumeButtonClicked()
 	{
-		uiScreenController.ShowScreen( UIScreenTypes.HUD );
+		uiScreenController.ToggleScreen( UIScreenTypes.HUD );
 	}
 
 	private void OnQuitButtonClicked()
 	{
-		uiScreenController.ShowScreen( UIScreenTypes.GameOver );
+		uiScreenController.ToggleScreen( UIScreenTypes.GameOver );
 	}
 }

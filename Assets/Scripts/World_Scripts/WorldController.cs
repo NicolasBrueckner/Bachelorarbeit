@@ -1,13 +1,8 @@
 using AYellowpaper.SerializedCollections;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Burst;
 using Unity.Mathematics;
-using Unity.Transforms;
-using UnityEditor.Build.Pipeline;
 using UnityEngine;
-using UnityEngine.UIElements;
 using static GridUtility;
 using stats = SectorStats;
 
@@ -37,7 +32,7 @@ public class WorldController : MonoBehaviour
 
 	private void CreateWorld()
 	{
-		Instantiate( worldMaps[ activeWorldMap ] );
+		Instantiate( worldMaps[ activeWorldMap ], transform );
 		_allSectorData = new Sector[ _worldSize.x, _worldSize.y ];
 
 		foreach ( int2 index in _sectorsByIndex.Keys )

@@ -1,5 +1,6 @@
 using AYellowpaper.SerializedCollections;
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -18,30 +19,35 @@ public class UIScreenController : MonoBehaviour
 	public UIDocument rootDocument;
 	public SerializedDictionary<UIScreenTypes, MenuScreen> _screensByType = new();
 
-	private VisualElement _currentScreen;
+	private MenuScreen _currentScreen;
 	private VisualElement _root;
 
 	private InputActions _actions;
 	private InputAction _pauseAction;
 	private Action<InputAction.CallbackContext> _onPauseContext;
 
-	private void Awake()
+	private void Start()
 	{
 		_root = rootDocument.rootVisualElement;
 		_actions = new();
-		_onPauseContext = ctx => ShowScreen( UIScreenTypes.Pause );
+		_onPauseContext = ctx =>
+		{
+			if ( _currentScreen?.Type == UIScreenTypes.HUD )
+				ToggleScreen( UIScreenTypes.Pause );
+		};
 
-		InitializeScreens();
-		AddScreensToRoot();
-		ShowScreen( UIScreenTypes.Main );
-	}
-
-	private void OnEnable()
-	{
 		_pauseAction = _actions.Player.Pause;
 		_pauseAction.Enable();
 
 		_pauseAction.performed += _onPauseContext;
+
+		InitializeScreens();
+		AddScreensToRoot();
+		ToggleScreen( UIScreenTypes.Main );
+	}
+
+	private void OnEnable()
+	{
 	}
 
 	private void OnDisable()
@@ -53,33 +59,45 @@ public class UIScreenController : MonoBehaviour
 
 	private void InitializeScreens()
 	{
-		foreach ( UIScreenTypes type in _screensByType.Keys )
+		MenuScreen menuScreen;
+
+		foreach ( UIScreenTypes type in _screensByType.Keys.ToList() )
+		{
+			menuScreen = UIScreenFactory.CreateScreen( type );
+			menuScreen.screenAsset = _screensByType[ type ].screenAsset;
+			_screensByType[ type ] = menuScreen;
+
 			_screensByType[ type ].SetDefaults( type, this );
+		}
 	}
 
 	private void AddScreensToRoot()
 	{
-		VisualElement currentScreen;
+		VisualElement currentScreenElement;
 
-		foreach ( UIScreenTypes type in _screensByType.Keys )
+		foreach ( UIScreenTypes type in _screensByType.Keys.ToList() )
 		{
-			currentScreen = _screensByType[ type ].Root;
-			currentScreen.style.display = DisplayStyle.None;
-			currentScreen.AddToClassList( "ui-screen" );
-			_root.Add( currentScreen );
+			currentScreenElement = _screensByType[ type ].Root;
+			currentScreenElement.style.display = DisplayStyle.None;
+			currentScreenElement.AddToClassList( "ui-screen" );
+			_root.Add( currentScreenElement );
 		}
 	}
 
-	public void ShowScreen( UIScreenTypes screenType )
+	public void ToggleScreen( UIScreenTypes screenType )
 	{
 		if ( !_screensByType.ContainsKey( screenType ) )
 			return;
 
 		if ( _currentScreen != null )
-			_currentScreen.style.display = DisplayStyle.None;
+		{
+			_currentScreen.Root.style.display = DisplayStyle.None;
+			_currentScreen.OnDeactivation();
+		}
 
-		_currentScreen = _screensByType[ screenType ].Root;
-		_currentScreen.style.display = DisplayStyle.Flex;
+		_currentScreen = _screensByType[ screenType ];
+		_currentScreen.OnActivation();
+		_currentScreen.Root.style.display = DisplayStyle.Flex;
 	}
 
 	public MenuScreen GetScreenByType( UIScreenTypes screenType )

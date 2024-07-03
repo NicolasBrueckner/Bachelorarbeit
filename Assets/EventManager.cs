@@ -6,11 +6,14 @@ public class EventManager : MonoBehaviour
 {
 	public static EventManager Instance { get; private set; }
 
-	public event Action<WeaponController, bool> OnWeaponToggled;
-	public event Action<float> OnHealthChanged;
 	public event Action OnPlayerDied;
+	public event Action OnResetGame;
+	public event Action OnStartGame;
+	public event Action OnEndGame;
 	public event Action<Stats, List<StatType>, List<float>> OnLevelUp;
 	public event Action<Stats, StatType, float> OnUpgradePicked;
+	public event Action<WeaponController, bool> OnWeaponToggled;
+	public event Action<float> OnHealthChanged;
 
 	private void Awake()
 	{
@@ -46,5 +49,20 @@ public class EventManager : MonoBehaviour
 	public void WeaponToggled( WeaponController controller, bool isActive )
 	{
 		OnWeaponToggled?.Invoke( controller, isActive );
+	}
+
+	public void EndGame()
+	{
+		OnEndGame?.Invoke();
+	}
+
+	public void ResetGame()
+	{
+		OnResetGame?.Invoke();
+	}
+
+	public void StartGame()
+	{
+		OnStartGame?.Invoke();
 	}
 }

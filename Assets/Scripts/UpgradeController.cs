@@ -29,14 +29,10 @@ public class UpgradeController : MonoBehaviour
 	private void Awake()
 	{
 		GetExperienceForNextLevel();
+		InitializeDictionaries();
 
 		EventManager.Instance.OnWeaponToggled += ChangeStatActiveState;
 		EventManager.Instance.OnUpgradePicked += UpgradeStat;
-	}
-
-	private void Start()
-	{
-		InitializeDictionaries();
 	}
 
 	private void InitializeDictionaries()
@@ -111,6 +107,8 @@ public class UpgradeController : MonoBehaviour
 
 	private void ChangeStatActiveState( WeaponController controller, bool isActive )
 	{
+		if ( controller == null )
+			Debug.Log( "controller is null" );
 		_activeStateByStats[ controller.currentStats ] = isActive;
 	}
 }

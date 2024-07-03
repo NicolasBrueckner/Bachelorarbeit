@@ -5,13 +5,13 @@
         <ui:Label tabindex="-1" text="Level Up!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Title" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 75%; -unity-font: url(&apos;project://database/Assets/Square.ttf?fileID=12800000&amp;guid=38d10b7c39850aa45945a88fd829f16a&amp;type=3#Square&apos;); -unity-text-align: middle-center; color: rgb(255, 255, 255);" />
         <ui:VisualElement name="ItemsContainer" style="flex-grow: 1; flex-direction: row; padding-top: 5%; padding-bottom: 5%; align-self: stretch; flex-shrink: 1; background-color: rgba(0, 0, 0, 0);">
             <ui:VisualElement name="ItemContainer_1" class="level-up-item-container" style="flex-grow: 1;">
-                <ui:Instance template="LevelUpItem" name="LevelUpItem" focusable="false" class="level-up-item" />
+                <ui:Instance template="LevelUpItem" name="Item_1" focusable="false" class="level-up-item" />
             </ui:VisualElement>
             <ui:VisualElement name="ItemContainer_2" class="level-up-item-container" style="flex-grow: 1;">
-                <ui:Instance template="LevelUpItem" name="LevelUpItem" class="level-up-item" />
+                <ui:Instance template="LevelUpItem" name="Item_2" class="level-up-item" />
             </ui:VisualElement>
             <ui:VisualElement name="ItemContainer_3" class="level-up-item-container" style="flex-grow: 1;">
-                <ui:Instance template="LevelUpItem" name="LevelUpItem" class="level-up-item" />
+                <ui:Instance template="LevelUpItem" name="Item_3" class="level-up-item" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

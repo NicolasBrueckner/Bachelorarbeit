@@ -36,7 +36,7 @@ public class EnemyPoolController : MonoBehaviour
 		{
 			for ( int j = 0; j < serializedEnemies[ i ].amount; j++ )
 			{
-				GameObject enemyCopyObject = Instantiate( serializedEnemies[ i ].enemyObject );
+				GameObject enemyCopyObject = Instantiate( serializedEnemies[ i ].enemyObject, transform );
 				Enemy enemy = enemyCopyObject.GetComponent<Enemy>();
 
 				InitializeEnemyInstance( enemy, serializedEnemies[ i ].baseStats );

@@ -25,6 +25,8 @@ public class MainMenuScreen : MenuScreen
 	{
 		base.GetElements();
 
+		Debug.Log( $"entered GetElements() in {Type} screen" );
+
 		_startButton = Root.Q<Button>( "Start" );
 		_quitButton = Root.Q<Button>( "Quit" );
 	}
@@ -32,6 +34,8 @@ public class MainMenuScreen : MenuScreen
 	protected override void BindElements()
 	{
 		base.BindElements();
+
+		Debug.Log( $"entered BindElements() in {Type} screen" );
 
 		_startButton.clicked += OnStartButtonClicked;
 		_quitButton.clicked += OnQuitButtonClicked;
@@ -44,7 +48,9 @@ public class MainMenuScreen : MenuScreen
 
 	private void OnStartButtonClicked()
 	{
-		uiScreenController.ShowScreen( UIScreenTypes.HUD );
+		Debug.Log( $"entered OnStartButtonCicked()" );
+		EventManager.Instance.StartGame();
+		uiScreenController.ToggleScreen( UIScreenTypes.HUD );
 	}
 
 	private void OnQuitButtonClicked()

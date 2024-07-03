@@ -3,6 +3,8 @@ using static StatNames;
 
 public class LevelUpItem
 {
+	public LevelUpMenuScreen levelUpScreen;
+
 	public Stats stats;
 	public StatType type;
 	public float value;
@@ -12,8 +14,9 @@ public class LevelUpItem
 	public Label nameLabel;
 	public Label valueLabel;
 
-	public LevelUpItem( VisualElement root )
+	public LevelUpItem( LevelUpMenuScreen levelUpScreen, VisualElement root )
 	{
+		this.levelUpScreen = levelUpScreen;
 		this.root = root;
 
 		GetElements();
@@ -43,6 +46,6 @@ public class LevelUpItem
 
 	private void OnItemClicked()
 	{
-		EventManager.Instance.UpgradePicked( stats, type, value );
+		levelUpScreen.OnUpgradePicked( stats, type, value );
 	}
 }
