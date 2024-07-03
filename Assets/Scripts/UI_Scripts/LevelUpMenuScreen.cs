@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UIElements;
 
-public class LevelUpScreen : MenuScreen
+public class LevelUpMenuScreen : MenuScreen
 {
 	private LevelUpItem _item1;
 	private LevelUpItem _item2;
@@ -12,19 +13,24 @@ public class LevelUpScreen : MenuScreen
 	{
 		base.SetDefaultsInternal( type, controller );
 
-		_item1 = new( Root.Q<VisualElement>( "Item_1" ) );
-		_item1 = new( Root.Q<VisualElement>( "Item_2" ) );
-		_item1 = new( Root.Q<VisualElement>( "Item_3" ) );
+
+		_item1 = new( this, Root.Q<VisualElement>( "Item_1" ) );
+		_item1 = new( this, Root.Q<VisualElement>( "Item_2" ) );
+		_item1 = new( this, Root.Q<VisualElement>( "Item_3" ) );
 	}
 
 	protected override void OnActivationInternal()
 	{
 		base.OnActivationInternal();
+
+		Time.timeScale = 0;
 	}
 
 	protected override void OnDeactivationInternal()
 	{
 		base.OnDeactivationInternal();
+
+		Time.timeScale = 1;
 	}
 
 	protected override void GetElements()
@@ -44,16 +50,25 @@ public class LevelUpScreen : MenuScreen
 		base.BindEvents();
 
 		EventManager.Instance.OnLevelUp += OnLevelUp;
+		EventManager.Instance.OnUpgradePicked += OnUpgradePicked;
 	}
 
 	private void OnLevelUp( Stats stats, List<StatType> types, List<float> values )
 	{
+		uiScreenController.ToggleScreen( Type );
+
 		_upgradeInstanceLabel.text = stats.statName + " Upgrade";
 
 		_item1.SetItemValues( stats, types[ 0 ], values[ 0 ] );
 		_item2.SetItemValues( stats, types[ 1 ], values[ 1 ] );
 		_item3.SetItemValues( stats, types[ 2 ], values[ 2 ] );
 
-		uiScreenController.ShowScreen( UIScreenTypes.LevelUp );
+		uiScreenController.ToggleScreen( UIScreenTypes.LevelUp );
+	}
+
+	public void OnUpgradePicked( Stats stats, StatType type, float value )
+	{
+		EventManager.Instance.UpgradePicked( stats, type, value );
+		uiScreenController.ToggleScreen( UIScreenTypes.HUD );
 	}
 }

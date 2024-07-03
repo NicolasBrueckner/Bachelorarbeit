@@ -44,7 +44,7 @@ public class HUDMenuScreen : MenuScreen
 
 	private void OnPauseButtonClicked()
 	{
-		uiScreenController.ShowScreen( UIScreenTypes.Pause );
+		uiScreenController.ToggleScreen( UIScreenTypes.Pause );
 	}
 
 	private void OnHealthChanged( float healthPercentage )

@@ -3,11 +3,11 @@ using UnityEngine.UIElements;
 [System.Serializable]
 public class MenuScreen
 {
-	public VisualTreeAsset screen;
+	public VisualTreeAsset screenAsset;
 
 	public VisualElement Root { get; private set; }
+	public UIScreenTypes Type { get; private set; }
 
-	protected UIScreenTypes type;
 	protected UIScreenController uiScreenController;
 
 	public void SetDefaults( UIScreenTypes type, UIScreenController controller )
@@ -17,7 +17,9 @@ public class MenuScreen
 
 	protected virtual void SetDefaultsInternal( UIScreenTypes type, UIScreenController controller )
 	{
-		Root = screen.CloneTree();
+		Root = screenAsset.CloneTree();
+		Type = type;
+		uiScreenController = controller;
 
 		GetElements();
 		BindElements();

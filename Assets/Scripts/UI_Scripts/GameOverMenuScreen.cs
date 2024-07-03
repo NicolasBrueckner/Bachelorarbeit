@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.UIElements;
 
 public class GameOverMenuScreen : MenuScreen
@@ -14,6 +13,8 @@ public class GameOverMenuScreen : MenuScreen
 	protected override void OnActivationInternal()
 	{
 		base.OnActivationInternal();
+
+		EventManager.Instance.EndGame();
 	}
 
 	protected override void OnDeactivationInternal()
@@ -44,13 +45,12 @@ public class GameOverMenuScreen : MenuScreen
 
 	private void OnRestartButtonClicked()
 	{
-		uiScreenController.ShowScreen( UIScreenTypes.HUD );
-		Debug.Log( "ogbenroubg" );
+		EventManager.Instance.ResetGame();
+		uiScreenController.ToggleScreen( UIScreenTypes.HUD );
 	}
 
 	private void OnReturnButtonCLicked()
 	{
-		uiScreenController.ShowScreen( UIScreenTypes.Main );
-		Debug.Log( "ogbenroubg" );
+		uiScreenController.ToggleScreen( UIScreenTypes.Main );
 	}
 }

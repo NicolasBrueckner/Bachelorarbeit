@@ -1,13 +1,11 @@
 using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using static GridUtility;
 using stats = SectorStats;
 
 public class FlowFieldController : MonoBehaviour
 {
-	public Camera mainCamera;
 	public DebugGizmos debugGizmos;
 	public GameObject player;
 
@@ -42,7 +40,7 @@ public class FlowFieldController : MonoBehaviour
 			FlowField = new FlowField( GetActiveSectors( sectorIndex ) );
 
 			FlowField.InitializeFlowField();
-			debugGizmos.SetFlowField( FlowField );
+			debugGizmos?.SetFlowField( FlowField );
 			_mainSectorIndex = sectorIndex;
 		}
 
