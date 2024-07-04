@@ -14,7 +14,7 @@ public class Stats
 	{
 		statName = baseStats.statName;
 		this.baseStats = baseStats;
-		valuesByStatType = baseStats.valuesByStatType;
+		valuesByStatType = new SerializedDictionary<StatType, float>( baseStats.valuesByStatType );
 	}
 
 	public float this[ StatType type ]

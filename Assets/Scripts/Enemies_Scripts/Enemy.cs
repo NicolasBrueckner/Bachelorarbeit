@@ -52,7 +52,7 @@ public class Enemy : MonoBehaviour
 		while ( gameObject.activeInHierarchy )
 		{
 			if ( math.distance( transform.position, enemyPoolController.targetObject.transform.position ) > 20f )
-				DestroyEnemyobject();
+				DestroyEnemyobject( false );
 
 			yield return new WaitForSeconds( 1f );
 		}
@@ -82,13 +82,13 @@ public class Enemy : MonoBehaviour
 		currentStats[ StatType.hp ] -= math.max( damage - currentStats[ StatType.def ], damage * 0.15f );
 
 		if ( currentStats[ StatType.hp ] < 0 )
-			DestroyEnemyobject();
+			DestroyEnemyobject( true );
 	}
 
-	protected void DestroyEnemyobject()
+	protected void DestroyEnemyobject( bool wasKilled )
 	{
 		StopAllCoroutines();
-		enemyPoolController.EnqueueEnemyObject( gameObject );
+		enemyPoolController.EnqueueEnemyObject( gameObject, wasKilled );
 	}
 
 }

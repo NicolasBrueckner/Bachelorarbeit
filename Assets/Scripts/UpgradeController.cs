@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class UpgradeController : MonoBehaviour
 	public float a;
 	public float b;
 	public float c;
+	public EnemyPoolController enemyPoolController;
 	public PlayerCharacterController playerCharacterController;
 	public WeaponController bubbleController;
 	public WeaponController fistController;
@@ -35,6 +37,12 @@ public class UpgradeController : MonoBehaviour
 		EventManager.Instance.OnUpgradePicked += UpgradeStat;
 	}
 
+	private void Start()
+	{
+		StartCoroutine( UpgradeEnemiesCoroutine() );
+
+	}
+
 	private void InitializeDictionaries()
 	{
 		_activeStateByStats = new()
@@ -55,6 +63,25 @@ public class UpgradeController : MonoBehaviour
 			CurrentLevel++;
 			SendUpgradeOptions();
 			_experienceForNextLevel = GetExperienceForNextLevel();
+		}
+	}
+
+	public IEnumerator UpgradeEnemiesCoroutine()
+	{
+		while ( gameObject.activeInHierarchy )
+		{
+			yield return new WaitForSeconds( 10 );
+			UpgradeEnemies();
+		}
+	}
+
+	public void UpgradeEnemies()
+	{
+		foreach ( EnemyPool pool in enemyPoolController.serializedEnemies )
+		{
+			Stats stats = pool.currentStats;
+			foreach ( StatType type in stats.valuesByStatType.Keys.ToList() )
+				stats[ type ] += stats.baseStats[ type ] * 0.1f;
 		}
 	}
 

@@ -16,16 +16,16 @@ MonoBehaviour:
   valuesByStatType:
     _serializedList:
     - Key: 3
-      Value: 80
+      Value: 30
     - Key: 4
-      Value: 80
+      Value: 30
     - Key: 5
-      Value: 10
+      Value: 2
     - Key: 6
       Value: 1
     - Key: 7
-      Value: 50
+      Value: 40
     - Key: 8
-      Value: 10
+      Value: 7
     - Key: 9
       Value: 1

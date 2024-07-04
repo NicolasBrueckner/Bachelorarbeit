@@ -41,6 +41,8 @@ public class GameOverMenuScreen : MenuScreen
 	protected override void BindEvents()
 	{
 		base.BindEvents();
+
+		EventManager.Instance.OnPlayerDied += OnPlayerDied;
 	}
 
 	private void OnRestartButtonClicked()
@@ -52,5 +54,10 @@ public class GameOverMenuScreen : MenuScreen
 	private void OnReturnButtonCLicked()
 	{
 		uiScreenController.ToggleScreen( UIScreenTypes.Main );
+	}
+
+	private void OnPlayerDied()
+	{
+		uiScreenController.ToggleScreen( Type );
 	}
 }

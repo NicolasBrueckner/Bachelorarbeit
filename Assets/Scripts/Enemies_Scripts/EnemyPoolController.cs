@@ -5,10 +5,11 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 [Serializable]
-public struct EnemyPool
+public class EnemyPool
 {
 	public GameObject enemyObject;
 	public BaseStats baseStats;
+	public Stats currentStats;
 	public int amount;
 }
 
@@ -19,6 +20,7 @@ public class EnemyPoolController : MonoBehaviour
 	public GameObject targetObject;
 	public List<EnemyPool> serializedEnemies;
 	public FlowFieldController flowFieldController;
+	public UpgradeController upgradeController;
 
 	private Queue<GameObject> _enemyObjectQueue;
 
@@ -34,12 +36,13 @@ public class EnemyPoolController : MonoBehaviour
 
 		for ( int i = 0; i < serializedEnemies.Count; i++ )
 		{
+			serializedEnemies[ i ].currentStats = new( serializedEnemies[ i ].baseStats );
 			for ( int j = 0; j < serializedEnemies[ i ].amount; j++ )
 			{
 				GameObject enemyCopyObject = Instantiate( serializedEnemies[ i ].enemyObject, transform );
 				Enemy enemy = enemyCopyObject.GetComponent<Enemy>();
 
-				InitializeEnemyInstance( enemy, serializedEnemies[ i ].baseStats );
+				InitializeEnemyInstance( enemy, serializedEnemies[ i ].currentStats );
 
 				enemyCopyObject.SetActive( false );
 				enemyShuffleList.Add( enemyCopyObject );
@@ -50,11 +53,11 @@ public class EnemyPoolController : MonoBehaviour
 		_enemyObjectQueue = new Queue<GameObject>( enemyShuffleList );
 	}
 
-	private void InitializeEnemyInstance( Enemy enemy, BaseStats baseStats )
+	private void InitializeEnemyInstance( Enemy enemy, Stats currentStats )
 	{
 		enemy.flowFieldController ??= flowFieldController;
 		enemy.enemyPoolController = this;
-		enemy.currentStats = new( baseStats );
+		enemy.currentStats = currentStats;
 	}
 
 	private IEnumerator SpawnEnemy()
@@ -75,10 +78,13 @@ public class EnemyPoolController : MonoBehaviour
 		}
 	}
 
-	public void EnqueueEnemyObject( GameObject enemyObject )
+	public void EnqueueEnemyObject( GameObject enemyObject, bool wasKilled )
 	{
 		enemyObject.SetActive( false );
 		_enemyObjectQueue.Enqueue( enemyObject );
+
+		if ( wasKilled )
+			upgradeController.AddExperience( 1 );
 	}
 
 	private void ShuffleList( List<GameObject> list )

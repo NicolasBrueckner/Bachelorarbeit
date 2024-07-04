@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8291269967474347879}
   - component: {fileID: 8855763257563383605}
+  - component: {fileID: 4438616202394680114}
   m_Layer: 23
   m_Name: BubblePickup
   m_TagString: Untagged
@@ -85,6 +86,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4438616202394680114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097378471261563291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 212ee5b22d37abc4e8fbe20aa26589fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 0}
 --- !u!1 &4139604878802285450
 GameObject:
   m_ObjectHideFlags: 0
