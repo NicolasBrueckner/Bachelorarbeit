@@ -46,10 +46,6 @@ public class UIScreenController : MonoBehaviour
 		ToggleScreen( UIScreenTypes.Main );
 	}
 
-	private void OnEnable()
-	{
-	}
-
 	private void OnDisable()
 	{
 		_pauseAction.performed -= _onPauseContext;

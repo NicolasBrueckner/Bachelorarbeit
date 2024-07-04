@@ -16,15 +16,15 @@ MonoBehaviour:
   valuesByStatType:
     _serializedList:
     - Key: 3
-      Value: 100
+      Value: 20
     - Key: 4
-      Value: 100
+      Value: 20
     - Key: 5
-      Value: 10
+      Value: 3
     - Key: 6
       Value: 1
     - Key: 7
-      Value: 40
+      Value: 70
     - Key: 8
       Value: 5
     - Key: 9

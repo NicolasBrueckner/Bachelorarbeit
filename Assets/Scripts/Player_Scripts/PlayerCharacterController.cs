@@ -13,6 +13,8 @@ public class PlayerCharacterController : MonoBehaviour
 
 	public Vector2 AimDirection { get; private set; } = new Vector2( 0f, 1f );
 
+	private int _enemyLayer;
+	private int _interactableLayer;
 	private Vector2 _moveDirection;
 	private Rigidbody2D _rb2D;
 	private InputActions _actions;
@@ -22,6 +24,8 @@ public class PlayerCharacterController : MonoBehaviour
 	private void Awake()
 	{
 		currentStats = new( baseStats );
+		_enemyLayer = LayerMask.NameToLayer( "Enemy" );
+		_interactableLayer = LayerMask.NameToLayer( "Interactable" );
 		_rb2D = GetComponent<Rigidbody2D>();
 		_actions = new();
 	}
@@ -55,10 +59,11 @@ public class PlayerCharacterController : MonoBehaviour
 
 	private void OnTriggerEnter2D( Collider2D collision )
 	{
-		Enemy enemy = collision.GetComponent<Enemy>();
+		if ( collision.gameObject.layer == _enemyLayer )
+			TakeDamage( collision.GetComponent<Enemy>().currentStats[ StatType.atk ] );
+		else if ( collision.gameObject.layer == _interactableLayer )
+			collision.GetComponent<WeaponPickup>().controller.ToggleWeapon( true );
 
-		if ( enemy )
-			TakeDamage( enemy.currentStats[ StatType.atk ] );
 	}
 
 	private void OnMoveAction( InputAction.CallbackContext context )
@@ -75,6 +80,7 @@ public class PlayerCharacterController : MonoBehaviour
 	private void TakeDamage( float damage )
 	{
 		currentStats[ StatType.hp ] -= math.max( damage - currentStats[ StatType.def ], damage * 0.15f );
+		Debug.Log( $"current hp: {currentStats[ StatType.hp ]}" );
 
 		EventManager.Instance.HealthChanged( currentStats[ StatType.hp ] / currentStats[ StatType.max_hp ] );
 
