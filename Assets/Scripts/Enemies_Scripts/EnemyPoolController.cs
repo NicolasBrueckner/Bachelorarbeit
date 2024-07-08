@@ -15,19 +15,39 @@ public class EnemyPool
 
 public class EnemyPoolController : MonoBehaviour
 {
+	public List<EnemyPool> serializedEnemies;
 	public float spawnFrequency;
 	public Vector2 spawnRange;
-	public GameObject targetObject;
-	public List<EnemyPool> serializedEnemies;
-	public FlowFieldController flowFieldController;
-	public UpgradeController upgradeController;
+
+	public GameObject targetObject { get; private set; }
+	public FlowFieldController flowFieldController { get; private set; }
+	public UpgradeController upgradeController { get; private set; }
 
 	private Queue<GameObject> _enemyObjectQueue;
 
-	private void Start()
+	private void Awake()
 	{
+		EventManager.Instance.OnDependenciesInjected += OnDependenciesInjected;
+	}
+
+	private void OnDestroy()
+	{
+		EventManager.Instance.OnDependenciesInjected -= OnDependenciesInjected;
+	}
+
+	private void OnDependenciesInjected()
+	{
+		GetDependencies();
+
 		InitializeEnemyObjectPool();
 		StartCoroutine( SpawnEnemy() );
+	}
+
+	private void GetDependencies()
+	{
+		targetObject = RuntimeManager.Instance.playerCharacterController.gameObject;
+		flowFieldController = RuntimeManager.Instance.flowFieldController;
+		upgradeController = RuntimeManager.Instance.upgradeController;
 	}
 
 	private void InitializeEnemyObjectPool()
@@ -37,6 +57,8 @@ public class EnemyPoolController : MonoBehaviour
 		for ( int i = 0; i < serializedEnemies.Count; i++ )
 		{
 			serializedEnemies[ i ].currentStats = new( serializedEnemies[ i ].baseStats );
+			upgradeController.AddEnemyStats( serializedEnemies[ i ].currentStats, true );
+
 			for ( int j = 0; j < serializedEnemies[ i ].amount; j++ )
 			{
 				GameObject enemyCopyObject = Instantiate( serializedEnemies[ i ].enemyObject, transform );
@@ -55,7 +77,7 @@ public class EnemyPoolController : MonoBehaviour
 
 	private void InitializeEnemyInstance( Enemy enemy, Stats currentStats )
 	{
-		enemy.flowFieldController ??= flowFieldController;
+		enemy.flowFieldController = flowFieldController;
 		enemy.enemyPoolController = this;
 		enemy.currentStats = currentStats;
 	}
@@ -84,7 +106,10 @@ public class EnemyPoolController : MonoBehaviour
 		_enemyObjectQueue.Enqueue( enemyObject );
 
 		if ( wasKilled )
+		{
+			Debug.Log( $"enemy was killed" );
 			upgradeController.AddExperience( 1 );
+		}
 	}
 
 	private void ShuffleList( List<GameObject> list )

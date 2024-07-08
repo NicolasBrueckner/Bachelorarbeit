@@ -15,7 +15,7 @@ public enum FlowFieldDisplayType
 	Destination,
 }
 
-public class DebugGizmos : MonoBehaviour
+public class DebugController : MonoBehaviour
 {
 	[SerializeField]
 	private bool _showGrid;

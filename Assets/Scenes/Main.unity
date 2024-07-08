@@ -131,9 +131,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 349138840341669755, guid: eda757378b39b2448938094a61c7d480, type: 3}
+      propertyPath: sourceAsset
+      value: 
+      objectReference: {fileID: 9197481963319205126, guid: 2757b616337df4846b3189f9ddafab37, type: 3}
     - target: {fileID: 4388808591340248554, guid: eda757378b39b2448938094a61c7d480, type: 3}
       propertyPath: m_Name
       value: UIScreenController
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958388819984401698, guid: eda757378b39b2448938094a61c7d480, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7937051565434325220, guid: eda757378b39b2448938094a61c7d480, type: 3}
       propertyPath: m_LocalPosition.x

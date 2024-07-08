@@ -49,6 +49,6 @@ public class HUDMenuScreen : MenuScreen
 
 	private void OnHealthChanged( float healthPercentage )
 	{
-		_healthbar.style.width = healthPercentage;
+		_healthbar.style.width = new Length( healthPercentage, LengthUnit.Percent );
 	}
 }

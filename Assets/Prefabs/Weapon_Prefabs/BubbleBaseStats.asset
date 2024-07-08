@@ -20,9 +20,9 @@ MonoBehaviour:
     - Key: 6
       Value: 0.7
     - Key: 7
-      Value: 0.5
+      Value: 110
     - Key: 9
-      Value: 1
+      Value: 0.3
     - Key: 10
       Value: 1
     - Key: 11
