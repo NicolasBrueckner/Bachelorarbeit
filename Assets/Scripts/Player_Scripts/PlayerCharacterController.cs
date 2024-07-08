@@ -11,6 +11,7 @@ public class PlayerCharacterController : MonoBehaviour
 
 	public BaseStats baseStats;
 
+	public UpgradeController upgradeController { get; private set; }
 	public Vector2 AimDirection { get; private set; } = new Vector2( 0f, 1f );
 
 	private int _enemyLayer;
@@ -28,6 +29,25 @@ public class PlayerCharacterController : MonoBehaviour
 		_interactableLayer = LayerMask.NameToLayer( "Interactable" );
 		_rb2D = GetComponent<Rigidbody2D>();
 		_actions = new();
+
+		EventManager.Instance.OnDependenciesInjected += OnDependenciesInjected;
+	}
+
+	private void OnDestroy()
+	{
+		EventManager.Instance.OnDependenciesInjected -= OnDependenciesInjected;
+	}
+
+	private void OnDependenciesInjected()
+	{
+		GetDependencies();
+
+		upgradeController.AddPlayerStats( currentStats, true );
+	}
+
+	private void GetDependencies()
+	{
+		upgradeController = RuntimeManager.Instance.upgradeController;
 	}
 
 	private void OnEnable()
@@ -62,7 +82,7 @@ public class PlayerCharacterController : MonoBehaviour
 		if ( collision.gameObject.layer == _enemyLayer )
 			TakeDamage( collision.GetComponent<Enemy>().currentStats[ StatType.atk ] );
 		else if ( collision.gameObject.layer == _interactableLayer )
-			collision.GetComponent<WeaponPickup>().controller.ToggleWeapon( true );
+			collision.GetComponent<WeaponPickup>().weaponController.ToggleWeapon( true );
 
 	}
 
@@ -80,9 +100,8 @@ public class PlayerCharacterController : MonoBehaviour
 	private void TakeDamage( float damage )
 	{
 		currentStats[ StatType.hp ] -= math.max( damage - currentStats[ StatType.def ], damage * 0.15f );
-		Debug.Log( $"current hp: {currentStats[ StatType.hp ]}" );
 
-		EventManager.Instance.HealthChanged( currentStats[ StatType.hp ] / currentStats[ StatType.max_hp ] );
+		EventManager.Instance.HealthChanged( currentStats[ StatType.hp ] / currentStats[ StatType.max_hp ] * 100 );
 
 		if ( currentStats[ StatType.hp ] <= 0 )
 			EventManager.Instance.PlayerDied();

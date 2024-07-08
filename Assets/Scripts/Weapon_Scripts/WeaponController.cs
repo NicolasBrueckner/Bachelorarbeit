@@ -3,36 +3,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum WeaponType
+{
+	Bubble,
+	Fist,
+	Scream,
+	Swipe,
+}
 
 public class WeaponController : MonoBehaviour
 {
 	[ReadOnly]
 	public Stats currentStats;
 
+	public WeaponType type;
 	public BaseStats baseStats;
 	public GameObject weaponObject;
 	public int weaponQueueSize;
 	public bool startsActive;
 
-	public float Frequency => currentStats[ StatType.atk_spd ] * _characterController.currentStats[ StatType.atk_spd ];
-	public Vector2 Direction => _characterController.AimDirection;
+	public PlayerCharacterController playerCharacterController { get; private set; }
+	public UpgradeController upgradeController { get; private set; }
+	public float Frequency => currentStats[ StatType.atk_spd ] * playerCharacterController.currentStats[ StatType.atk_spd ];
+	public Vector2 Direction => playerCharacterController.AimDirection;
 
 	private bool _isActive;
 	private Queue<GameObject> _weaponObjectQueue;
-	private PlayerCharacterController _characterController;
 
 	private void Awake()
 	{
 		currentStats = new( baseStats );
 		_weaponObjectQueue = new Queue<GameObject>();
-		_characterController = GetComponentInParent<PlayerCharacterController>();
 
-		InitializeWeapon();
+		EventManager.Instance.OnDependenciesInjected += OnDependenciesInjected;
 	}
 
-	private void Start()
+	private void OnDestroy()
 	{
+		EventManager.Instance.OnDependenciesInjected -= OnDependenciesInjected;
+	}
+
+	private void OnDependenciesInjected()
+	{
+		GetDependencies();
+
+		InitializeWeapon();
 		ToggleWeapon( startsActive );
+	}
+
+	private void GetDependencies()
+	{
+		playerCharacterController = RuntimeManager.Instance.playerCharacterController;
+		upgradeController = RuntimeManager.Instance.upgradeController;
 	}
 
 	private IEnumerator WeaponAttackCoroutine()
@@ -73,6 +95,8 @@ public class WeaponController : MonoBehaviour
 			InitializeWeaponInstance( weapon );
 			EnqueueWeaponObject( weaponObjectCopy );
 		}
+
+		upgradeController.AddPlayerStats( currentStats, startsActive );
 	}
 
 	private void InitializeWeaponInstance( Weapon weapon )

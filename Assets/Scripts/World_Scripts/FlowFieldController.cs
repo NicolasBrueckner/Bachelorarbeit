@@ -6,26 +6,50 @@ using stats = SectorStats;
 
 public class FlowFieldController : MonoBehaviour
 {
-	public DebugGizmos debugGizmos;
-	public GameObject player;
+	public Sector[,] sectors;
 
+	public DebugController debugController { get; private set; }
+	public Transform playerTransform { get; private set; }
 	public int2 WorldGridSize { get; private set; }
-	public Sector[,] Sectors { get; set; }
 	public FlowField FlowField { get; private set; }
 
 	private int2 _mainSectorIndex = new( -1, -1 );
 
-	private void Start()
+	private void Awake()
 	{
-		WorldGridSize = new int2( Sectors.GetLength( 0 ), Sectors.GetLength( 1 ) );
+		EventManager.Instance.OnDependenciesInjected += OnDependenciesInjected;
+		EventManager.Instance.OnWorldCreated += OnWorldCreated;
+	}
+
+	private void OnDestroy()
+	{
+		EventManager.Instance.OnDependenciesInjected -= OnDependenciesInjected;
+		EventManager.Instance.OnWorldCreated -= OnWorldCreated;
+	}
+
+	private void OnDependenciesInjected()
+	{
+		GetDependencies();
+	}
+
+	private void GetDependencies()
+	{
+		debugController = RuntimeManager.Instance.debugController;
+		playerTransform = RuntimeManager.Instance.playerCharacterController.gameObject.transform;
+	}
+
+	private void OnWorldCreated()
+	{
+		WorldGridSize = new int2( sectors.GetLength( 0 ), sectors.GetLength( 1 ) );
 		StartCoroutine( FlowFieldCoroutine() );
+
 	}
 
 	IEnumerator FlowFieldCoroutine()
 	{
 		while ( true )
 		{
-			BuildFlowField( player.transform.position );
+			BuildFlowField( playerTransform.position );
 
 			yield return new WaitForSeconds( 0.2f );
 		}
@@ -40,7 +64,7 @@ public class FlowFieldController : MonoBehaviour
 			FlowField = new FlowField( GetActiveSectors( sectorIndex ) );
 
 			FlowField.InitializeFlowField();
-			debugGizmos?.SetFlowField( FlowField );
+			debugController.SetFlowField( FlowField );
 			_mainSectorIndex = sectorIndex;
 		}
 
@@ -60,7 +84,7 @@ public class FlowFieldController : MonoBehaviour
 			int2 currentIndex_temp = mainIndex_temp + direction;
 
 			if ( ValidateIndex( currentIndex_temp, activeSectorsDimensions ) )
-				activeSectors[ currentIndex_temp.x, currentIndex_temp.y ] = Sectors[ currentIndex.x, currentIndex.y ];
+				activeSectors[ currentIndex_temp.x, currentIndex_temp.y ] = sectors[ currentIndex.x, currentIndex.y ];
 		}
 
 		return activeSectors;

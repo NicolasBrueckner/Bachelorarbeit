@@ -8,51 +8,57 @@ public class UpgradeController : MonoBehaviour
 	public float a;
 	public float b;
 	public float c;
-	public EnemyPoolController enemyPoolController;
-	public PlayerCharacterController playerCharacterController;
-	public WeaponController bubbleController;
-	public WeaponController fistController;
-	public WeaponController screamController;
-	public WeaponController swipeController;
 
-	public int CurrentLevel { get; private set; } = 0;
-	public int CurrentExperience { get; private set; } = 0;
+	public int CurrentLevel { get; private set; }
+	public int CurrentExperience { get; private set; }
+	public PlayerCharacterController PlayerCharacterController { get; private set; }
 
 	private float _experienceForNextLevel;
-	private System.Random _random = new();
-	private Dictionary<Stats, bool> _activeStateByStats;
-
-	private Stats _PlayerCharacterStats => playerCharacterController.currentStats;
-	private Stats _BubbleStats => bubbleController.currentStats;
-	private Stats _FistStats => fistController.currentStats;
-	private Stats _ScreamStats => screamController.currentStats;
-	private Stats _SwipeStats => swipeController.currentStats;
+	private System.Random _random;
+	private Dictionary<Stats, bool> _activeStateByPlayerStats;
+	private Dictionary<Stats, bool> _activeStateByEnemyStats;
 
 	private void Awake()
 	{
-		GetExperienceForNextLevel();
-		InitializeDictionaries();
+		_activeStateByPlayerStats = new();
+		_activeStateByEnemyStats = new();
+		_random = new();
 
+		EventManager.Instance.OnDependenciesInjected += OnDependenciesInjected;
 		EventManager.Instance.OnWeaponToggled += ChangeStatActiveState;
 		EventManager.Instance.OnUpgradePicked += UpgradeStat;
 	}
 
-	private void Start()
+	private void OnDestroy()
 	{
-		StartCoroutine( UpgradeEnemiesCoroutine() );
-
+		EventManager.Instance.OnDependenciesInjected -= OnDependenciesInjected;
+		EventManager.Instance.OnWeaponToggled -= ChangeStatActiveState;
+		EventManager.Instance.OnUpgradePicked -= UpgradeStat;
 	}
 
-	private void InitializeDictionaries()
+	private void OnDependenciesInjected()
 	{
-		_activeStateByStats = new()
-		{
-			{_PlayerCharacterStats, true},
-			{_BubbleStats, false },
-			{_FistStats, false },
-			{_ScreamStats, false },
-			{_SwipeStats, false },
-		};
+		GetDependencies();
+
+		GetExperienceForNextLevel();
+		StartCoroutine( UpgradeEnemiesCoroutine() );
+	}
+
+	private void GetDependencies()
+	{
+		PlayerCharacterController = RuntimeManager.Instance.playerCharacterController;
+		CurrentLevel = ( int )PlayerCharacterController.currentStats[ StatType.level ];
+		CurrentExperience = ( int )PlayerCharacterController.currentStats[ StatType.experience ];
+	}
+
+	public void AddPlayerStats( Stats stats, bool isActive )
+	{
+		_activeStateByPlayerStats[ stats ] = isActive;
+	}
+
+	public void AddEnemyStats( Stats stats, bool isActive )
+	{
+		_activeStateByEnemyStats[ stats ] = isActive;
 	}
 
 	public void AddExperience( int experience )
@@ -61,6 +67,7 @@ public class UpgradeController : MonoBehaviour
 		if ( CurrentExperience >= _experienceForNextLevel )
 		{
 			CurrentLevel++;
+			Debug.Log( $"Level up! level: {CurrentLevel}" );
 			SendUpgradeOptions();
 			_experienceForNextLevel = GetExperienceForNextLevel();
 		}
@@ -77,11 +84,13 @@ public class UpgradeController : MonoBehaviour
 
 	public void UpgradeEnemies()
 	{
-		foreach ( EnemyPool pool in enemyPoolController.serializedEnemies )
+		foreach ( Stats stats in _activeStateByEnemyStats.Keys )
 		{
-			Stats stats = pool.currentStats;
-			foreach ( StatType type in stats.valuesByStatType.Keys.ToList() )
-				stats[ type ] += stats.baseStats[ type ] * 0.1f;
+			if ( _activeStateByEnemyStats[ stats ] )
+			{
+				foreach ( StatType type in stats.valuesByStatType.Keys.ToList() )
+					stats[ type ] += stats.baseStats[ type ] * 0.1f;
+			}
 		}
 	}
 
@@ -91,18 +100,26 @@ public class UpgradeController : MonoBehaviour
 		List<StatType> pickedStats = PickRandomStatsToUpgrade( pickedInstance, 3 );
 		List<float> pickedValues = pickedStats.Select( type => PickRandomUpgradeValue( type ) ).ToList();
 
+		foreach ( StatType type in pickedStats )
+			Debug.Log( $"picked stat: {type}" );
+		foreach ( float value in pickedValues )
+			Debug.Log( $"picked value: {value}" );
+
 		EventManager.Instance.LevelUp( pickedInstance, pickedStats, pickedValues );
 	}
 
 	private Stats PickRandomInstanceToUpgrade()
 	{
-		List<Stats> activeInstances = _activeStateByStats.Where( kvp => kvp.Value ).Select( kvp => kvp.Key ).ToList();
+		List<Stats> activeInstances = _activeStateByPlayerStats.Where( kvp => kvp.Value ).Select( kvp => kvp.Key ).ToList();
 		return activeInstances[ _random.Next( activeInstances.Count ) ];
 	}
 
 	private List<StatType> PickRandomStatsToUpgrade( Stats stats, int amount )
 	{
-		List<StatType> types = stats.valuesByStatType.Keys.ToList();
+		List<StatType> types = stats.valuesByStatType.Keys
+			.Where( type => type != StatType.none && type != StatType.level && type != StatType.experience && type != StatType.hp )
+			.ToList();
+
 		return types.OrderBy( x => _random.Next() ).Take( amount ).Distinct().ToList();
 	}
 
@@ -134,8 +151,6 @@ public class UpgradeController : MonoBehaviour
 
 	private void ChangeStatActiveState( WeaponController controller, bool isActive )
 	{
-		if ( controller == null )
-			Debug.Log( "controller is null" );
-		_activeStateByStats[ controller.currentStats ] = isActive;
+		_activeStateByPlayerStats[ controller.currentStats ] = isActive;
 	}
 }

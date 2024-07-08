@@ -13,10 +13,9 @@ public class LevelUpMenuScreen : MenuScreen
 	{
 		base.SetDefaultsInternal( type, controller );
 
-
 		_item1 = new( this, Root.Q<VisualElement>( "Item_1" ) );
-		_item1 = new( this, Root.Q<VisualElement>( "Item_2" ) );
-		_item1 = new( this, Root.Q<VisualElement>( "Item_3" ) );
+		_item2 = new( this, Root.Q<VisualElement>( "Item_2" ) );
+		_item3 = new( this, Root.Q<VisualElement>( "Item_3" ) );
 	}
 
 	protected override void OnActivationInternal()
@@ -37,7 +36,7 @@ public class LevelUpMenuScreen : MenuScreen
 	{
 		base.GetElements();
 
-		_upgradeInstanceLabel = Root.Q<Label>( "InstanceLabel" );
+		_upgradeInstanceLabel = Root.Q<Label>( "Instance" );
 	}
 
 	protected override void BindElements()
@@ -50,7 +49,6 @@ public class LevelUpMenuScreen : MenuScreen
 		base.BindEvents();
 
 		EventManager.Instance.OnLevelUp += OnLevelUp;
-		EventManager.Instance.OnUpgradePicked += OnUpgradePicked;
 	}
 
 	private void OnLevelUp( Stats stats, List<StatType> types, List<float> values )
@@ -58,6 +56,10 @@ public class LevelUpMenuScreen : MenuScreen
 		uiScreenController.ToggleScreen( Type );
 
 		_upgradeInstanceLabel.text = stats.statName + " Upgrade";
+
+		Debug.Log( $"stats: {stats.statName}, type: {types[ 0 ]}, value: {values[ 0 ]}" );
+		Debug.Log( $"stats: {stats.statName}, type: {types[ 1 ]}, value: {values[ 1 ]}" );
+		Debug.Log( $"stats: {stats.statName}, type: {types[ 2 ]}, value: {values[ 2 ]}" );
 
 		_item1.SetItemValues( stats, types[ 0 ], values[ 0 ] );
 		_item2.SetItemValues( stats, types[ 1 ], values[ 1 ] );

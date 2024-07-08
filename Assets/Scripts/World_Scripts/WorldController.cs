@@ -13,9 +13,10 @@ public enum WorldMap
 
 public class WorldController : MonoBehaviour
 {
-	public FlowFieldController flowFieldController;
 	public SerializedDictionary<WorldMap, GameObject> worldMaps;
 	public WorldMap activeWorldMap;
+
+	public FlowFieldController flowFieldController { get; private set; }
 
 	private int2 _worldSize;
 	private Sector[,] _allSectorData;
@@ -23,11 +24,29 @@ public class WorldController : MonoBehaviour
 
 	private void Awake()
 	{
+		EventManager.Instance.OnDependenciesInjected += OnDependenciesInjected;
+	}
+
+	private void OnDestroy()
+	{
+		EventManager.Instance.OnDependenciesInjected -= OnDependenciesInjected;
+	}
+
+	private void OnDependenciesInjected()
+	{
+		GetDependencies();
+
 		SetSectorIndices();
 		SetWorldDimensions();
 
 		CreateWorld();
-		flowFieldController.Sectors = _allSectorData;
+		flowFieldController.sectors = _allSectorData;
+		EventManager.Instance.WorldCreated();
+	}
+
+	private void GetDependencies()
+	{
+		flowFieldController = RuntimeManager.Instance.flowFieldController;
 	}
 
 	private void CreateWorld()
@@ -51,8 +70,11 @@ public class WorldController : MonoBehaviour
 
 		foreach ( Transform sectorObject in worldMaps[ activeWorldMap ].transform )
 		{
-			int2 index = GetUnsafeIndexFromPosition( sectorObject.position, stats.sectorSize );
-			_sectorsByIndex[ index ] = sectorObject;
+			if ( sectorObject.GetComponent<SectorView>() )
+			{
+				int2 index = GetUnsafeIndexFromPosition( sectorObject.position, stats.sectorSize );
+				_sectorsByIndex[ index ] = sectorObject;
+			}
 		}
 	}
 

@@ -6,8 +6,9 @@ public class EventManager : MonoBehaviour
 {
 	public static EventManager Instance { get; private set; }
 
+	public event Action OnDependenciesInjected;
+	public event Action OnWorldCreated;
 	public event Action OnPlayerDied;
-	public event Action OnResetGame;
 	public event Action OnStartGame;
 	public event Action OnEndGame;
 	public event Action<Stats, List<StatType>, List<float>> OnLevelUp;
@@ -43,6 +44,7 @@ public class EventManager : MonoBehaviour
 
 	public void UpgradePicked( Stats stats, StatType type, float value )
 	{
+		Debug.Log( $"upgrade picked: {stats.statName} ({type}, {value})" );
 		OnUpgradePicked?.Invoke( stats, type, value );
 	}
 
@@ -56,13 +58,18 @@ public class EventManager : MonoBehaviour
 		OnEndGame?.Invoke();
 	}
 
-	public void ResetGame()
-	{
-		OnResetGame?.Invoke();
-	}
-
 	public void StartGame()
 	{
 		OnStartGame?.Invoke();
+	}
+
+	public void DependenciesInjected()
+	{
+		OnDependenciesInjected?.Invoke();
+	}
+
+	public void WorldCreated()
+	{
+		OnWorldCreated?.Invoke();
 	}
 }

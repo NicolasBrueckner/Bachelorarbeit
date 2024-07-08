@@ -30,7 +30,7 @@ public class Bubble : Weapon
 	private IEnumerator MoveCoroutine()
 	{
 		_direction = Direction;
-		rb2d.velocity = _direction * currentStats[ StatType.spd ];
+		rb2d.velocity = _direction * currentStats[ StatType.spd ] * Time.deltaTime;
 
 		yield return new WaitForSeconds( currentStats[ StatType.duration ] );
 		DestroyWeaponObject();

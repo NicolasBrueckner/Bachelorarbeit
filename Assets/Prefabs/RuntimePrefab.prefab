@@ -93,22 +93,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2605394544633348786, guid: 1b3ed89a2e7bcb64db4be83e738cd6f8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6019314761257851597, guid: 1b3ed89a2e7bcb64db4be83e738cd6f8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6703037975990910764}
   m_SourcePrefab: {fileID: 100100000, guid: 1b3ed89a2e7bcb64db4be83e738cd6f8, type: 3}
---- !u!114 &4391627018616285574 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2605394544633348786, guid: 1b3ed89a2e7bcb64db4be83e738cd6f8, type: 3}
+--- !u!1 &5427664296118530553 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6019314761257851597, guid: 1b3ed89a2e7bcb64db4be83e738cd6f8, type: 3}
   m_PrefabInstance: {fileID: 1790753738814466868}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+--- !u!114 &6703037975990910764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5427664296118530553}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12e116f720795fe49859376492f9c12e, type: 3}
+  m_Script: {fileID: 11500000, guid: 227eab8d211ddcf418d9bb48c0cee652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _showGrid: 1
+  _gridColor: {r: 0, g: 0, b: 0, a: 1}
+  _labelColor: {r: 0, g: 0, b: 0, a: 1}
+  _displayType: 1
 --- !u!4 &8490309800070896808 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7856998827470059420, guid: 1b3ed89a2e7bcb64db4be83e738cd6f8, type: 3}
@@ -200,10 +214,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 931481946038770832}
-    - target: {fileID: 2300873216338513520, guid: 0a3dcbeb633314e4499a00c8d9f582a7, type: 3}
-      propertyPath: debugGizmos
-      value: 
-      objectReference: {fileID: 4391627018616285574}
     - target: {fileID: 6592649456174645093, guid: 0a3dcbeb633314e4499a00c8d9f582a7, type: 3}
       propertyPath: m_Name
       value: FlowFieldController
@@ -402,6 +412,10 @@ PrefabInstance:
     - target: {fileID: 4053436295978467552, guid: 574389555648da04bab210e350515442, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4225631379423245327, guid: 574389555648da04bab210e350515442, type: 3}
+      propertyPath: startsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4493890750373634138, guid: 574389555648da04bab210e350515442, type: 3}
       propertyPath: m_Name

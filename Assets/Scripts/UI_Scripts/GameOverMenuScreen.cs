@@ -47,7 +47,7 @@ public class GameOverMenuScreen : MenuScreen
 
 	private void OnRestartButtonClicked()
 	{
-		EventManager.Instance.ResetGame();
+		EventManager.Instance.StartGame();
 		uiScreenController.ToggleScreen( UIScreenTypes.HUD );
 	}
 

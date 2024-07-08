@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RuntimeManager : MonoBehaviour
@@ -6,6 +8,14 @@ public class RuntimeManager : MonoBehaviour
 
 	public GameObject runtimeObject;
 	public CameraController mainCameraController;
+
+	public PlayerCharacterController playerCharacterController;
+	public Dictionary<WeaponType, WeaponController> weaponControllers;
+	public EnemyPoolController enemyPoolController;
+	public FlowFieldController flowFieldController;
+	public WorldController worldController;
+	public DebugController debugController;
+	public UpgradeController upgradeController;
 
 	private GameObject _runtimeObjectCopy;
 
@@ -22,25 +32,41 @@ public class RuntimeManager : MonoBehaviour
 
 	private void Start()
 	{
-		EventManager.Instance.OnResetGame += ResetRuntimeObject;
 		EventManager.Instance.OnStartGame += InstantiateRuntimeObject;
 		EventManager.Instance.OnEndGame += DestroyRuntimeObject;
-	}
-
-	public void ResetRuntimeObject()
-	{
-		DestroyRuntimeObject();
-		InstantiateRuntimeObject();
 	}
 
 	public void InstantiateRuntimeObject()
 	{
 		_runtimeObjectCopy = Instantiate( runtimeObject );
-		mainCameraController.target = _runtimeObjectCopy.GetComponentInChildren<PlayerCharacterController>().gameObject;
+		InjectDependencies();
 	}
 
 	public void DestroyRuntimeObject()
 	{
 		Destroy( _runtimeObjectCopy );
+		_runtimeObjectCopy = null;
+	}
+
+	private void InjectDependencies()
+	{
+		playerCharacterController = FindObjectOfType<PlayerCharacterController>();
+		enemyPoolController = FindObjectOfType<EnemyPoolController>();
+		flowFieldController = FindObjectOfType<FlowFieldController>();
+		worldController = FindObjectOfType<WorldController>();
+		debugController = FindObjectOfType<DebugController>();
+		upgradeController = FindObjectOfType<UpgradeController>();
+
+		InjectWeaponControllers();
+
+		EventManager.Instance.DependenciesInjected();
+	}
+
+	private void InjectWeaponControllers()
+	{
+		weaponControllers = new();
+
+		foreach ( WeaponType weaponType in System.Enum.GetValues( typeof( WeaponType ) ) )
+			weaponControllers[ weaponType ] = FindObjectsOfType<WeaponController>().FirstOrDefault( controller => controller.type == weaponType );
 	}
 }

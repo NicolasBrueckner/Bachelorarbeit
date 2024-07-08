@@ -26,12 +26,12 @@ MonoBehaviour:
     - Key: 4
       Value: 50
     - Key: 5
-      Value: 1
-    - Key: 6
-      Value: 70
-    - Key: 7
       Value: 10
-    - Key: 8
+    - Key: 6
       Value: 1
+    - Key: 7
+      Value: 80
+    - Key: 8
+      Value: 5
     - Key: 9
       Value: 1
