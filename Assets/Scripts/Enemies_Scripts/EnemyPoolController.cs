@@ -77,6 +77,7 @@ public class EnemyPoolController : MonoBehaviour
 
 	private void InitializeEnemyInstance( Enemy enemy, Stats currentStats )
 	{
+		enemy.currentHP = currentStats[ StatType.max_hp ];
 		enemy.flowFieldController = flowFieldController;
 		enemy.enemyPoolController = this;
 		enemy.currentStats = currentStats;
@@ -107,7 +108,6 @@ public class EnemyPoolController : MonoBehaviour
 
 		if ( wasKilled )
 		{
-			Debug.Log( $"enemy was killed" );
 			upgradeController.AddExperience( 1 );
 		}
 	}

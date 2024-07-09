@@ -4,15 +4,15 @@
     <ui:VisualElement name="Background" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.55); padding-top: 5%; padding-right: 10%; padding-bottom: 5px; padding-left: 10%; justify-content: center; align-items: stretch;">
         <ui:Label name="Title" text="Level Up!" class="standard-label" style="font-size: 90%; height: 15%; flex-shrink: 1;" />
         <ui:Label name="Instance" text="Instance" class="standard-label" style="font-size: 40%; height: 15%; flex-shrink: 1;" />
-        <ui:VisualElement name="ItemsContainer" style="flex-grow: 1; flex-direction: row; padding-top: 0; padding-bottom: 0; align-self: stretch; flex-shrink: 1; background-color: rgba(0, 0, 0, 0); height: 70%; padding-right: 0; padding-left: 0;">
-            <ui:VisualElement name="ItemContainer_1" class="level-up-item-container" style="flex-grow: 1;">
-                <ui:Instance template="LevelUpItem" name="Item_1" focusable="false" class="level-up-item" />
+        <ui:VisualElement name="ItemsContainer" style="flex-grow: 1; flex-direction: row; padding-top: 0; padding-bottom: 0; align-self: stretch; flex-shrink: 1; background-color: rgba(0, 0, 0, 0); height: 70%; padding-right: 0; padding-left: 0; justify-content: center;">
+            <ui:VisualElement name="ItemContainer_1" class="level-up-item-container" style="flex-grow: 0; flex-shrink: 0; align-self: auto; justify-content: center; flex-direction: row; width: 30%;">
+                <ui:Instance template="LevelUpItem" name="Item_1" focusable="false" class="level-up-item" style="flex-shrink: 0; flex-grow: 1;" />
             </ui:VisualElement>
-            <ui:VisualElement name="ItemContainer_2" class="level-up-item-container" style="flex-grow: 1;">
-                <ui:Instance template="LevelUpItem" name="Item_2" class="level-up-item" />
+            <ui:VisualElement name="ItemContainer_2" class="level-up-item-container" style="flex-grow: 0; flex-shrink: 0; flex-direction: row; width: 30%; justify-content: center;">
+                <ui:Instance template="LevelUpItem" name="Item_2" class="level-up-item" style="flex-shrink: 0; flex-grow: 1;" />
             </ui:VisualElement>
-            <ui:VisualElement name="ItemContainer_3" class="level-up-item-container" style="flex-grow: 1;">
-                <ui:Instance template="LevelUpItem" name="Item_3" class="level-up-item" />
+            <ui:VisualElement name="ItemContainer_3" class="level-up-item-container" style="flex-grow: 0; flex-shrink: 0; flex-direction: row; width: 30%; justify-content: center;">
+                <ui:Instance template="LevelUpItem" name="Item_3" class="level-up-item" style="flex-shrink: 0; flex-grow: 1;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

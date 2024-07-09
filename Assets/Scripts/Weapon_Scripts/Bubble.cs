@@ -14,13 +14,14 @@ public class Bubble : Weapon
 	{
 		base.SetDefaults();
 
-		_wallLayer = LayerMask.NameToLayer( "Wall" );
+		_wallLayer = LayerMask.NameToLayer( "cost_impassable" );
 	}
 
 	protected override void StartAttackInternal()
 	{
 		base.StartAttackInternal();
 
+		Debug.Log( $"bubble size: {_transform_.localScale} and Size property: {Size}" );
 		_isBeingQueued = false;
 		_hits = 0;
 
@@ -30,7 +31,7 @@ public class Bubble : Weapon
 	private IEnumerator MoveCoroutine()
 	{
 		_direction = Direction;
-		rb2d.velocity = _direction * currentStats[ StatType.spd ] * Time.deltaTime;
+		rb2d.velocity = currentStats[ StatType.spd ] * Time.deltaTime * _direction;
 
 		yield return new WaitForSeconds( currentStats[ StatType.duration ] );
 		DestroyWeaponObject();
@@ -38,9 +39,6 @@ public class Bubble : Weapon
 
 	protected override void OnTriggerEnter2D( Collider2D collision )
 	{
-		if ( collision.gameObject.layer == _wallLayer )
-			DestroyWeaponObject();
-
 		base.OnTriggerEnter2D( collision );
 
 		if ( !_isBeingQueued && ++_hits > currentStats[ StatType.pierce ] )
@@ -48,5 +46,11 @@ public class Bubble : Weapon
 			_isBeingQueued = true;
 			DestroyWeaponObject();
 		}
+	}
+
+	private void OnCollisionEnter2D( Collision2D collision )
+	{
+		if ( collision.gameObject.layer == _wallLayer )
+			DestroyWeaponObject();
 	}
 }

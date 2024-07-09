@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
 	[ReadOnly]
 	public Stats currentStats;
 
+	public float currentHP;
 	public Rigidbody2D rb2D;
 	public FlowFieldController flowFieldController;
 	public EnemyPoolController enemyPoolController;
@@ -79,15 +80,16 @@ public class Enemy : MonoBehaviour
 
 	public void TakeDamage( float damage )
 	{
-		currentStats[ StatType.hp ] -= math.max( damage - currentStats[ StatType.def ], damage * 0.15f );
+		currentHP -= math.max( damage - currentStats[ StatType.def ], damage * 0.15f );
 
-		if ( currentStats[ StatType.hp ] < 0 )
+		if ( currentHP < 0 )
 			DestroyEnemyobject( true );
 	}
 
 	protected void DestroyEnemyobject( bool wasKilled )
 	{
 		StopAllCoroutines();
+		currentHP = currentStats[ StatType.max_hp ];
 		enemyPoolController.EnqueueEnemyObject( gameObject, wasKilled );
 	}
 

@@ -1,9 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI_Screens/StyleSheets.uss?fileID=7433441132597879392&amp;guid=053c0196ad5dea34aa18d26276542afc&amp;type=3#StyleSheets" />
-    <ui:VisualElement name="Background" style="flex-grow: 1; background-color: rgb(255, 255, 255); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 5%; padding-right: 5%; padding-bottom: 5%; padding-left: 5%;">
-        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemButton" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 20%; padding-right: 0; padding-bottom: 20%; padding-left: 0; flex-grow: 1; background-color: rgb(0, 0, 0); align-self: auto; justify-content: center;">
-            <ui:Label name="ItemName" text="Name" class="standard-label" style="font-size: 50%;" />
-            <ui:Label name="ItemValue" text="Value" class="standard-label" style="font-size: 50%;" />
+    <ui:VisualElement name="Background" style="flex-grow: 0; background-color: rgb(255, 255, 255); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 5%; padding-right: 5%; padding-bottom: 5%; padding-left: 5%; justify-content: center; align-self: auto; flex-shrink: 0; width: 100%; height: 100%;">
+        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemButton" class="ui-button" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 20%; padding-right: 0; padding-bottom: 20%; padding-left: 0; flex-grow: 0; background-color: rgb(0, 0, 0); align-self: auto; justify-content: center; flex-direction: column; align-items: stretch; height: 100%; width: 100%;">
+            <ui:Label tabindex="-1" text="Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemName" class="standard-label" style="flex-grow: 0; height: 50%;" />
+            <ui:Label tabindex="-1" text="Value" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemValue" class="standard-label" style="flex-grow: 0; height: 50%;" />
         </ui:Button>
     </ui:VisualElement>
 </ui:UXML>
