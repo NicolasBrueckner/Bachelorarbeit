@@ -67,6 +67,8 @@ public class RuntimeManager : MonoBehaviour
 		weaponControllers = new();
 
 		foreach ( WeaponType weaponType in System.Enum.GetValues( typeof( WeaponType ) ) )
+		{
 			weaponControllers[ weaponType ] = FindObjectsOfType<WeaponController>().FirstOrDefault( controller => controller.type == weaponType );
+		}
 	}
 }

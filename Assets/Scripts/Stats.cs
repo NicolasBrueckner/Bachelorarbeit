@@ -1,6 +1,7 @@
 using AYellowpaper.SerializedCollections;
 using EditorAttributes;
 
+[System.Serializable]
 public class Stats
 {
 	[ReadOnly]

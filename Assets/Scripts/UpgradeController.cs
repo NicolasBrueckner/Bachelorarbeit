@@ -67,7 +67,6 @@ public class UpgradeController : MonoBehaviour
 		if ( CurrentExperience >= _experienceForNextLevel )
 		{
 			CurrentLevel++;
-			Debug.Log( $"Level up! level: {CurrentLevel}" );
 			SendUpgradeOptions();
 			_experienceForNextLevel = GetExperienceForNextLevel();
 		}
@@ -77,7 +76,7 @@ public class UpgradeController : MonoBehaviour
 	{
 		while ( gameObject.activeInHierarchy )
 		{
-			yield return new WaitForSeconds( 10 );
+			yield return new WaitForSeconds( 30 );
 			UpgradeEnemies();
 		}
 	}
@@ -99,11 +98,6 @@ public class UpgradeController : MonoBehaviour
 		Stats pickedInstance = PickRandomInstanceToUpgrade();
 		List<StatType> pickedStats = PickRandomStatsToUpgrade( pickedInstance, 3 );
 		List<float> pickedValues = pickedStats.Select( type => PickRandomUpgradeValue( type ) ).ToList();
-
-		foreach ( StatType type in pickedStats )
-			Debug.Log( $"picked stat: {type}" );
-		foreach ( float value in pickedValues )
-			Debug.Log( $"picked value: {value}" );
 
 		EventManager.Instance.LevelUp( pickedInstance, pickedStats, pickedValues );
 	}

@@ -1,4 +1,5 @@
 using EditorAttributes;
+using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,31 +11,34 @@ public class PlayerCharacterController : MonoBehaviour
 	public Stats currentStats;
 
 	public BaseStats baseStats;
+	public Rigidbody2D rb2D;
+	public Collider2D physicsCollider;
 
 	public UpgradeController upgradeController { get; private set; }
 	public Vector2 AimDirection { get; private set; } = new Vector2( 0f, 1f );
 
 	private int _enemyLayer;
-	private int _interactableLayer;
+	private bool _isDashing;
 	private Vector2 _moveDirection;
-	private Rigidbody2D _rb2D;
+	private Coroutine _dashCoroutine;
 	private InputActions _actions;
 	private InputAction _moveAction;
 	private InputAction _aimAction;
+	private InputAction _dashAction;
 
 	private void Awake()
 	{
 		currentStats = new( baseStats );
 		_enemyLayer = LayerMask.NameToLayer( "Enemy" );
-		_interactableLayer = LayerMask.NameToLayer( "Interactable" );
-		_rb2D = GetComponent<Rigidbody2D>();
 		_actions = new();
 
 		EventManager.Instance.OnDependenciesInjected += OnDependenciesInjected;
+		EventManager.Instance.OnUpgradePicked += OnUpgradePicked;
 	}
 
 	private void OnDestroy()
 	{
+		EventManager.Instance.OnUpgradePicked -= OnUpgradePicked;
 		EventManager.Instance.OnDependenciesInjected -= OnDependenciesInjected;
 	}
 
@@ -54,12 +58,15 @@ public class PlayerCharacterController : MonoBehaviour
 	{
 		_moveAction = _actions.Player.Move;
 		_aimAction = _actions.Player.Aim;
+		_dashAction = _actions.Player.Dash;
 		_moveAction.Enable();
 		_aimAction.Enable();
+		_dashAction.Enable();
 
 		_moveAction.performed += OnMoveAction;
 		_moveAction.canceled += OnMoveAction;
 		_aimAction.performed += OnAimAction;
+		_dashAction.performed += OnDashAction;
 	}
 
 	private void OnDisable()
@@ -67,23 +74,23 @@ public class PlayerCharacterController : MonoBehaviour
 		_moveAction.performed -= OnMoveAction;
 		_moveAction.canceled -= OnMoveAction;
 		_aimAction.performed -= OnAimAction;
+		_dashAction.performed -= OnDashAction;
 
 		_moveAction.Disable();
 		_aimAction.Disable();
+		_dashAction.Disable();
 	}
 
 	private void FixedUpdate()
 	{
-		_rb2D.velocity = currentStats[ StatType.spd ] * Time.deltaTime * _moveDirection;
+		if ( !_isDashing )
+			rb2D.velocity = currentStats[ StatType.spd ] * Time.deltaTime * _moveDirection;
 	}
 
 	private void OnTriggerEnter2D( Collider2D collision )
 	{
 		if ( collision.gameObject.layer == _enemyLayer )
 			TakeDamage( collision.GetComponent<Enemy>().currentStats[ StatType.atk ] );
-		else if ( collision.gameObject.layer == _interactableLayer )
-			collision.GetComponent<WeaponPickup>().weaponController.ToggleWeapon( true );
-
 	}
 
 	private void OnMoveAction( InputAction.CallbackContext context )
@@ -95,6 +102,44 @@ public class PlayerCharacterController : MonoBehaviour
 	{
 		Vector2 center = new( Screen.width / 2, Screen.height / 2 );
 		AimDirection = math.normalize( context.ReadValue<Vector2>() - center );
+	}
+
+	private void OnDashAction( InputAction.CallbackContext context )
+	{
+		_dashCoroutine ??= StartCoroutine( DashCoroutine() );
+	}
+
+	private void OnUpgradePicked( Stats stats, StatType type, float value )
+	{
+		if ( stats == currentStats && type == StatType.size )
+			RescaleObject();
+	}
+
+	private IEnumerator DashCoroutine()
+	{
+		float dashTimer = 0.3f;
+
+		_isDashing = true;
+		physicsCollider.enabled = false;
+		rb2D.velocity = currentStats[ StatType.spd ] * 8 * Time.deltaTime * _moveDirection;
+
+		while ( dashTimer > 0f )
+		{
+			dashTimer -= Time.deltaTime;
+
+			yield return null;
+		}
+
+		rb2D.velocity = Vector2.zero;
+
+		physicsCollider.enabled = true;
+		_isDashing = false;
+		_dashCoroutine = null;
+	}
+
+	private void RescaleObject()
+	{
+		transform.localScale = Vector3.one * currentStats[ StatType.size ];
 	}
 
 	private void TakeDamage( float damage )

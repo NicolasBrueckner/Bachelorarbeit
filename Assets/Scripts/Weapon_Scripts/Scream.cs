@@ -25,7 +25,7 @@ public class Scream : Weapon
 		while ( gameObject.activeInHierarchy )
 		{
 			_collider_.enabled = true;
-			yield return new WaitForEndOfFrame();
+			yield return new WaitForSeconds( 0.5f );
 
 			_collider_.enabled = false;
 			yield return new WaitForSeconds( currentStats[ StatType.atk_spd ] );

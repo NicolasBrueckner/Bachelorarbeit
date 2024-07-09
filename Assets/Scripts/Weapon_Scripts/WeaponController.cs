@@ -29,17 +29,20 @@ public class WeaponController : MonoBehaviour
 
 	private bool _isActive;
 	private Queue<GameObject> _weaponObjectQueue;
+	private Coroutine _attackCoroutine;
 
 	private void Awake()
 	{
 		currentStats = new( baseStats );
 		_weaponObjectQueue = new Queue<GameObject>();
 
+		EventManager.Instance.OnUpgradePicked += OnUpgradePicked;
 		EventManager.Instance.OnDependenciesInjected += OnDependenciesInjected;
 	}
 
 	private void OnDestroy()
 	{
+		EventManager.Instance.OnUpgradePicked -= OnUpgradePicked;
 		EventManager.Instance.OnDependenciesInjected -= OnDependenciesInjected;
 	}
 
@@ -62,6 +65,7 @@ public class WeaponController : MonoBehaviour
 		while ( _isActive )
 		{
 			Attack();
+			Debug.Log( $"attack coroutine entered. Frequency: {Frequency}" );
 
 			yield return new WaitForSeconds( Frequency );
 		}
@@ -118,15 +122,37 @@ public class WeaponController : MonoBehaviour
 
 		if ( _isActive )
 		{
-			StartCoroutine( WeaponAttackCoroutine() );
+			if ( _attackCoroutine == null )
+				Debug.Log( $"in if" );
+			_attackCoroutine = StartCoroutine( WeaponAttackCoroutine() );
 		}
 		else
 		{
-			StopCoroutine( WeaponAttackCoroutine() );
-			foreach ( GameObject weaponObject in _weaponObjectQueue )
-				weaponObject.SetActive( _isActive );
+			Debug.Log( $"in else" );
+			if ( _attackCoroutine != null )
+			{
+				Debug.Log( $"in else and if" );
+				StopCoroutine( WeaponAttackCoroutine() );
+				_attackCoroutine = null;
+
+				foreach ( GameObject weaponObject in _weaponObjectQueue )
+					weaponObject.SetActive( _isActive );
+			}
 		}
 
 		EventManager.Instance.WeaponToggled( this, _isActive );
 	}
+
+	private void OnUpgradePicked( Stats stats, StatType type, float value )
+	{
+		if ( stats == currentStats && type == StatType.size )
+			RescaleObject();
+	}
+
+	private void RescaleObject()
+	{
+		foreach ( GameObject weaponObject in _weaponObjectQueue )
+			weaponObject.GetComponent<Weapon>().ScaleToSize();
+	}
+
 }

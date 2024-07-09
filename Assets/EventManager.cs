@@ -44,7 +44,6 @@ public class EventManager : MonoBehaviour
 
 	public void UpgradePicked( Stats stats, StatType type, float value )
 	{
-		Debug.Log( $"upgrade picked: {stats.statName} ({type}, {value})" );
 		OnUpgradePicked?.Invoke( stats, type, value );
 	}
 

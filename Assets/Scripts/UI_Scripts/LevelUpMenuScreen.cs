@@ -57,10 +57,6 @@ public class LevelUpMenuScreen : MenuScreen
 
 		_upgradeInstanceLabel.text = stats.statName + " Upgrade";
 
-		Debug.Log( $"stats: {stats.statName}, type: {types[ 0 ]}, value: {values[ 0 ]}" );
-		Debug.Log( $"stats: {stats.statName}, type: {types[ 1 ]}, value: {values[ 1 ]}" );
-		Debug.Log( $"stats: {stats.statName}, type: {types[ 2 ]}, value: {values[ 2 ]}" );
-
 		_item1.SetItemValues( stats, types[ 0 ], values[ 0 ] );
 		_item2.SetItemValues( stats, types[ 1 ], values[ 1 ] );
 		_item3.SetItemValues( stats, types[ 2 ], values[ 2 ] );
