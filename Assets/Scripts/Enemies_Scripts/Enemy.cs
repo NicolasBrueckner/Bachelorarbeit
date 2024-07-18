@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
 
 	public float currentHP;
 	public Rigidbody2D rb2D;
+	public Transform targetTransform;
 	public FlowFieldController flowFieldController;
 	public EnemyPoolController enemyPoolController;
 
@@ -52,7 +53,7 @@ public class Enemy : MonoBehaviour
 	{
 		while ( gameObject.activeInHierarchy )
 		{
-			if ( math.distance( transform.position, enemyPoolController.targetObject.transform.position ) > 20f )
+			if ( math.distance( transform.position, targetTransform.position ) > 20f )
 				DestroyEnemyobject( false );
 
 			yield return new WaitForSeconds( 1f );
@@ -73,8 +74,8 @@ public class Enemy : MonoBehaviour
 
 			if ( cellDirection is Direction direction )
 				_direction_ = ( float2 )direction;
-			else if ( cellDirection is float2 float2 )
-				_direction_ = float2;
+			else if ( cellDirection is float2 direct )
+				_direction_ = direct;
 		}
 	}
 

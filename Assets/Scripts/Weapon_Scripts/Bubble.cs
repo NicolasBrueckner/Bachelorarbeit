@@ -3,25 +3,17 @@ using UnityEngine;
 
 public class Bubble : Weapon
 {
-	public Rigidbody2D rb2d;
+	public Rigidbody2D rb2D;
 
-	private bool _isBeingQueued;
 	private int _wallLayer;
 	private int _hits;
+	private bool _isBeingQueued;
 	private Vector2 _direction;
-
-	public override void SetDefaults()
-	{
-		base.SetDefaults();
-
-		_wallLayer = LayerMask.NameToLayer( "cost_impassable" );
-	}
 
 	protected override void StartAttackInternal()
 	{
 		base.StartAttackInternal();
 
-		Debug.Log( $"bubble size: {_transform_.localScale} and Size property: {Size}" );
 		_isBeingQueued = false;
 		_hits = 0;
 
@@ -31,7 +23,7 @@ public class Bubble : Weapon
 	private IEnumerator MoveCoroutine()
 	{
 		_direction = Direction;
-		rb2d.velocity = currentStats[ StatType.spd ] * Time.deltaTime * _direction;
+		rb2D.velocity = currentStats[ StatType.spd ] * Time.deltaTime * _direction;
 
 		yield return new WaitForSeconds( currentStats[ StatType.duration ] );
 		DestroyWeaponObject();
@@ -53,4 +45,12 @@ public class Bubble : Weapon
 		if ( collision.gameObject.layer == _wallLayer )
 			DestroyWeaponObject();
 	}
+
+	public override void SetDefaults()
+	{
+		base.SetDefaults();
+
+		_wallLayer = LayerMask.NameToLayer( "cost_impassable" );
+	}
+
 }

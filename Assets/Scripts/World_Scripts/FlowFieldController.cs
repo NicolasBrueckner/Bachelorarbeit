@@ -8,12 +8,12 @@ public class FlowFieldController : MonoBehaviour
 {
 	public Sector[,] sectors;
 
-	public DebugController debugController { get; private set; }
-	public Transform playerTransform { get; private set; }
-	public int2 WorldGridSize { get; private set; }
 	public FlowField FlowField { get; private set; }
 
+	private int2 _worldGridSize;
 	private int2 _mainSectorIndex = new( -1, -1 );
+	private Transform _playerTransform;
+	private DebugController _debugController;
 
 	private void Awake()
 	{
@@ -34,13 +34,13 @@ public class FlowFieldController : MonoBehaviour
 
 	private void GetDependencies()
 	{
-		debugController = RuntimeManager.Instance.debugController;
-		playerTransform = RuntimeManager.Instance.playerCharacterController.gameObject.transform;
+		_debugController = RuntimeManager.Instance.debugController;
+		_playerTransform = RuntimeManager.Instance.playerCharacterController.gameObject.transform;
 	}
 
 	private void OnWorldCreated()
 	{
-		WorldGridSize = new int2( sectors.GetLength( 0 ), sectors.GetLength( 1 ) );
+		_worldGridSize = new int2( sectors.GetLength( 0 ), sectors.GetLength( 1 ) );
 		StartCoroutine( FlowFieldCoroutine() );
 
 	}
@@ -49,7 +49,7 @@ public class FlowFieldController : MonoBehaviour
 	{
 		while ( true )
 		{
-			BuildFlowField( playerTransform.position );
+			BuildFlowField( _playerTransform.position );
 
 			yield return new WaitForSeconds( 0.2f );
 		}
@@ -57,14 +57,14 @@ public class FlowFieldController : MonoBehaviour
 
 	public void BuildFlowField( float3 position )
 	{
-		int2 sectorIndex = GetIndexFromPosition( position, transform.position, WorldGridSize, stats.sectorSize );
+		int2 sectorIndex = GetIndexFromPosition( position, transform.position, _worldGridSize, stats.sectorSize );
 
 		if ( math.any( sectorIndex != _mainSectorIndex ) )
 		{
 			FlowField = new FlowField( GetActiveSectors( sectorIndex ) );
 
 			FlowField.InitializeFlowField();
-			debugController.SetFlowField( FlowField );
+			_debugController.SetFlowField( FlowField );
 			_mainSectorIndex = sectorIndex;
 		}
 
@@ -95,20 +95,20 @@ public class FlowFieldController : MonoBehaviour
 		int2 currentDimensions = new( 3, 3 );
 		int2 adjustedMainIndex = new( 1, 1 );
 
-		if ( !ValidateIndex( mainIndex + Direction.N, WorldGridSize ) )
+		if ( !ValidateIndex( mainIndex + Direction.N, _worldGridSize ) )
 		{
 			currentDimensions.y--;
 		}
-		if ( !ValidateIndex( mainIndex + Direction.E, WorldGridSize ) )
+		if ( !ValidateIndex( mainIndex + Direction.E, _worldGridSize ) )
 		{
 			currentDimensions.x--;
 		}
-		if ( !ValidateIndex( mainIndex + Direction.S, WorldGridSize ) )
+		if ( !ValidateIndex( mainIndex + Direction.S, _worldGridSize ) )
 		{
 			currentDimensions.y--;
 			adjustedMainIndex.y--;
 		}
-		if ( !ValidateIndex( mainIndex + Direction.W, WorldGridSize ) )
+		if ( !ValidateIndex( mainIndex + Direction.W, _worldGridSize ) )
 		{
 			currentDimensions.x--;
 			adjustedMainIndex.x--;
