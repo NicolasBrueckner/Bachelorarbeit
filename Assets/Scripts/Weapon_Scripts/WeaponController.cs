@@ -65,7 +65,6 @@ public class WeaponController : MonoBehaviour
 		while ( _isActive )
 		{
 			Attack();
-			Debug.Log( $"attack coroutine entered. Frequency: {Frequency}" );
 
 			yield return new WaitForSeconds( Frequency );
 		}
@@ -122,16 +121,12 @@ public class WeaponController : MonoBehaviour
 
 		if ( _isActive )
 		{
-			if ( _attackCoroutine == null )
-				Debug.Log( $"in if" );
 			_attackCoroutine = StartCoroutine( WeaponAttackCoroutine() );
 		}
 		else
 		{
-			Debug.Log( $"in else" );
 			if ( _attackCoroutine != null )
 			{
-				Debug.Log( $"in else and if" );
 				StopCoroutine( WeaponAttackCoroutine() );
 				_attackCoroutine = null;
 

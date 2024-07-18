@@ -161,12 +161,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb253586e76d6549bcdbcd34055d26d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
+  weaponController: {fileID: 0}
   currentStats:
-    atk: 0
-    atk_spd: 0
-    spd: 0
-    duration: 0
-    size: 0
-    pierce: 0
-  rb2d: {fileID: 1544235773085210213}
+    statName: 
+    baseStats: {fileID: 0}
+    valuesByStatType:
+      _serializedList: []
+  rb2D: {fileID: 1544235773085210213}

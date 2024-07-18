@@ -23,14 +23,8 @@ public class Weapon : MonoBehaviour
 		ScaleToSize();
 	}
 
-	public void StartAttack()
-	{
-		StartAttackInternal();
-	}
-
-	protected virtual void StartAttackInternal()
-	{
-	}
+	public void StartAttack() => StartAttackInternal();
+	protected virtual void StartAttackInternal() { }
 
 	protected virtual void OnTriggerEnter2D( Collider2D collision )
 	{

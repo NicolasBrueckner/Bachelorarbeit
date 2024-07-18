@@ -26,23 +26,11 @@ public class MenuScreen
 		BindEvents();
 	}
 
-	public void OnActivation()
-	{
-		OnActivationInternal();
-	}
-
+	public void OnActivation() => OnActivationInternal();
+	public void OnDeactivation() => OnDeactivationInternal();
 	protected virtual void OnActivationInternal() { }
-
-	public void OnDeactivation()
-	{
-		OnDeactivationInternal();
-	}
-
 	protected virtual void OnDeactivationInternal() { }
-
 	protected virtual void GetElements() { }
-
 	protected virtual void BindElements() { }
-
 	protected virtual void BindEvents() { }
 }

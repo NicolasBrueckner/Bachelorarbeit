@@ -97,7 +97,7 @@ public class UpgradeController : MonoBehaviour
 	{
 		Stats pickedInstance = PickRandomInstanceToUpgrade();
 		List<StatType> pickedStats = PickRandomStatsToUpgrade( pickedInstance, 3 );
-		List<float> pickedValues = pickedStats.Select( type => PickRandomUpgradeValue( type ) ).ToList();
+		List<float> pickedValues = PickRandomUpgradeValues( pickedStats );
 
 		EventManager.Instance.LevelUp( pickedInstance, pickedStats, pickedValues );
 	}
@@ -117,20 +117,26 @@ public class UpgradeController : MonoBehaviour
 		return types.OrderBy( x => _random.Next() ).Take( amount ).Distinct().ToList();
 	}
 
-	private float PickRandomUpgradeValue( StatType type )
+	private List<float> PickRandomUpgradeValues( List<StatType> types )
 	{
-		return type switch
+		List<float> values = new();
+		foreach ( StatType type in types )
 		{
-			StatType.max_hp => 0.2f * _random.Next( 1, 3 ),
-			StatType.atk => 0.1f * _random.Next( 1, 3 ),
-			StatType.atk_spd => -0.05f * _random.Next( 1, 3 ),
-			StatType.spd => 0.05f * _random.Next( 1, 3 ),
-			StatType.def => 0.1f * _random.Next( 1, 3 ),
-			StatType.size => 0.1f * _random.Next( 1, 3 ),
-			StatType.duration => 0.1f * _random.Next( 1, 3 ),
-			StatType.pierce => _random.Next( 1, 2 ),
-			_ => 0f,
-		};
+			float value = type switch
+			{
+				StatType.max_hp => 0.2f * _random.Next( 1, 3 ),
+				StatType.atk => 0.1f * _random.Next( 1, 3 ),
+				StatType.atk_spd => -0.05f * _random.Next( 1, 3 ),
+				StatType.spd => 0.05f * _random.Next( 1, 3 ),
+				StatType.def => 0.1f * _random.Next( 1, 3 ),
+				StatType.size => 0.1f * _random.Next( 1, 3 ),
+				StatType.duration => 0.1f * _random.Next( 1, 3 ),
+				StatType.pierce => _random.Next( 1, 2 ),
+				_ => 0f,
+			};
+			values.Add( value );
+		}
+		return values;
 	}
 
 	private void UpgradeStat( Stats stats, StatType type, float value )

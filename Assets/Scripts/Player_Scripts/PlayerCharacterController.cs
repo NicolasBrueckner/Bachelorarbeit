@@ -10,6 +10,7 @@ public class PlayerCharacterController : MonoBehaviour
 	[ReadOnly]
 	public Stats currentStats;
 
+	public SpriteRenderer playerSprite;
 	public BaseStats baseStats;
 	public Rigidbody2D rb2D;
 	public Collider2D physicsCollider;
@@ -123,12 +124,16 @@ public class PlayerCharacterController : MonoBehaviour
 		physicsCollider.enabled = false;
 		rb2D.velocity = currentStats[ StatType.spd ] * 8 * Time.deltaTime * _moveDirection;
 
+		SetSpriteAlpha( 0.5f );
+
 		while ( dashTimer > 0f )
 		{
 			dashTimer -= Time.deltaTime;
 
 			yield return null;
 		}
+
+		SetSpriteAlpha( 1 );
 
 		rb2D.velocity = Vector2.zero;
 
@@ -150,5 +155,12 @@ public class PlayerCharacterController : MonoBehaviour
 
 		if ( currentStats[ StatType.hp ] <= 0 )
 			EventManager.Instance.PlayerDied();
+	}
+
+	private void SetSpriteAlpha( float alpha )
+	{
+		Color color = playerSprite.color;
+		color.a = alpha;
+		playerSprite.color = color;
 	}
 }

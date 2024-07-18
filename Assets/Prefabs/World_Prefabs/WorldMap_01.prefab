@@ -198,6 +198,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_edge_02_01
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: d04fd6c0a5ed51d4ab8ae75050dc8c61, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -259,6 +263,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: 6ba5cf7c6b1c5d54399eb4ec5a33a606, type: 3}
       propertyPath: m_Name
       value: Sector_edge_01_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 6ba5cf7c6b1c5d54399eb4ec5a33a606, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -322,6 +330,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_edge_03_01
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: b5210c51a1fcf3a499bd51f7323811d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -383,6 +395,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: 9dde0768cfd168a41823dff6478f15fb, type: 3}
       propertyPath: m_Name
       value: Sector_edge_03_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 9dde0768cfd168a41823dff6478f15fb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -446,6 +462,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_edge_02_02
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 30b7583cc57bd1249b155b5549a7a179, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -467,6 +487,10 @@ PrefabInstance:
     - target: {fileID: 1753522770430234551, guid: ac9da9e6f5bdb7a4f8ebc966256a8024, type: 3}
       propertyPath: m_Name
       value: Sector_01_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1753522770430234551, guid: ac9da9e6f5bdb7a4f8ebc966256a8024, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6325801763093430656, guid: ac9da9e6f5bdb7a4f8ebc966256a8024, type: 3}
       propertyPath: m_LocalPosition.x
@@ -570,6 +594,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_03_03
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 303139f496ca10946b52b8d8b85f1c72, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -631,6 +659,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: d04fd6c0a5ed51d4ab8ae75050dc8c61, type: 3}
       propertyPath: m_Name
       value: Sector_edge_02_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: d04fd6c0a5ed51d4ab8ae75050dc8c61, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -694,6 +726,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_edge_03_01
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: b5210c51a1fcf3a499bd51f7323811d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -755,6 +791,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: 8d51119d3a36dbd4792f5edcfde6d05f, type: 3}
       propertyPath: m_Name
       value: Sector_04_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 8d51119d3a36dbd4792f5edcfde6d05f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -818,6 +858,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_edge_02_02
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 30b7583cc57bd1249b155b5549a7a179, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -880,6 +924,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_02_01
       objectReference: {fileID: 0}
+    - target: {fileID: 5726106135430635502, guid: 9e3df0cd9f137744ea2886c2388548a0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -901,6 +949,10 @@ PrefabInstance:
     - target: {fileID: 1753522770430234551, guid: ac9da9e6f5bdb7a4f8ebc966256a8024, type: 3}
       propertyPath: m_Name
       value: Sector_01_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1753522770430234551, guid: ac9da9e6f5bdb7a4f8ebc966256a8024, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6325801763093430656, guid: ac9da9e6f5bdb7a4f8ebc966256a8024, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1004,6 +1056,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_edge_03_02
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 9dde0768cfd168a41823dff6478f15fb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1065,6 +1121,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: 10930611b30a3bc4fb3e70ae30e110b7, type: 3}
       propertyPath: m_Name
       value: Sector_03_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 10930611b30a3bc4fb3e70ae30e110b7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1128,6 +1188,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_04_03
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 06b1166dfd438d54f948f94d240641c5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1189,6 +1253,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: 5f8b501bae1092f44989af06cda474fa, type: 3}
       propertyPath: m_Name
       value: Sector_05_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 5f8b501bae1092f44989af06cda474fa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1252,6 +1320,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_05_01
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 5f1ededb9a80a65418b7b1e9e8ab8f4d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1313,6 +1385,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: c9d1d0d71cfc4ab4eb7d9346d2fcf6a0, type: 3}
       propertyPath: m_Name
       value: Sector_04_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: c9d1d0d71cfc4ab4eb7d9346d2fcf6a0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1376,6 +1452,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_edge_02_02
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 30b7583cc57bd1249b155b5549a7a179, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1437,6 +1517,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: 06b1166dfd438d54f948f94d240641c5, type: 3}
       propertyPath: m_Name
       value: Sector_04_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 06b1166dfd438d54f948f94d240641c5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1500,6 +1584,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_02_01
       objectReference: {fileID: 0}
+    - target: {fileID: 5726106135430635502, guid: 9e3df0cd9f137744ea2886c2388548a0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1561,6 +1649,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: 06b1166dfd438d54f948f94d240641c5, type: 3}
       propertyPath: m_Name
       value: Sector_04_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 06b1166dfd438d54f948f94d240641c5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1624,6 +1716,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_edge_03_01
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: b5210c51a1fcf3a499bd51f7323811d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1685,6 +1781,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: 5f8b501bae1092f44989af06cda474fa, type: 3}
       propertyPath: m_Name
       value: Sector_05_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 5f8b501bae1092f44989af06cda474fa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1748,6 +1848,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_03_01
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 10930611b30a3bc4fb3e70ae30e110b7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1809,6 +1913,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: 5f8b501bae1092f44989af06cda474fa, type: 3}
       propertyPath: m_Name
       value: Sector_05_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 5f8b501bae1092f44989af06cda474fa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1872,6 +1980,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_edge_02_01
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: d04fd6c0a5ed51d4ab8ae75050dc8c61, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1933,6 +2045,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: 9dde0768cfd168a41823dff6478f15fb, type: 3}
       propertyPath: m_Name
       value: Sector_edge_03_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 9dde0768cfd168a41823dff6478f15fb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1996,6 +2112,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_edge_02_01
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: d04fd6c0a5ed51d4ab8ae75050dc8c61, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2057,6 +2177,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: d04fd6c0a5ed51d4ab8ae75050dc8c61, type: 3}
       propertyPath: m_Name
       value: Sector_edge_02_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: d04fd6c0a5ed51d4ab8ae75050dc8c61, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2120,6 +2244,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_edge_03_01
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: b5210c51a1fcf3a499bd51f7323811d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2181,6 +2309,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: 303139f496ca10946b52b8d8b85f1c72, type: 3}
       propertyPath: m_Name
       value: Sector_03_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 303139f496ca10946b52b8d8b85f1c72, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2244,6 +2376,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_edge_03_02
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 9dde0768cfd168a41823dff6478f15fb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2305,6 +2441,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: 8d51119d3a36dbd4792f5edcfde6d05f, type: 3}
       propertyPath: m_Name
       value: Sector_04_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 8d51119d3a36dbd4792f5edcfde6d05f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2368,6 +2508,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_edge_01_01
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: af2a06a3c83c1134cac619f5583370f1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2429,6 +2573,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: c9d1d0d71cfc4ab4eb7d9346d2fcf6a0, type: 3}
       propertyPath: m_Name
       value: Sector_04_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: c9d1d0d71cfc4ab4eb7d9346d2fcf6a0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2492,6 +2640,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_05_01
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 5f1ededb9a80a65418b7b1e9e8ab8f4d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2554,6 +2706,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_04_04
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 8d51119d3a36dbd4792f5edcfde6d05f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2575,6 +2731,10 @@ PrefabInstance:
     - target: {fileID: 1753522770430234551, guid: ac9da9e6f5bdb7a4f8ebc966256a8024, type: 3}
       propertyPath: m_Name
       value: Sector_01_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1753522770430234551, guid: ac9da9e6f5bdb7a4f8ebc966256a8024, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6325801763093430656, guid: ac9da9e6f5bdb7a4f8ebc966256a8024, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2678,6 +2838,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_02_01
       objectReference: {fileID: 0}
+    - target: {fileID: 5726106135430635502, guid: 9e3df0cd9f137744ea2886c2388548a0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2739,6 +2903,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: af1fe3703c4a8ce41a69fe25fad9497a, type: 3}
       propertyPath: m_Name
       value: Sector_03_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: af1fe3703c4a8ce41a69fe25fad9497a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2802,6 +2970,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_edge_03_01
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: b5210c51a1fcf3a499bd51f7323811d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2863,6 +3035,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: e425a0c9a0553be4981b28c030feacad, type: 3}
       propertyPath: m_Name
       value: Sector_edge_01_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: e425a0c9a0553be4981b28c030feacad, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2926,6 +3102,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_edge_03_02
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 9dde0768cfd168a41823dff6478f15fb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2987,6 +3167,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: af1fe3703c4a8ce41a69fe25fad9497a, type: 3}
       propertyPath: m_Name
       value: Sector_03_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: af1fe3703c4a8ce41a69fe25fad9497a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3050,6 +3234,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_edge_02_02
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 30b7583cc57bd1249b155b5549a7a179, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3111,6 +3299,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: c9d1d0d71cfc4ab4eb7d9346d2fcf6a0, type: 3}
       propertyPath: m_Name
       value: Sector_04_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: c9d1d0d71cfc4ab4eb7d9346d2fcf6a0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3174,6 +3366,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_02_01
       objectReference: {fileID: 0}
+    - target: {fileID: 5726106135430635502, guid: 9e3df0cd9f137744ea2886c2388548a0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3235,6 +3431,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: ade126febf849ec44b970a3fff9b5539, type: 3}
       propertyPath: m_Name
       value: Sector_04_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: ade126febf849ec44b970a3fff9b5539, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3298,6 +3498,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_04_01
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: ade126febf849ec44b970a3fff9b5539, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3319,6 +3523,10 @@ PrefabInstance:
     - target: {fileID: 1753522770430234551, guid: ac9da9e6f5bdb7a4f8ebc966256a8024, type: 3}
       propertyPath: m_Name
       value: Sector_01_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1753522770430234551, guid: ac9da9e6f5bdb7a4f8ebc966256a8024, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6325801763093430656, guid: ac9da9e6f5bdb7a4f8ebc966256a8024, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3422,6 +3630,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_05_02
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 5f8b501bae1092f44989af06cda474fa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3483,6 +3695,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: 30b7583cc57bd1249b155b5549a7a179, type: 3}
       propertyPath: m_Name
       value: Sector_edge_02_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 30b7583cc57bd1249b155b5549a7a179, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3546,6 +3762,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_edge_03_02
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 9dde0768cfd168a41823dff6478f15fb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3607,6 +3827,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: 5f8b501bae1092f44989af06cda474fa, type: 3}
       propertyPath: m_Name
       value: Sector_05_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 5f8b501bae1092f44989af06cda474fa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3670,6 +3894,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_05_01
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 5f1ededb9a80a65418b7b1e9e8ab8f4d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3731,6 +3959,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: af1fe3703c4a8ce41a69fe25fad9497a, type: 3}
       propertyPath: m_Name
       value: Sector_03_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: af1fe3703c4a8ce41a69fe25fad9497a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3794,6 +4026,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_edge_01_04
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: f1a59fa74a79c584f97b8dc579189a02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3855,6 +4091,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: 9dde0768cfd168a41823dff6478f15fb, type: 3}
       propertyPath: m_Name
       value: Sector_edge_03_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 9dde0768cfd168a41823dff6478f15fb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3918,6 +4158,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_05_01
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: 5f1ededb9a80a65418b7b1e9e8ab8f4d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3980,6 +4224,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sector_edge_03_01
       objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: b5210c51a1fcf3a499bd51f7323811d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4041,6 +4289,10 @@ PrefabInstance:
     - target: {fileID: 2713234720227605411, guid: b5210c51a1fcf3a499bd51f7323811d3, type: 3}
       propertyPath: m_Name
       value: Sector_edge_03_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713234720227605411, guid: b5210c51a1fcf3a499bd51f7323811d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
