@@ -78,8 +78,8 @@ SpriteRenderer:
   m_SortingLayerID: 2047470123
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1388676587, guid: b1212cff7a0219e4c839a3fbf07d570c, type: 3}
-  m_Color: {r: 0.22988607, g: 0.5676473, b: 0.7735849, a: 1}
+  m_Sprite: {fileID: -279255113, guid: a5ab584b59f5410408d2a168237422ae, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -99,7 +99,7 @@ Animator:
   m_GameObject: {fileID: 5413159905188788259}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 50a9a83de0e7a4a4598c8364cfbf4168, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -156,6 +156,7 @@ MonoBehaviour:
       _serializedList: []
   currentHP: 0
   rb2D: {fileID: 118508040903554003}
+  targetTransform: {fileID: 0}
   flowFieldController: {fileID: 0}
   enemyPoolController: {fileID: 0}
 --- !u!58 &7000801430351141955

@@ -82,6 +82,7 @@ public class EnemyPoolController : MonoBehaviour
 		enemy.targetTransform = _targetTransform;
 		enemy.flowFieldController = _flowFieldController;
 		enemy.enemyPoolController = this;
+		enemy.RescaleObject();
 	}
 
 	private IEnumerator SpawnEnemy()

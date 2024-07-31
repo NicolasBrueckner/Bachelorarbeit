@@ -191,6 +191,7 @@ MonoBehaviour:
       _serializedList: []
   currentHP: 0
   rb2D: {fileID: 3462387927659597024}
+  targetTransform: {fileID: 0}
   flowFieldController: {fileID: 0}
   enemyPoolController: {fileID: 0}
 --- !u!1001 &8933767736645682489

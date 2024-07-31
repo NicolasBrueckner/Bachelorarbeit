@@ -33,7 +33,6 @@ public class WeaponPickup : MonoBehaviour
 	{
 		if ( collision.gameObject.layer == _playerLayer )
 		{
-			Debug.Log( $"OnTriggerEnter2D in WeaponPickup. controller: {weaponController.gameObject.name}" );
 			weaponController.ToggleWeapon( true );
 			Destroy( gameObject );
 		}
