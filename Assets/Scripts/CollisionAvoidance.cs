@@ -19,7 +19,7 @@ public class CollisionAvoidance : MonoBehaviour
 		Vector2 direction = ( transform.position - collider.transform.position ).normalized;
 		float distance = math.max( physicsCollider.bounds.extents.x, physicsCollider.bounds.extents.y );
 
-		rb2D.position += direction * distance;
+		rb2D.MovePosition( rb2D.position + ( direction * distance ) );
 	}
 
 	private bool IsInLayerMask( GameObject collisionObject )

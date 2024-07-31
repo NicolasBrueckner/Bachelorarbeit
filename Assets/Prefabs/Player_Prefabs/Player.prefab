@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7807978141695586386}
   - component: {fileID: 1569765780197453968}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: FistController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6235396194798152076}
   - component: {fileID: 4225631379423245327}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: BubbleController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,7 +283,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.25
 --- !u!95 &1257477805010727878
 Animator:
   serializedVersion: 5
@@ -315,7 +315,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1539534215179059674}
   - component: {fileID: 4355195455373527839}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: SwipeController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -369,7 +369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3757225932509685053}
   - component: {fileID: 5381106712458020580}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: ScreamController
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -91,7 +91,10 @@ public class PlayerCharacterController : MonoBehaviour
 	private void OnTriggerEnter2D( Collider2D collision )
 	{
 		if ( collision.gameObject.layer == _enemyLayer )
+		{
+			Debug.Log( "player takes damage" );
 			TakeDamage( collision.GetComponent<Enemy>().currentStats[ StatType.atk ] );
+		}
 	}
 
 	private void OnMoveAction( InputAction.CallbackContext context )

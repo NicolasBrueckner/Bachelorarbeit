@@ -18,10 +18,7 @@ public class Enemy : MonoBehaviour
 
 	protected float2 _direction_;
 
-	public void StartAttack()
-	{
-		StartAttackInternal();
-	}
+	public void StartAttack() => StartAttackInternal();
 
 	protected virtual void StartAttackInternal()
 	{
@@ -74,8 +71,8 @@ public class Enemy : MonoBehaviour
 
 			if ( cellDirection is Direction direction )
 				_direction_ = ( float2 )direction;
-			else if ( cellDirection is float2 direct )
-				_direction_ = direct;
+			else if ( cellDirection is float2 trueDirection )
+				_direction_ = trueDirection;
 		}
 	}
 
@@ -94,4 +91,8 @@ public class Enemy : MonoBehaviour
 		enemyPoolController.EnqueueEnemyObject( gameObject, wasKilled );
 	}
 
+	public void RescaleObject()
+	{
+		transform.localScale = Vector3.one * currentStats[ StatType.size ];
+	}
 }
