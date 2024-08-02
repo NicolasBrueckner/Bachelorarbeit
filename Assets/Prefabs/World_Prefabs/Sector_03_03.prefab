@@ -304,7 +304,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1047664721
-  m_SortingLayer: 0
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cb33b0cc782b8284090c29b688f88303, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -496,7 +496,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2936535557097124626}
   - component: {fileID: 6993513811367715630}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: collider_grass_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

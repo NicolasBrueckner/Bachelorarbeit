@@ -254,6 +254,8 @@ MonoBehaviour:
   _showGrid: 1
   _gridColor: {r: 0, g: 0, b: 0, a: 1}
   _labelColor: {r: 0, g: 0, b: 0, a: 1}
+  _font: {fileID: 12800000, guid: b2f5c6f22e04c0e44874368c7b4e1349, type: 3}
+  _fontSize: 0
   _displayType: 1
 --- !u!4 &8490309800070896808 stripped
 Transform:
@@ -655,7 +657,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2821467429969074976, guid: e7f5df5eb33d53646a3eab9897ec12c4, type: 3}
       propertyPath: spawnFrequency
-      value: 1
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 2821467429969074976, guid: e7f5df5eb33d53646a3eab9897ec12c4, type: 3}
       propertyPath: flowFieldController

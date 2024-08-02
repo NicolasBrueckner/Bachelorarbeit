@@ -44,6 +44,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""StopGame"",
+                    ""type"": ""Button"",
+                    ""id"": ""8e005efb-2638-4e6b-8ca8-baa20ad6fd60"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -66,6 +75,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""892223d3-874f-46e2-8e99-045fafba1242"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StopGame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -210,6 +230,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
         m_Debug_MouseRight = m_Debug.FindAction("MouseRight", throwIfNotFound: true);
         m_Debug_MousePosition = m_Debug.FindAction("MousePosition", throwIfNotFound: true);
+        m_Debug_StopGame = m_Debug.FindAction("StopGame", throwIfNotFound: true);
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
@@ -279,12 +300,14 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private List<IDebugActions> m_DebugActionsCallbackInterfaces = new List<IDebugActions>();
     private readonly InputAction m_Debug_MouseRight;
     private readonly InputAction m_Debug_MousePosition;
+    private readonly InputAction m_Debug_StopGame;
     public struct DebugActions
     {
         private @InputActions m_Wrapper;
         public DebugActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @MouseRight => m_Wrapper.m_Debug_MouseRight;
         public InputAction @MousePosition => m_Wrapper.m_Debug_MousePosition;
+        public InputAction @StopGame => m_Wrapper.m_Debug_StopGame;
         public InputActionMap Get() { return m_Wrapper.m_Debug; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -300,6 +323,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @MousePosition.started += instance.OnMousePosition;
             @MousePosition.performed += instance.OnMousePosition;
             @MousePosition.canceled += instance.OnMousePosition;
+            @StopGame.started += instance.OnStopGame;
+            @StopGame.performed += instance.OnStopGame;
+            @StopGame.canceled += instance.OnStopGame;
         }
 
         private void UnregisterCallbacks(IDebugActions instance)
@@ -310,6 +336,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @MousePosition.started -= instance.OnMousePosition;
             @MousePosition.performed -= instance.OnMousePosition;
             @MousePosition.canceled -= instance.OnMousePosition;
+            @StopGame.started -= instance.OnStopGame;
+            @StopGame.performed -= instance.OnStopGame;
+            @StopGame.canceled -= instance.OnStopGame;
         }
 
         public void RemoveCallbacks(IDebugActions instance)
@@ -401,6 +430,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     {
         void OnMouseRight(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
+        void OnStopGame(InputAction.CallbackContext context);
     }
     public interface IPlayerActions
     {

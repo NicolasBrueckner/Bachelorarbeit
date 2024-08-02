@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using stats = SectorStats;
 
 public enum FlowFieldDisplayType
@@ -24,16 +22,30 @@ public class DebugController : MonoBehaviour
 	[SerializeField]
 	private Color _labelColor;
 	[SerializeField]
+	private Font _font;
+	[SerializeField]
+	private int _fontSize;
+	[SerializeField]
 	private FlowFieldDisplayType _displayType;
 
 	private Dictionary<Direction, string> _directionToIcon;
 	private FlowField _currentGrid;
 	private float3 _gridOrigin;
 	private int2 _gridSize;
+	private GUIStyle _style;
+
+	private InputActions _actions;
+	private InputAction _stopAction;
+	private bool _isStopped = false;
 
 	private void Start()
 	{
 		InitializeDirectionToIcon();
+
+		_actions = new InputActions();
+		_stopAction = _actions.Debug.StopGame;
+		_stopAction.Enable();
+		_stopAction.performed += StopResumeGame;
 	}
 
 	public void SetFlowField( FlowField grid )
@@ -45,7 +57,19 @@ public class DebugController : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
+		SetGUIStyle();
 		DrawFlowField();
+	}
+
+	private void SetGUIStyle()
+	{
+		_style = new( GUI.skin.label )
+		{
+			alignment = TextAnchor.MiddleCenter,
+			fontSize = _fontSize,
+			fontStyle = FontStyle.Bold,
+			normal = { textColor = _labelColor },
+		};
 	}
 
 	private void DrawFlowField()
@@ -62,25 +86,19 @@ public class DebugController : MonoBehaviour
 		if ( _showGrid )
 			DrawGizmoGrid( _gridOrigin, _gridSize, stats.cellRadius );
 
-		GUIStyle style = new( GUI.skin.label )
-		{
-			alignment = TextAnchor.MiddleCenter,
-			fontSize = 15,
-			fontStyle = FontStyle.Bold,
-			normal = { textColor = _labelColor },
-		};
+
 
 		foreach ( Cell cell in _currentGrid.Cells )
 		{
 			string label = _displayType switch
 			{
 				FlowFieldDisplayType.Cost => cell.cost.ToString(),
-				FlowFieldDisplayType.Integration => cell.integrationCost.ToString(),
+				FlowFieldDisplayType.Integration => cell.integrationCost == short.MaxValue ? "\u221E" : cell.integrationCost.ToString(),
 				FlowFieldDisplayType.Destination => DrawIconAndReturnString( cell ),
 				_ => null,
 			};
 
-			Handles.Label( cell.position, label ?? string.Empty, style );
+			Handles.Label( cell.position, label ?? string.Empty, _style );
 		}
 
 	}
@@ -96,7 +114,7 @@ public class DebugController : MonoBehaviour
 			_ => _directionToIcon.TryGetValue( cell.Direction as Direction, out label ) ? label : "NA",
 		};
 
-		Handles.Label( position, label );
+		Handles.Label( position, label, _style );
 	}
 
 	private string DrawIconAndReturnString( Cell cell )
@@ -109,7 +127,7 @@ public class DebugController : MonoBehaviour
 	{
 		Gizmos.color = _gridColor;
 		float cellSize = cellHalfSize * 2;
-		Vector3 size = Vector3.one * cellSize;
+		Vector3 size = new( cellSize, cellSize, 0 );
 
 		float startX = gridOrigin.x + cellHalfSize;
 		float startY = gridOrigin.y + cellHalfSize;
@@ -141,5 +159,11 @@ public class DebugController : MonoBehaviour
 			{Direction.W, icons[6] },
 			{Direction.NW, icons[7] }
 		};
+	}
+
+	private void StopResumeGame( InputAction.CallbackContext context )
+	{
+		_isStopped = !_isStopped;
+		Time.timeScale = _isStopped ? 1.0f : 0.0f;
 	}
 }
