@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+	public Camera thisCamera;
 	public GameObject target;
-	public Vector3 offset = new( 0, 0, -10 );
+
+	private Vector3 _offset = new( 0, 0, -10 );
 
 	private void Awake()
 	{
@@ -39,7 +41,7 @@ public class CameraController : MonoBehaviour
 
 	private void FollowTarget()
 	{
-		transform.position = target.transform.position + offset;
+		transform.position = target.transform.position + _offset;
 	}
 
 }

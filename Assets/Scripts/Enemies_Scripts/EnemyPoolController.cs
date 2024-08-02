@@ -89,6 +89,8 @@ public class EnemyPoolController : MonoBehaviour
 	{
 		while ( gameObject.activeInHierarchy )
 		{
+			yield return new WaitForSeconds( spawnFrequency );
+
 			if ( _enemyObjectQueue.Count > 0 )
 			{
 				GameObject enemy = _enemyObjectQueue.Dequeue();
@@ -98,8 +100,6 @@ public class EnemyPoolController : MonoBehaviour
 				enemy.SetActive( true );
 				enemy.GetComponent<Enemy>().StartAttack();
 			}
-
-			yield return new WaitForSeconds( spawnFrequency );
 		}
 	}
 
