@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if UNITY_EDITOR
+using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
@@ -167,3 +168,4 @@ public class DebugController : MonoBehaviour
 		Time.timeScale = _isStopped ? 1.0f : 0.0f;
 	}
 }
+#endif
