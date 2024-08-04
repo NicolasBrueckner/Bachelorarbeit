@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
 
 	private Vector3 _offset = new( 0, 0, -10 );
 
-	private void Awake()
+	private void Start()
 	{
 		EventManager.Instance.OnDependenciesInjected += OnDependenciesInjected;
 	}
