@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using Unity.Mathematics;
-using UnityEditor;
-using UnityEngine;
 using static GridUtility;
 using stats = SectorStats;
 
@@ -101,7 +99,7 @@ public class FlowField
 			short integrationCost = cell.integrationCost;
 			Direction flowDirection = Direction.None;
 
-			for ( int i = 0; i < neighbors.Count; i++ )
+			for ( int i = 0; i < neighbors.Count; i += 2 )
 			{
 				int2 n1 = neighbors[ i ];
 
@@ -115,7 +113,6 @@ public class FlowField
 					if ( ValidateCell( n2, Cells, out Cell n2Cell ) && ValidateCell( n3, Cells, out _ ) )
 						UpdateIntegrationCost( cell, n2Cell, ref integrationCost, ref flowDirection );
 				}
-				i++;
 			}
 			cell.Direction = flowDirection;
 		}
