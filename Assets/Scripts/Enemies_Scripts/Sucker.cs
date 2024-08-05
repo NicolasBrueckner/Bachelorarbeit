@@ -5,8 +5,8 @@ public class Sucker : Enemy
 		base.StartAttackInternal();
 	}
 
-	protected override void Update()
+	protected override void FixedUpdate()
 	{
-		base.Update();
+		base.FixedUpdate();
 	}
 }

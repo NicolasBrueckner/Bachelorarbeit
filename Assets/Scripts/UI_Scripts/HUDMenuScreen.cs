@@ -2,12 +2,19 @@ using UnityEngine.UIElements;
 
 public class HUDMenuScreen : MenuScreen
 {
+	private Label _timeLabel;
+	private Label _msLabel;
+	private Label _fpsLabel;
 	private Button _pauseButton;
 	private VisualElement _healthbar;
 
 	protected override void SetDefaultsInternal( UIScreenTypes type, UIScreenController controller )
 	{
 		base.SetDefaultsInternal( type, controller );
+
+		DebugUI.timeLabel = _timeLabel;
+		DebugUI.fpsLabel = _fpsLabel;
+		DebugUI.msLabel = _msLabel;
 	}
 
 	protected override void OnActivationInternal()
@@ -24,6 +31,9 @@ public class HUDMenuScreen : MenuScreen
 	{
 		base.GetElements();
 
+		_timeLabel = Root.Q<Label>( "TimeLabel" );
+		_fpsLabel = Root.Q<Label>( "FPSLabel" );
+		_msLabel = Root.Q<Label>( "MSLabel" );
 		_pauseButton = Root.Q<Button>( "PauseButton" );
 		_healthbar = Root.Q<VisualElement>( "Healthbar" );
 	}

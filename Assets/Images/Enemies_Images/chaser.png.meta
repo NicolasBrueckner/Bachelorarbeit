@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a5ab584b59f5410408d2a168237422ae
+guid: 5c3ddd10f4e87e646ab691234fb7d0ad
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -50,7 +50,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f3b6da7c043a70140bb6f6e9c049b545
-      internalID: -279255113
+      spriteID: d58b666c6e55a2549988259cf5a44624
+      internalID: -2001375587
       vertices: []
       indices: 
       edges: []
@@ -145,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a1ee51048532c0f46b287e578df3150d
-      internalID: -430215812
+      spriteID: c5fe1e62c20df5448bad413936075a96
+      internalID: 393370555
       vertices: []
       indices: 
       edges: []
@@ -162,8 +162,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      chaser_0: -279255113
-      chaser_1: -430215812
+      chaser_0: -2001375587
+      chaser_1: 393370555
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

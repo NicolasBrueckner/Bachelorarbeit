@@ -17,6 +17,7 @@ public enum UIScreenTypes
 public class UIScreenController : MonoBehaviour
 {
 	public UIDocument rootDocument;
+	public DebugBuildUIFunctionality debugUI;
 	public SerializedDictionary<UIScreenTypes, MenuScreen> _screensByType = new();
 
 	private MenuScreen _currentScreen;
