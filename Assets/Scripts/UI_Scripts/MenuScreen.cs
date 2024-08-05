@@ -7,6 +7,7 @@ public class MenuScreen
 
 	public VisualElement Root { get; private set; }
 	public UIScreenTypes Type { get; private set; }
+	public DebugBuildUIFunctionality DebugUI { get; private set; }
 
 	protected UIScreenController uiScreenController;
 
@@ -20,6 +21,7 @@ public class MenuScreen
 		Root = screenAsset.CloneTree();
 		Type = type;
 		uiScreenController = controller;
+		DebugUI = uiScreenController.debugUI;
 
 		GetElements();
 		BindElements();

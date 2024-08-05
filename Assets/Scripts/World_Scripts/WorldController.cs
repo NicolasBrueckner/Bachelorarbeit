@@ -20,6 +20,7 @@ public class WorldController : MonoBehaviour
 
 	private int2 _worldSize;
 	private Sector[,] _allSectorData;
+	private GameObject _worldObjectCopy;
 	private Dictionary<int2, Transform> _sectorsByIndex;
 
 	private void Awake()
@@ -36,6 +37,8 @@ public class WorldController : MonoBehaviour
 	{
 		GetDependencies();
 
+		_worldObjectCopy = Instantiate( worldMaps[ activeWorldMap ], transform );
+
 		SetSectorIndices();
 		SetWorldDimensions();
 
@@ -51,7 +54,6 @@ public class WorldController : MonoBehaviour
 
 	private void CreateWorld()
 	{
-		Instantiate( worldMaps[ activeWorldMap ], transform );
 		_allSectorData = new Sector[ _worldSize.x, _worldSize.y ];
 
 		foreach ( int2 index in _sectorsByIndex.Keys )
@@ -68,7 +70,7 @@ public class WorldController : MonoBehaviour
 	{
 		_sectorsByIndex = new Dictionary<int2, Transform>();
 
-		foreach ( Transform sectorObject in worldMaps[ activeWorldMap ].transform )
+		foreach ( Transform sectorObject in _worldObjectCopy.transform )
 		{
 			if ( sectorObject.GetComponent<SectorView>() )
 			{

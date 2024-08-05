@@ -16,7 +16,7 @@ public class EnemyPool
 public class EnemyPoolController : MonoBehaviour
 {
 	public List<EnemyPool> serializedEnemies;
-	public float spawnFrequency;
+	public float spawnFrequency => DebugBuildStaticValues.spawnFrequency;
 	public Vector2 spawnRange;
 
 	private Transform _targetTransform;
@@ -59,7 +59,7 @@ public class EnemyPoolController : MonoBehaviour
 			serializedEnemies[ i ].currentStats = new( serializedEnemies[ i ].baseStats );
 			_upgradeController.AddEnemyStats( serializedEnemies[ i ].currentStats, true );
 
-			for ( int j = 0; j < serializedEnemies[ i ].amount; j++ )
+			for ( int j = 0; j < DebugBuildStaticValues.enemyAmount / serializedEnemies.Count; j++ )
 			{
 				GameObject enemyCopyObject = Instantiate( serializedEnemies[ i ].enemyObject, transform );
 				Enemy enemy = enemyCopyObject.GetComponent<Enemy>();

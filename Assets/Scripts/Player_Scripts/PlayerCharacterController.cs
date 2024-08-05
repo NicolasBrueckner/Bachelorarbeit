@@ -91,7 +91,7 @@ public class PlayerCharacterController : MonoBehaviour
 
 	private void OnTriggerEnter2D( Collider2D collision )
 	{
-		if ( collision.gameObject.layer == _enemyLayer )
+		if ( collision.gameObject.layer == _enemyLayer && !DebugBuildStaticValues.isInvincible )
 		{
 			TakeDamage( collision.GetComponent<Enemy>().currentStats[ StatType.atk ] );
 		}

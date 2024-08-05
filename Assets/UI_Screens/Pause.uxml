@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI_Screens/StyleSheets.uss?fileID=7433441132597879392&amp;guid=053c0196ad5dea34aa18d26276542afc&amp;type=3#StyleSheets" />
     <ui:VisualElement name="Background" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.55);">
-        <ui:VisualElement name="ButtonContainer" style="flex-grow: 1; justify-content: center;">
+        <ui:VisualElement name="ButtonContainer" style="flex-grow: 1; justify-content: center; padding-right: 25%; padding-left: 25%;">
             <ui:Button text="Resume Game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Resume" class="ui-button" style="-unity-font: url(&apos;project://database/Assets/Square.ttf?fileID=12800000&amp;guid=38d10b7c39850aa45945a88fd829f16a&amp;type=3#Square&apos;);" />
             <ui:Button text="Give Up" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Quit" class="ui-button" style="-unity-font: url(&apos;project://database/Assets/Square.ttf?fileID=12800000&amp;guid=38d10b7c39850aa45945a88fd829f16a&amp;type=3#Square&apos;);" />
         </ui:VisualElement>

@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Mathematics;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
-using stats = SectorStats;
 
 public class SectorView : MonoBehaviour
 {
@@ -14,12 +9,12 @@ public class SectorView : MonoBehaviour
 	public void InitilizeSectorView( int2 index )
 	{
 		Index = index;
-		ScaleSectorObject();
+		//ScaleSectorObject();
 		Sector = new Sector( transform.position, Index );
 	}
 
-	private void ScaleSectorObject()
-	{
-		transform.localScale *= stats.gridScalar;
-	}
+	//private void ScaleSectorObject()
+	//{
+	//	transform.localScale *= stats.gridScalar;
+	//}
 }

@@ -54,6 +54,7 @@ public class DebugController : MonoBehaviour
 		_currentGrid = grid;
 		_gridOrigin = grid.GridOrigin;
 		_gridSize = grid.GridSize;
+		Debug.Log( $"grid size: {_gridSize}" );
 	}
 
 	private void OnDrawGizmos()

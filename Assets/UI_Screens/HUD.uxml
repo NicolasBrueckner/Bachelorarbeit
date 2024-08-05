@@ -6,7 +6,13 @@
                 <ui:VisualElement name="Healthbar" style="flex-grow: 1; background-color: rgb(255, 255, 255); width: 100%;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="TimerContainer" style="flex-grow: 1; width: 40%; padding-top: 1%;" />
+        <ui:VisualElement name="TimerContainer" style="flex-grow: 1; width: 40%; padding-top: 1%; align-items: stretch; justify-content: flex-start; flex-direction: column; padding-left: 2%;">
+            <ui:Label tabindex="-1" text="Time" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TimeLabel" class="standard-label" style="font-size: 40%; flex-grow: 0; -unity-text-align: middle-left; white-space: nowrap;" />
+            <ui:VisualElement name="HorizontalContainer" style="flex-grow: 0; flex-direction: row;">
+                <ui:Label tabindex="-1" text="FPS" parse-escape-sequences="true" display-tooltip-when-elided="true" name="FPSLabel" class="standard-label" style="align-self: auto; font-size: 40%; -unity-text-align: middle-left; flex-grow: 0; width: 40%; white-space: nowrap; flex-shrink: 0;" />
+                <ui:Label tabindex="-1" text="MS" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MSLabel" class="standard-label" style="font-size: 40%; -unity-text-align: middle-left; flex-grow: 0; width: 50%; white-space: nowrap; flex-shrink: 0;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
         <ui:VisualElement name="PauseButtonContainer" style="flex-grow: 1; width: 30%; padding-left: 22%; align-items: stretch; padding-bottom: 25%;">
             <ui:Button name="PauseButton" class="ui-button" style="background-image: url(&apos;project://database/Assets/Images/UI_Images/PauseButton.png?fileID=2800000&amp;guid=0f7e77870f8d1844e9a52eb138a35276&amp;type=3#PauseButton&apos;); height: 25%; align-self: auto; -unity-background-scale-mode: scale-to-fit;" />
         </ui:VisualElement>
