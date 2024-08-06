@@ -91,10 +91,10 @@ public class PlayerCharacterController : MonoBehaviour
 
 	private void OnTriggerEnter2D( Collider2D collision )
 	{
-		if ( collision.gameObject.layer == _enemyLayer && !DebugBuildStaticValues.isInvincible )
-		{
-			TakeDamage( collision.GetComponent<Enemy>().currentStats[ StatType.atk ] );
-		}
+		Enemy enemy = collision.GetComponent<Enemy>();
+
+		if ( enemy && !DebugBuildStaticValues.isInvincible )
+			TakeDamage( enemy.currentStats[ StatType.atk ] );
 	}
 
 	private void OnMoveAction( InputAction.CallbackContext context )
@@ -149,6 +149,7 @@ public class PlayerCharacterController : MonoBehaviour
 
 	private void TakeDamage( float damage )
 	{
+		Debug.Log( $"taking: {damage} damage" );
 		currentStats[ StatType.hp ] -= math.max( damage - currentStats[ StatType.def ], damage * 0.15f );
 
 		EventManager.Instance.HealthChanged( currentStats[ StatType.hp ] / currentStats[ StatType.max_hp ] * 100 );
