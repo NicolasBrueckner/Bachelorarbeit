@@ -62,6 +62,10 @@ public class DebugBuildUIFunctionality : MonoBehaviour
 	private float _deltaTime;
 	private float _logTimer;
 
+	private float _totalFPS;
+	private float _totalTPF;
+	private float _entryCount;
+
 	private void Start()
 	{
 		EventManager.Instance.OnStartGame += ResetEnabledTime;
@@ -70,6 +74,11 @@ public class DebugBuildUIFunctionality : MonoBehaviour
 	private void Update()
 	{
 		UpdateFPS();
+	}
+
+	private void OnDestroy()
+	{
+		FinalizeLogging();
 	}
 
 	private void UpdateFPS()
@@ -92,8 +101,11 @@ public class DebugBuildUIFunctionality : MonoBehaviour
 
 			_logTimer = 0;
 
+			//Debug.Log( $"Time: {time}" );
 			if ( time <= 60.0f )
 				LogPerformance( time, fps, tpf );
+			else
+				FinalizeLogging();
 		}
 	}
 
@@ -110,14 +122,38 @@ public class DebugBuildUIFunctionality : MonoBehaviour
 		{
 			string filepath = Path.Combine( Application.persistentDataPath, $"performance_log_{DateTime.Now:ddMMyyy_HHmmss}.csv" );
 			_writer = new StreamWriter( filepath, true );
-			_writer.WriteLine( "Time,FPS,TPF (ms)" );
+			_writer.WriteLine( "Amount,Frequency,Granularity,Time,FPS,TPF (ms)" );
+
+			_totalFPS = 0;
+			_totalTPF = 0;
+			_entryCount = 0;
 		}
 	}
 
 	private void LogPerformance( float time, float fps, float tpf )
 	{
 		if ( logToggle.value )
-			_writer?.WriteLine( $"{time:F2},{fps},{tpf:F2}" );
+		{
+			_writer?.WriteLine( $"{_amountSlider.value},{_frequencySlider.value:F2},{_granularitySlider.value},{time:F2},{fps},{tpf:F2}" );
+
+			_totalFPS += fps;
+			_totalTPF += tpf;
+			_entryCount++;
+		}
+	}
+
+	private void FinalizeLogging()
+	{
+		if ( _writer != null )
+		{
+			float averageFPS = _totalFPS / _entryCount;
+			float averageTPF = _totalTPF / _entryCount;
+			_writer.WriteLine( $",,,,{averageFPS},{averageTPF}" );
+
+			_writer.Flush();
+			_writer.Close();
+			_writer = null;
+		}
 	}
 
 	public void DisplayLogLocation()

@@ -17,13 +17,17 @@ public class Bubble : Weapon
 		_isBeingQueued = false;
 		_hits = 0;
 
-		StartCoroutine( MoveCoroutine() );
+		StartCoroutine( ActiveTimeCoroutine() );
 	}
 
-	private IEnumerator MoveCoroutine()
+	private void FixedUpdate()
+	{
+		rb2D.velocity = currentStats[ StatType.spd ] * Time.deltaTime * _direction;
+	}
+
+	private IEnumerator ActiveTimeCoroutine()
 	{
 		_direction = Direction;
-		rb2D.velocity = currentStats[ StatType.spd ] * Time.deltaTime * _direction;
 
 		yield return new WaitForSeconds( currentStats[ StatType.duration ] );
 		DestroyWeaponObject();

@@ -99,7 +99,7 @@ Animator:
   m_GameObject: {fileID: 5413159905188788259}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 50a9a83de0e7a4a4598c8364cfbf4168, type: 2}
+  m_Controller: {fileID: 9100000, guid: 93b43f6fe16553346aa760bdc497ae66, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -250,9 +250,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2472613027205127835, guid: a9098d4ba2d78044dab00101c0bc6813, type: 3}
+      propertyPath: m_Radius
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3181164918328541837, guid: a9098d4ba2d78044dab00101c0bc6813, type: 3}
       propertyPath: m_Name
       value: CollisionObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181164918328541837, guid: a9098d4ba2d78044dab00101c0bc6813, type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181164918328541837, guid: a9098d4ba2d78044dab00101c0bc6813, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
