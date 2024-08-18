@@ -8,7 +8,7 @@ public class HUDMenuScreen : MenuScreen
 	private Button _pauseButton;
 	private VisualElement _healthbar;
 
-	protected override void SetDefaultsInternal( UIScreenTypes type, UIScreenController controller )
+	protected override void SetDefaultsInternal( UIScreenType type, UIScreenController controller )
 	{
 		base.SetDefaultsInternal( type, controller );
 
@@ -54,7 +54,7 @@ public class HUDMenuScreen : MenuScreen
 
 	private void OnPauseButtonClicked()
 	{
-		uiScreenController.ToggleScreen( UIScreenTypes.Pause );
+		uiScreenController.ToggleScreen( UIScreenType.Pause );
 	}
 
 	private void OnHealthChanged( float healthPercentage )

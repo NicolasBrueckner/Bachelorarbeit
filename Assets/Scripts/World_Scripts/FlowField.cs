@@ -5,7 +5,7 @@ using stats = SectorStats;
 
 public class FlowField
 {
-	public Sector[,] Sectors { get; private set; }
+	public Sector[,] ActiveSectors { get; private set; }
 	public Cell[,] Cells { get; private set; }
 	public float3 GridOrigin { get; private set; }
 	public int2 GridSize { get; private set; }
@@ -17,10 +17,10 @@ public class FlowField
 
 	public FlowField( Sector[,] sectors )
 	{
-		Sectors = sectors;
+		ActiveSectors = sectors;
 
-		GridOrigin = Sectors[ 0, 0 ].Position;
-		GridSize = stats.gridSize * new int2( Sectors.GetLength( 0 ), Sectors.GetLength( 1 ) );
+		GridOrigin = ActiveSectors[ 0, 0 ].Position;
+		GridSize = stats.gridSize * new int2( ActiveSectors.GetLength( 0 ), ActiveSectors.GetLength( 1 ) );
 		_cellRadius = stats.cellRadius;
 		_cellDiameter = stats.cellDiameter;
 	}
@@ -39,7 +39,7 @@ public class FlowField
 					GridOrigin.y + ( _cellDiameter * y ) + _cellRadius, 0 );
 				int2 sectorIndex = new( x / sectorGridSize.x, y / sectorGridSize.y );
 				int2 localIndex = new( x % sectorGridSize.x, y % sectorGridSize.y );
-				byte cost = Sectors[ sectorIndex.x, sectorIndex.y ].Costs[ localIndex.x, localIndex.y ];
+				byte cost = ActiveSectors[ sectorIndex.x, sectorIndex.y ].Costs[ localIndex.x, localIndex.y ];
 
 				Cells[ x, y ] = new Cell( position, new int2( x, y ), cost );
 			}

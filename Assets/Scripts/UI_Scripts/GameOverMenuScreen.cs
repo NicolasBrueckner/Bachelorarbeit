@@ -3,9 +3,9 @@ using UnityEngine.UIElements;
 public class GameOverMenuScreen : MenuScreen
 {
 	private Button _restartButton;
-	private Button _returnButton;
+	private Button _quitButton;
 
-	protected override void SetDefaultsInternal( UIScreenTypes type, UIScreenController controller )
+	protected override void SetDefaultsInternal( UIScreenType type, UIScreenController controller )
 	{
 		base.SetDefaultsInternal( type, controller );
 	}
@@ -27,7 +27,7 @@ public class GameOverMenuScreen : MenuScreen
 		base.GetElements();
 
 		_restartButton = Root.Q<Button>( "Restart" );
-		_returnButton = Root.Q<Button>( "Quit" );
+		_quitButton = Root.Q<Button>( "Quit" );
 	}
 
 	protected override void BindElements()
@@ -35,7 +35,7 @@ public class GameOverMenuScreen : MenuScreen
 		base.BindElements();
 
 		_restartButton.clicked += OnRestartButtonClicked;
-		_returnButton.clicked += OnReturnButtonCLicked;
+		_quitButton.clicked += OnQuitButtonCLicked;
 	}
 
 	protected override void BindEvents()
@@ -48,12 +48,12 @@ public class GameOverMenuScreen : MenuScreen
 	private void OnRestartButtonClicked()
 	{
 		EventManager.Instance.StartGame();
-		uiScreenController.ToggleScreen( UIScreenTypes.HUD );
+		uiScreenController.ToggleScreen( UIScreenType.HUD );
 	}
 
-	private void OnReturnButtonCLicked()
+	private void OnQuitButtonCLicked()
 	{
-		uiScreenController.ToggleScreen( UIScreenTypes.Main );
+		uiScreenController.ToggleScreen( UIScreenType.Main );
 	}
 
 	private void OnPlayerDied()

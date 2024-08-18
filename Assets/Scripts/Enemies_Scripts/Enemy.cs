@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
 	public FlowFieldController flowFieldController;
 	public EnemyPoolController enemyPoolController;
 
-	protected float2 _direction_;
+	protected Vector2 _direction_;
 
 	public void StartAttack() => StartAttackInternal();
 
@@ -70,8 +70,8 @@ public class Enemy : MonoBehaviour
 			object cellDirection = flowFieldController.FlowField.Cells[ cellIndex.x, cellIndex.y ].Direction;
 
 			if ( cellDirection is Direction direction )
-				_direction_ = ( float2 )direction;
-			else if ( cellDirection is float2 trueDirection )
+				_direction_ = ( Vector2 )direction;
+			else if ( cellDirection is Vector2 trueDirection )
 				_direction_ = trueDirection;
 		}
 	}

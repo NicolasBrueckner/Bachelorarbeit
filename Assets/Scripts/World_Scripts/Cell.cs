@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class Cell
 {
-	public float3 position;
+	public Vector3 position;
 	public int2 index;
 	public byte cost;
 	public short integrationCost;
 
 
-	private float2 _directFlowDirection;
+	private Vector2 _directFlowDirection;
 	private Direction _realFlowDirection;
 	private readonly byte _defaultCost;
 	private readonly short _defaultIntegrationCost;
 
-	public Cell( float3 position, int2 index, byte cost )
+	public Cell( Vector3 position, int2 index, byte cost )
 	{
 		this.position = position;
 		this.index = index;
@@ -40,7 +40,7 @@ public class Cell
 		{
 			if ( value is Direction direction )
 				_realFlowDirection = direction;
-			else if ( value is float2 float2 )
+			else if ( value is Vector2 float2 )
 				_directFlowDirection = math.normalize( float2 );
 			else
 				throw new ArgumentException( "Invalid Type" );
