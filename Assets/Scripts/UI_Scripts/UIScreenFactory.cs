@@ -2,15 +2,15 @@ using System;
 
 public static class UIScreenFactory
 {
-	public static MenuScreen CreateScreen( UIScreenTypes types )
+	public static MenuScreen CreateScreen( UIScreenType types )
 	{
 		return types switch
 		{
-			UIScreenTypes.Main => new MainMenuScreen(),
-			UIScreenTypes.HUD => new HUDMenuScreen(),
-			UIScreenTypes.Pause => new PauseMenuScreen(),
-			UIScreenTypes.GameOver => new GameOverMenuScreen(),
-			UIScreenTypes.LevelUp => new LevelUpMenuScreen(),
+			UIScreenType.Main => new MainMenuScreen(),
+			UIScreenType.HUD => new HUDMenuScreen(),
+			UIScreenType.Pause => new PauseMenuScreen(),
+			UIScreenType.GameOver => new GameOverMenuScreen(),
+			UIScreenType.LevelUp => new LevelUpMenuScreen(),
 			_ => throw new ArgumentException( "not a screen type" )
 		};
 	}

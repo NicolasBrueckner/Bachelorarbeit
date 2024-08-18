@@ -4,7 +4,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
 	public Camera thisCamera;
-	public GameObject target;
+	private Transform _targetTransform;
 
 	private Vector3 _offset = new( 0, 0, -10 );
 
@@ -25,7 +25,7 @@ public class CameraController : MonoBehaviour
 
 	private void GetDependencies()
 	{
-		target = RuntimeManager.Instance.playerCharacterController.gameObject;
+		_targetTransform = RuntimeManager.Instance.playerCharacterController.transform;
 	}
 
 	private void OnApplicationFocus( bool focus )
@@ -35,13 +35,13 @@ public class CameraController : MonoBehaviour
 
 	private void Update()
 	{
-		if ( target != null )
+		if ( _targetTransform != null )
 			FollowTarget();
 	}
 
 	private void FollowTarget()
 	{
-		transform.position = target.transform.position + _offset;
+		transform.position = _targetTransform.position + _offset;
 	}
 
 }

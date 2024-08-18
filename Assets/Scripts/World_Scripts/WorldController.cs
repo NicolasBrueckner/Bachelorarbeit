@@ -16,12 +16,11 @@ public class WorldController : MonoBehaviour
 	public SerializedDictionary<WorldMap, GameObject> worldMaps;
 	public WorldMap activeWorldMap;
 
-	public FlowFieldController flowFieldController { get; private set; }
-
 	private int2 _worldSize;
 	private Sector[,] _allSectorData;
 	private GameObject _worldObjectCopy;
 	private Dictionary<int2, Transform> _sectorsByIndex;
+	private FlowFieldController _flowFieldController;
 
 	private void Awake()
 	{
@@ -43,13 +42,13 @@ public class WorldController : MonoBehaviour
 		SetWorldDimensions();
 
 		CreateWorld();
-		flowFieldController.sectors = _allSectorData;
+		_flowFieldController.sectors = _allSectorData;
 		EventManager.Instance.WorldCreated();
 	}
 
 	private void GetDependencies()
 	{
-		flowFieldController = RuntimeManager.Instance.flowFieldController;
+		_flowFieldController = RuntimeManager.Instance.flowFieldController;
 	}
 
 	private void CreateWorld()
