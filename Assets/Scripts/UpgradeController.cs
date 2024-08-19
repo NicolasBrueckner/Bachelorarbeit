@@ -11,12 +11,12 @@ public class UpgradeController : MonoBehaviour
 
 	public int CurrentLevel { get; private set; }
 	public int CurrentExperience { get; private set; }
+	public PlayerCharacterController PlayerCharacterController { get; private set; }
 
 	private float _experienceForNextLevel;
 	private System.Random _random;
 	private Dictionary<Stats, bool> _activeStateByPlayerStats;
 	private Dictionary<Stats, bool> _activeStateByEnemyStats;
-	private PlayerCharacterController _playerCharacterController;
 
 	private void Awake()
 	{
@@ -46,9 +46,9 @@ public class UpgradeController : MonoBehaviour
 
 	private void GetDependencies()
 	{
-		_playerCharacterController = RuntimeManager.Instance.playerCharacterController;
-		CurrentLevel = ( int )_playerCharacterController.currentStats[ StatType.level ];
-		CurrentExperience = ( int )_playerCharacterController.currentStats[ StatType.experience ];
+		PlayerCharacterController = RuntimeManager.Instance.playerCharacterController;
+		CurrentLevel = ( int )PlayerCharacterController.currentStats[ StatType.level ];
+		CurrentExperience = ( int )PlayerCharacterController.currentStats[ StatType.experience ];
 	}
 
 	public void AddPlayerStats( Stats stats, bool isActive )
@@ -72,7 +72,7 @@ public class UpgradeController : MonoBehaviour
 		}
 	}
 
-	private IEnumerator UpgradeEnemiesCoroutine()
+	public IEnumerator UpgradeEnemiesCoroutine()
 	{
 		while ( gameObject.activeInHierarchy )
 		{
@@ -81,7 +81,7 @@ public class UpgradeController : MonoBehaviour
 		}
 	}
 
-	private void UpgradeEnemies()
+	public void UpgradeEnemies()
 	{
 		foreach ( Stats stats in _activeStateByEnemyStats.Keys )
 		{
@@ -93,7 +93,7 @@ public class UpgradeController : MonoBehaviour
 		}
 	}
 
-	private void SendUpgradeOptions()
+	public void SendUpgradeOptions()
 	{
 		Stats pickedInstance = PickRandomInstanceToUpgrade();
 		List<StatType> pickedStats = PickRandomStatsToUpgrade( pickedInstance, 3 );

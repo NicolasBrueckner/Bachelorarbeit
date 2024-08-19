@@ -6,7 +6,7 @@ public class PauseMenuScreen : MenuScreen
 	private Button _resumeButton;
 	private Button _quitButton;
 
-	protected override void SetDefaultsInternal( UIScreenType type, UIScreenController controller )
+	protected override void SetDefaultsInternal( UIScreenTypes type, UIScreenController controller )
 	{
 		base.SetDefaultsInternal( type, controller );
 	}
@@ -48,11 +48,11 @@ public class PauseMenuScreen : MenuScreen
 
 	private void OnResumeButtonClicked()
 	{
-		uiScreenController.ToggleScreen( UIScreenType.HUD );
+		uiScreenController.ToggleScreen( UIScreenTypes.HUD );
 	}
 
 	private void OnQuitButtonClicked()
 	{
-		uiScreenController.ToggleScreen( UIScreenType.GameOver );
+		uiScreenController.ToggleScreen( UIScreenTypes.GameOver );
 	}
 }

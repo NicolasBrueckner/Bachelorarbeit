@@ -6,17 +6,17 @@ public class MenuScreen
 	public VisualTreeAsset screenAsset;
 
 	public VisualElement Root { get; private set; }
-	public UIScreenType Type { get; private set; }
+	public UIScreenTypes Type { get; private set; }
 	public DebugBuildUIFunctionality DebugUI { get; private set; }
 
 	protected UIScreenController uiScreenController;
 
-	public void SetDefaults( UIScreenType type, UIScreenController controller )
+	public void SetDefaults( UIScreenTypes type, UIScreenController controller )
 	{
 		SetDefaultsInternal( type, controller );
 	}
 
-	protected virtual void SetDefaultsInternal( UIScreenType type, UIScreenController controller )
+	protected virtual void SetDefaultsInternal( UIScreenTypes type, UIScreenController controller )
 	{
 		Root = screenAsset.CloneTree();
 		Type = type;
