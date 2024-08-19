@@ -16,6 +16,7 @@ public class PauseMenuScreen : MenuScreen
 		base.OnActivationInternal();
 
 		Time.timeScale = 0;
+		UnityEngine.Cursor.lockState = CursorLockMode.None;
 	}
 
 	protected override void OnDeactivationInternal()
@@ -23,6 +24,7 @@ public class PauseMenuScreen : MenuScreen
 		base.OnDeactivationInternal();
 
 		Time.timeScale = 1;
+		UnityEngine.Cursor.lockState = CursorLockMode.Confined;
 	}
 
 	protected override void GetElements()
