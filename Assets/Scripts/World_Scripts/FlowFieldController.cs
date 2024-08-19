@@ -13,7 +13,9 @@ public class FlowFieldController : MonoBehaviour
 	private int2 _worldGridSize;
 	private int2 _mainSectorIndex = new( -1, -1 );
 	private Transform _playerTransform;
-	//private DebugController _debugController;
+#if UNITY_EDITOR
+	private DebugController _debugController;
+#endif
 
 	private void Awake()
 	{
@@ -34,7 +36,9 @@ public class FlowFieldController : MonoBehaviour
 
 	private void GetDependencies()
 	{
-		//_debugController = RuntimeManager.Instance.debugController;
+#if UNITY_EDITOR
+		_debugController = RuntimeManager.Instance.debugController;
+#endif
 		_playerTransform = RuntimeManager.Instance.playerCharacterController.gameObject.transform;
 	}
 
@@ -64,7 +68,9 @@ public class FlowFieldController : MonoBehaviour
 			FlowField = new FlowField( GetActiveSectors( sectorIndex ) );
 
 			FlowField.InitializeFlowField();
-			//_debugController.SetFlowField( FlowField );
+#if UNITY_EDITOR
+			_debugController.SetFlowField( FlowField );
+#endif
 			_mainSectorIndex = sectorIndex;
 		}
 
