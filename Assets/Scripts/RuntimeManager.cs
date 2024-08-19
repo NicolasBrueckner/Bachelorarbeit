@@ -14,8 +14,10 @@ public class RuntimeManager : MonoBehaviour
 	public EnemyPoolController enemyPoolController;
 	public FlowFieldController flowFieldController;
 	public WorldController worldController;
-	//public DebugController debugController;
 	public UpgradeController upgradeController;
+#if UNITY_EDITOR
+	public DebugController debugController;
+#endif
 
 	private GameObject _runtimeObjectCopy;
 
@@ -54,8 +56,10 @@ public class RuntimeManager : MonoBehaviour
 		enemyPoolController = FindObjectOfType<EnemyPoolController>();
 		flowFieldController = FindObjectOfType<FlowFieldController>();
 		worldController = FindObjectOfType<WorldController>();
-		//debugController = FindObjectOfType<DebugController>();
 		upgradeController = FindObjectOfType<UpgradeController>();
+#if UNITY_EDITOR
+		debugController = FindObjectOfType<DebugController>();
+#endif
 
 		InjectWeaponControllers();
 
