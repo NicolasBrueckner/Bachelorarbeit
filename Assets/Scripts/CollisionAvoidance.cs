@@ -1,4 +1,3 @@
-using Unity.Mathematics;
 using UnityEngine;
 
 public class CollisionAvoidance : MonoBehaviour
@@ -16,10 +15,15 @@ public class CollisionAvoidance : MonoBehaviour
 
 	private void ResolveCollisionOverlap( Collider2D collider )
 	{
-		Vector2 direction = ( transform.position - collider.transform.position ).normalized;
-		float distance = math.max( physicsCollider.bounds.extents.x, physicsCollider.bounds.extents.y );
+		ColliderDistance2D collisionDistance = physicsCollider.Distance( collider );
 
-		rb2D.MovePosition( rb2D.position + ( direction * distance ) );
+		if ( collisionDistance.isOverlapped )
+		{
+			Vector2 pushDirection = collisionDistance.normal;
+			float pushDistance = collisionDistance.distance;
+
+			rb2D.MovePosition( rb2D.position + ( pushDirection * -pushDistance ) );
+		}
 	}
 
 	private bool IsInLayerMask( GameObject collisionObject )

@@ -41,7 +41,7 @@ public class LevelUpItem
 		this.type = type;
 		this.value = value;
 		nameLabel.text = statNames[ type ];
-		valueLabel.text = "+" + ( value * 100 ).ToString() + "%";
+		valueLabel.text = ( value >= 0 ? "+" : "" ) + ( value * 100 ).ToString() + "%";
 	}
 
 	private void OnItemClicked()

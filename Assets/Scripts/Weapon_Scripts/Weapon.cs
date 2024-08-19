@@ -39,7 +39,6 @@ public class Weapon : MonoBehaviour
 
 	protected void DoDamage( Enemy enemy )
 	{
-		Debug.Log( "enemy takes damage" );
 		enemy.TakeDamage( currentStats[ StatType.atk ] );
 	}
 

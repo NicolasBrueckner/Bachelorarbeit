@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
 		StartCoroutine( CheckDistanceCoroutine() );
 	}
 
-	protected virtual void Update()
+	protected virtual void FixedUpdate()
 	{
 		MoveInDirection();
 	}

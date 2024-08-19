@@ -40,6 +40,7 @@ public class HUDMenuScreen : MenuScreen
 		base.BindEvents();
 
 		EventManager.Instance.OnHealthChanged += OnHealthChanged;
+		EventManager.Instance.OnStartGame += () => OnHealthChanged( 100 );
 	}
 
 	private void OnPauseButtonClicked()

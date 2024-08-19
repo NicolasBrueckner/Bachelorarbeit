@@ -657,7 +657,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2821467429969074976, guid: e7f5df5eb33d53646a3eab9897ec12c4, type: 3}
       propertyPath: spawnFrequency
-      value: 200
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 2821467429969074976, guid: e7f5df5eb33d53646a3eab9897ec12c4, type: 3}
       propertyPath: flowFieldController
