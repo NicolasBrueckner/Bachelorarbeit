@@ -84,17 +84,16 @@ public class PlayerCharacterController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if ( !_isDashing )
+		if ( _isDashing )
+			rb2D.velocity = currentStats[ StatType.spd ] * 5 * Time.deltaTime * _moveDirection;
+		else
 			rb2D.velocity = currentStats[ StatType.spd ] * Time.deltaTime * _moveDirection;
 	}
 
 	private void OnTriggerEnter2D( Collider2D collision )
 	{
 		if ( collision.gameObject.layer == _enemyLayer )
-		{
-			Debug.Log( "player takes damage" );
 			TakeDamage( collision.GetComponent<Enemy>().currentStats[ StatType.atk ] );
-		}
 	}
 
 	private void OnMoveAction( InputAction.CallbackContext context )
@@ -125,7 +124,6 @@ public class PlayerCharacterController : MonoBehaviour
 
 		_isDashing = true;
 		physicsCollider.enabled = false;
-		rb2D.velocity = currentStats[ StatType.spd ] * 8 * Time.deltaTime * _moveDirection;
 
 		SetSpriteAlpha( 0.5f );
 
