@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
@@ -15,7 +17,7 @@ public class Direction
 	public static implicit operator int2( Direction direction ) =>
 		direction.direction;
 
-	public static implicit operator Vector2( Direction direction ) =>
+	public static implicit operator float2( Direction direction ) =>
 		new( direction.direction.x, direction.direction.y );
 
 	public static Direction GetDirection( int2 direction ) =>

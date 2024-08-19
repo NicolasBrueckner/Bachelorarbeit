@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-public enum UIScreenType
+public enum UIScreenTypes
 {
 	Main,
 	HUD,
@@ -18,8 +18,8 @@ public class UIScreenController : MonoBehaviour
 {
 	public UIDocument rootDocument;
 	public DebugBuildUIFunctionality debugUI;
+	public SerializedDictionary<UIScreenTypes, MenuScreen> _screensByType = new();
 
-	private SerializedDictionary<UIScreenType, MenuScreen> _screensByType = new();
 	private MenuScreen _currentScreen;
 	private VisualElement _root;
 
@@ -33,8 +33,8 @@ public class UIScreenController : MonoBehaviour
 		_actions = new();
 		_onPauseContext = ctx =>
 		{
-			if ( _currentScreen?.Type == UIScreenType.HUD )
-				ToggleScreen( UIScreenType.Pause );
+			if ( _currentScreen?.Type == UIScreenTypes.HUD )
+				ToggleScreen( UIScreenTypes.Pause );
 		};
 
 		_pauseAction = _actions.Player.Pause;
@@ -44,7 +44,7 @@ public class UIScreenController : MonoBehaviour
 
 		InitializeScreens();
 		AddScreensToRoot();
-		ToggleScreen( UIScreenType.Main );
+		ToggleScreen( UIScreenTypes.Main );
 	}
 
 	private void OnDisable()
@@ -58,7 +58,7 @@ public class UIScreenController : MonoBehaviour
 	{
 		MenuScreen menuScreen;
 
-		foreach ( UIScreenType type in _screensByType.Keys.ToList() )
+		foreach ( UIScreenTypes type in _screensByType.Keys.ToList() )
 		{
 			menuScreen = UIScreenFactory.CreateScreen( type );
 			menuScreen.screenAsset = _screensByType[ type ].screenAsset;
@@ -72,7 +72,7 @@ public class UIScreenController : MonoBehaviour
 	{
 		VisualElement currentScreenElement;
 
-		foreach ( UIScreenType type in _screensByType.Keys.ToList() )
+		foreach ( UIScreenTypes type in _screensByType.Keys.ToList() )
 		{
 			currentScreenElement = _screensByType[ type ].Root;
 			currentScreenElement.style.display = DisplayStyle.None;
@@ -81,7 +81,7 @@ public class UIScreenController : MonoBehaviour
 		}
 	}
 
-	public void ToggleScreen( UIScreenType screenType )
+	public void ToggleScreen( UIScreenTypes screenType )
 	{
 		if ( !_screensByType.ContainsKey( screenType ) )
 			return;
@@ -97,7 +97,7 @@ public class UIScreenController : MonoBehaviour
 		_currentScreen.Root.style.display = DisplayStyle.Flex;
 	}
 
-	public MenuScreen GetScreenByType( UIScreenType screenType )
+	public MenuScreen GetScreenByType( UIScreenTypes screenType )
 	{
 		return _screensByType[ screenType ];
 	}

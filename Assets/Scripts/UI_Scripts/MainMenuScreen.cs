@@ -13,7 +13,7 @@ public class MainMenuScreen : MenuScreen
 	private Button _startButton;
 	private Button _quitButton;
 
-	protected override void SetDefaultsInternal( UIScreenType type, UIScreenController controller )
+	protected override void SetDefaultsInternal( UIScreenTypes type, UIScreenController controller )
 	{
 		base.SetDefaultsInternal( type, controller );
 
@@ -66,7 +66,7 @@ public class MainMenuScreen : MenuScreen
 	private void OnStartButtonClicked()
 	{
 		EventManager.Instance.StartGame();
-		uiScreenController.ToggleScreen( UIScreenType.HUD );
+		uiScreenController.ToggleScreen( UIScreenTypes.HUD );
 	}
 
 	private void OnQuitButtonClicked()

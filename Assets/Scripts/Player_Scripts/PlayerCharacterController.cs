@@ -15,8 +15,10 @@ public class PlayerCharacterController : MonoBehaviour
 	public Rigidbody2D rb2D;
 	public Collider2D physicsCollider;
 
+	public UpgradeController upgradeController { get; private set; }
 	public Vector2 AimDirection { get; private set; } = new Vector2( 0f, 1f );
 
+	private int _enemyLayer;
 	private bool _isDashing;
 	private float _speedMultiplier;
 	private Vector2 _moveDirection;
@@ -25,11 +27,11 @@ public class PlayerCharacterController : MonoBehaviour
 	private InputAction _moveAction;
 	private InputAction _aimAction;
 	private InputAction _dashAction;
-	private UpgradeController _upgradeController;
 
 	private void Awake()
 	{
 		currentStats = new( baseStats );
+		_enemyLayer = LayerMask.NameToLayer( "Enemy" );
 		_actions = new();
 
 		EventManager.Instance.OnDependenciesInjected += OnDependenciesInjected;
@@ -46,12 +48,12 @@ public class PlayerCharacterController : MonoBehaviour
 	{
 		GetDependencies();
 
-		_upgradeController.AddPlayerStats( currentStats, true );
+		upgradeController.AddPlayerStats( currentStats, true );
 	}
 
 	private void GetDependencies()
 	{
-		_upgradeController = RuntimeManager.Instance.upgradeController;
+		upgradeController = RuntimeManager.Instance.upgradeController;
 	}
 
 	private void OnEnable()

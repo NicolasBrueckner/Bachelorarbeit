@@ -22,14 +22,14 @@ public class WeaponController : MonoBehaviour
 	public int weaponQueueSize;
 	public bool startsActive;
 
-	public float Frequency => currentStats[ StatType.atk_spd ] * _playerCharacterController.currentStats[ StatType.atk_spd ];
-	public Vector2 Direction => _playerCharacterController.AimDirection;
+	public PlayerCharacterController playerCharacterController { get; private set; }
+	public UpgradeController upgradeController { get; private set; }
+	public float Frequency => currentStats[ StatType.atk_spd ] * playerCharacterController.currentStats[ StatType.atk_spd ];
+	public Vector2 Direction => playerCharacterController.AimDirection;
 
 	private bool _isActive;
 	private Queue<GameObject> _weaponObjectQueue;
 	private Coroutine _attackCoroutine;
-	private PlayerCharacterController _playerCharacterController;
-	private UpgradeController _upgradeController;
 
 	private void Awake()
 	{
@@ -56,8 +56,8 @@ public class WeaponController : MonoBehaviour
 
 	private void GetDependencies()
 	{
-		_playerCharacterController = RuntimeManager.Instance.playerCharacterController;
-		_upgradeController = RuntimeManager.Instance.upgradeController;
+		playerCharacterController = RuntimeManager.Instance.playerCharacterController;
+		upgradeController = RuntimeManager.Instance.upgradeController;
 	}
 
 	private IEnumerator WeaponAttackCoroutine()
@@ -99,7 +99,7 @@ public class WeaponController : MonoBehaviour
 			EnqueueWeaponObject( weaponObjectCopy );
 		}
 
-		_upgradeController.AddPlayerStats( currentStats, startsActive );
+		upgradeController.AddPlayerStats( currentStats, startsActive );
 	}
 
 	private void InitializeWeaponInstance( Weapon weapon )

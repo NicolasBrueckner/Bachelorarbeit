@@ -12,7 +12,7 @@ public class FlowFieldController : MonoBehaviour
 
 	private int2 _worldGridSize;
 	private int2 _mainSectorIndex = new( -1, -1 );
-	private Transform _targetTransform;
+	private Transform _playerTransform;
 	//private DebugController _debugController;
 
 	private void Awake()
@@ -35,7 +35,7 @@ public class FlowFieldController : MonoBehaviour
 	private void GetDependencies()
 	{
 		//_debugController = RuntimeManager.Instance.debugController;
-		_targetTransform = RuntimeManager.Instance.playerCharacterController.gameObject.transform;
+		_playerTransform = RuntimeManager.Instance.playerCharacterController.gameObject.transform;
 	}
 
 	private void OnWorldCreated()
@@ -45,17 +45,17 @@ public class FlowFieldController : MonoBehaviour
 
 	}
 
-	private IEnumerator FlowFieldCoroutine()
+	IEnumerator FlowFieldCoroutine()
 	{
 		while ( true )
 		{
-			BuildFlowField( _targetTransform.position );
+			BuildFlowField( _playerTransform.position );
 
 			yield return new WaitForSeconds( 0.2f );
 		}
 	}
 
-	private void BuildFlowField( float3 position )
+	public void BuildFlowField( float3 position )
 	{
 		int2 sectorIndex = GetIndexFromPosition( position, transform.position, _worldGridSize, stats.sectorSize );
 

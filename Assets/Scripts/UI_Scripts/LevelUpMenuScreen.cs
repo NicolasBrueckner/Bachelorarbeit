@@ -9,7 +9,7 @@ public class LevelUpMenuScreen : MenuScreen
 	private LevelUpItem _item3;
 	private Label _upgradeInstanceLabel;
 
-	protected override void SetDefaultsInternal( UIScreenType type, UIScreenController controller )
+	protected override void SetDefaultsInternal( UIScreenTypes type, UIScreenController controller )
 	{
 		base.SetDefaultsInternal( type, controller );
 
@@ -61,12 +61,12 @@ public class LevelUpMenuScreen : MenuScreen
 		_item2.SetItemValues( stats, types[ 1 ], values[ 1 ] );
 		_item3.SetItemValues( stats, types[ 2 ], values[ 2 ] );
 
-		uiScreenController.ToggleScreen( UIScreenType.LevelUp );
+		uiScreenController.ToggleScreen( UIScreenTypes.LevelUp );
 	}
 
 	public void OnUpgradePicked( Stats stats, StatType type, float value )
 	{
 		EventManager.Instance.UpgradePicked( stats, type, value );
-		uiScreenController.ToggleScreen( UIScreenType.HUD );
+		uiScreenController.ToggleScreen( UIScreenTypes.HUD );
 	}
 }
