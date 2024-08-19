@@ -16,9 +16,11 @@ public class EnemyPool
 public class EnemyPoolController : MonoBehaviour
 {
 	public List<EnemyPool> serializedEnemies;
-	public float spawnFrequency;
+	public float startSpawnFrequency;
 	public Vector2 spawnRange;
 
+	private float _startTime;
+	private float _spawnFrequency;
 	private Transform _targetTransform;
 	private UpgradeController _upgradeController;
 	private FlowFieldController _flowFieldController;
@@ -28,6 +30,14 @@ public class EnemyPoolController : MonoBehaviour
 	private void Awake()
 	{
 		EventManager.Instance.OnDependenciesInjected += OnDependenciesInjected;
+
+		_startTime = Time.time;
+	}
+
+	private void Update()
+	{
+		float elapsedTime = Time.time - _startTime;
+		_spawnFrequency = Mathf.Lerp( 1f, 0f, elapsedTime / 300 );
 	}
 
 	private void OnDestroy()
@@ -89,7 +99,7 @@ public class EnemyPoolController : MonoBehaviour
 	{
 		while ( gameObject.activeInHierarchy )
 		{
-			yield return new WaitForSeconds( spawnFrequency );
+			yield return new WaitForSeconds( _spawnFrequency );
 
 			if ( _enemyObjectQueue.Count > 0 )
 			{

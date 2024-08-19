@@ -20,6 +20,7 @@ public class PlayerCharacterController : MonoBehaviour
 
 	private int _enemyLayer;
 	private bool _isDashing;
+	private float _speedMultiplier;
 	private Vector2 _moveDirection;
 	private Coroutine _dashCoroutine;
 	private InputActions _actions;
@@ -84,15 +85,15 @@ public class PlayerCharacterController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if ( _isDashing )
-			rb2D.velocity = currentStats[ StatType.spd ] * 5 * Time.deltaTime * _moveDirection;
-		else
-			rb2D.velocity = currentStats[ StatType.spd ] * Time.deltaTime * _moveDirection;
+		_speedMultiplier = _isDashing ? 5 : 1;
+		rb2D.velocity = currentStats[ StatType.spd ] * _speedMultiplier * Time.deltaTime * _moveDirection;
 	}
 
 	private void OnTriggerEnter2D( Collider2D collision )
 	{
-		if ( collision.gameObject.layer == _enemyLayer )
+		Enemy enemy = collision.GetComponent<Enemy>();
+
+		if ( enemy )
 			TakeDamage( collision.GetComponent<Enemy>().currentStats[ StatType.atk ] );
 	}
 
@@ -135,8 +136,6 @@ public class PlayerCharacterController : MonoBehaviour
 		}
 
 		SetSpriteAlpha( 1 );
-
-		rb2D.velocity = Vector2.zero;
 
 		physicsCollider.enabled = true;
 		_isDashing = false;
